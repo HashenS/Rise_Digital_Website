@@ -1,16 +1,38 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Elms_Sans } from "next/font/google";
+import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/shared/header";
 import Footer from "@/components/shared/footer";
+import localFont from "next/font/local";
+
+const neueMontreal = localFont({
+  src: [
+    {
+      path: "./fonts/Neue Montreal/NeueMontreal-Regular.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/Neue Montreal/NeueMontreal-Medium.otf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "./fonts/Neue Montreal/NeueMontreal-Bold.otf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-neue-montreal",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
-const elms = Elms_Sans({
-  variable: "--font-elms",
+const inter_font = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -32,7 +54,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${elms.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${inter_font.variable} ${neueMontreal.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <Header />
