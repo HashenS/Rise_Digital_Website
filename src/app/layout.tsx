@@ -5,6 +5,7 @@ import Header from "@/components/shared/header";
 import Footer from "@/components/shared/footer";
 import localFont from "next/font/local";
 import SmoothScroll from "@/components/shared/smooth-scroll";
+import StartProjectButton from "@/components/shared/start-project-button";
 
 const neueMontreal = localFont({
   src: [
@@ -62,6 +63,7 @@ export default function RootLayout({
           <Header />
           {children}
           <Footer />
+          <StartProjectButton />
         </SmoothScroll>
       </body>
     </html>
