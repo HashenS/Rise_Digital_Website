@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/shared/header";
 import Footer from "@/components/shared/footer";
 import localFont from "next/font/local";
+import SmoothScroll from "@/components/shared/smooth-scroll";
 
 const neueMontreal = localFont({
   src: [
@@ -57,9 +58,11 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${inter_font.variable} ${neueMontreal.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Header />
-        {children}
-        <Footer />
+        <SmoothScroll>
+          <Header />
+          {children}
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   );
