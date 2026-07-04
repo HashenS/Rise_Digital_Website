@@ -272,7 +272,7 @@ export default function ServicesSection() {
               className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
             {/* Dark Vignette Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/70 z-10" />
+            <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-black/70 z-10" />
 
             {/* Content Container */}
             <div className="absolute inset-0 z-20 flex flex-col justify-between p-6">

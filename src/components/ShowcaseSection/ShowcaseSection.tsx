@@ -8,18 +8,19 @@ import indioImg from "@/assets/project_indio_laptop.png";
 
 export default function ShowcaseSection() {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   // List of images for the automatic slideshow
   const images = [frejaImg, indioImg, silenceImg];
   const [activeIndex, setActiveIndex] = useState(0);
+  const SLIDESHOW_DURATION = 300;
 
   // Automatic slideshow interval
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % images.length);
-    }, 3000);
+    }, SLIDESHOW_DURATION);
     return () => clearInterval(interval);
-  }, [images.length]);
+  }, [images.length, SLIDESHOW_DURATION]);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -28,7 +29,7 @@ export default function ShowcaseSection() {
 
   // Scale the box container dimensions as we scroll
   const width = useTransform(scrollYProgress, [0.1, 0.6], ["40vw", "90vw"]);
-  const height = useTransform(scrollYProgress, [0.1, 0.6], ["52vw", "90vh"]);
+  const height = useTransform(scrollYProgress, [0.1, 0.6], ["62vw", "90vh"]);
 
   const borderRadius = useTransform(
     scrollYProgress,
@@ -39,8 +40,8 @@ export default function ShowcaseSection() {
   // Fade the surrounding page background from white/grey to black after hitting full size
   const backgroundColor = useTransform(
     scrollYProgress,
-    [0.6, 0.8],
-    ["#ffffff", "#000000"],
+    [0.1, 0.3],
+    ["#ebebeb", "#000000"], 
   );
 
   return (
@@ -59,7 +60,7 @@ export default function ShowcaseSection() {
           {images.map((img, idx) => (
             <div
               key={idx}
-              className={`absolute inset-0 w-full h-full transition-opacity duration-500 ease-in-out ${
+              className={`absolute inset-0 w-full h-full  ${
                 activeIndex === idx ? "opacity-100" : "opacity-0"
               }`}
             >
@@ -77,4 +78,3 @@ export default function ShowcaseSection() {
     </div>
   );
 }
-
