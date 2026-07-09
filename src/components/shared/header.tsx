@@ -5,6 +5,8 @@ import Image from "next/image";
 
 export default function Header() {
   const [isServiceOpen, setIsServiceOpen] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
   const services = [
     { id: "01", title: "Brand Strategy", count: "/6 services" },
     { id: "02", title: "Web Development", count: "/7 services" },
@@ -261,42 +263,62 @@ export default function Header() {
     }
   };
 
-  const renderServiceCard = (service: (typeof services)[0]) => (
-    <div
-      key={service.id}
-      className="group relative flex h-[6.2vw] hover:h-[8vw] items-start justify-between rounded-[0.8vw] bg-zinc-800/30  border-zinc-900/30  px-[1.2vw] py-[0.8vw] transition-all duration-500 ease-in-out hover:bg-zinc-950/20 cursor-pointer overflow-hidden"
-    >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.04)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+  const renderServiceCard = (service: (typeof services)[0], index: number) => {
+    const isHovered = hoveredIndex === index;
+    const isSameColumn = hoveredIndex !== null && (hoveredIndex % 2 === index % 2);
+    
+    let heightClass = "h-[6.2vw]";
 
-      {/* 3D Background Graphic (Cropped logo-s.png on hover) */}
+    if (hoveredIndex !== null) {
+      if (isHovered) {
+        heightClass = "h-[8.4vw]";
+      } else if (isSameColumn) {
+        heightClass = "h-[5.5vw]";
+      }
+    }
+
+    return (
       <div
-        className="absolute right-0 bottom-0 w-[14vw] h-[14vw] pointer-events-none opacity-0 group-hover:opacity-65 transition-all duration-500 ease-out select-none mix-blend-screen"
-        style={{
-          transform: getGraphicTransform(service.id),
-        }}
+        key={service.id}
+        onMouseEnter={() => setHoveredIndex(index)}
+        onMouseLeave={() => setHoveredIndex(null)}
+        className={`group relative flex flex-col ${heightClass} rounded-[0.8vw] bg-zinc-800/30 border-zinc-900/30 px-[1.2vw] py-[0.8vw] transition-all duration-500 ease-in-out hover:bg-zinc-950/20 cursor-pointer overflow-hidden`}
       >
-        <Image
-          src="/logo-s.png"
-          alt="Service Graphic"
-          fill
-          className="object-contain object-right-bottom"
-        />
-      </div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.04)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-      {/* Left: Icon + Title */}
-      <div className="flex items-center gap-[0.8vw] z-10">
-        {getServiceIcon(service.id)}
-        <span className="text-[1vw] font-medium text-zinc-300 font-neue group-hover:text-white transition-colors">
-          {service.title}
-        </span>
-      </div>
+        {/* Background Graphic */}
+        <div
+          className="absolute right-0 bottom-0 w-[14vw] h-[14vw] pointer-events-none opacity-0 group-hover:opacity-65 transition-all duration-500 ease-out select-none mix-blend-screen"
+          style={{
+            transform: getGraphicTransform(service.id),
+          }}
+        >
+          <Image
+            src="/logo-s.png"
+            alt="Service Graphic"
+            fill
+            className="object-contain object-right-bottom"
+          />
+        </div>
 
-      {/* Right: Counter */}
-      <span className="text-[0.7vw] text-zinc-300 group-hover:text-zinc-400 font-mono font-medium z-10 transition-colors">
-        {service.count}
-      </span>
-    </div>
-  );
+        {/* Content Wrapper */}
+        <div className="flex items-center justify-between w-full z-10 transition-transform duration-500 ease-in-out">
+          {/* Left: Icon + Title */}
+          <div className="flex items-center gap-[0.8vw]">
+            {getServiceIcon(service.id)}
+            <span className="text-[1vw] font-medium text-zinc-300 font-neue group-hover:text-white transition-colors">
+              {service.title}
+            </span>
+          </div>
+
+          {/* Right: Counter */}
+          <span className="text-[0.7vw] text-zinc-300 group-hover:text-zinc-400 font-mono font-medium transition-colors">
+            {service.count}
+          </span>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div>
@@ -308,7 +330,10 @@ export default function Header() {
           <Image src={Rise_logo} alt="Rise Logo" className="w-12 h-12" />
         </a>
         <nav
-          onMouseLeave={() => setIsServiceOpen(false)}
+          onMouseLeave={() => {
+            setIsServiceOpen(false);
+            setHoveredIndex(null);
+          }}
           className={`pointer-events-auto relative hidden md:flex w-[45vw] flex-col gap-[0.1vw] overflow-hidden rounded-[1vw] px-[1vw] py-[0.7vw] bg-[#24242480] text-white backdrop-blur-[3vw] font-inter font-semibold ${
             isServiceOpen ? "justify-start" : "justify-center"
           }`}
@@ -366,14 +391,14 @@ export default function Header() {
             <div className="flex flex-col gap-[0.8vw] w-1/2">
               {services
                 .filter((_, idx) => idx % 2 === 0)
-                .map((service) => renderServiceCard(service))}
+                .map((service, idx) => renderServiceCard(service, idx * 2))}
             </div>
 
             {/* Right Column (Odd indices) */}
             <div className="flex flex-col gap-[0.8vw] w-1/2">
               {services
                 .filter((_, idx) => idx % 2 === 1)
-                .map((service) => renderServiceCard(service))}
+                .map((service, idx) => renderServiceCard(service, idx * 2 + 1))}
             </div>
           </div>
         </nav>
