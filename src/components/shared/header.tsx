@@ -265,8 +265,9 @@ export default function Header() {
 
   const renderServiceCard = (service: (typeof services)[0], index: number) => {
     const isHovered = hoveredIndex === index;
-    const isSameColumn = hoveredIndex !== null && (hoveredIndex % 2 === index % 2);
-    
+    const isSameColumn =
+      hoveredIndex !== null && hoveredIndex % 2 === index % 2;
+
     let heightClass = "h-[6.2vw]";
 
     if (hoveredIndex !== null) {

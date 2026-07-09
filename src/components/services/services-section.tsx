@@ -14,43 +14,105 @@ const services = [
     title: "Brand Strategy",
     count: "/6 services",
     img: brandStrategy,
+    subServices: [
+      "Brand Positioning",
+      "Competitor & Market Research",
+      "Brand Architecture",
+      "Brand Audit",
+      "Brand Naming & Tagline",
+      "Brand Messaging & Tone of Voice",
+    ],
   },
   {
     id: "02",
     title: "Brand Identity",
     count: "/5 services",
     img: brandIdentity,
+    subServices: [
+      "Logo Design",
+      "Visual Language",
+      "Brand Guidelines",
+      "Typography & Color",
+      "Marketing Materials",
+    ],
   },
   {
     id: "03",
     title: "User Experiance Design",
     count: "/6 services",
     img: uiDesign,
+    subServices: [
+      "User Research",
+      "Wireframing",
+      "Prototyping",
+      "Usability Testing",
+      "Information Architecture",
+      "Interaction Design",
+    ],
   },
   {
     id: "04",
     title: "Visual Content",
     count: "/3 services",
     img: visualContent,
+    subServices: ["Photography", "Videography", "3D Motion Graphics"],
   },
-  { id: "05", title: "Web Development", count: "/7 services", img: webDev },
+  {
+    id: "05",
+    title: "Web Development",
+    count: "/7 services",
+    img: webDev,
+    subServices: [
+      "Frontend Development",
+      "Backend Architecture",
+      "CMS Integration",
+      "Performance Optimization",
+      "E-Commerce Solutions",
+      "Web Animation",
+      "Maintenance & Support",
+    ],
+  },
   {
     id: "06",
     title: "E-commerce Development",
     count: "/4 services",
     img: eCommerce,
+    subServices: [
+      "Shopify Development",
+      "Custom Storefronts",
+      "Payment Gateways",
+      "Inventory Management",
+      "Conversion Optimization",
+      "Subscription Models",
+      "Platform Migration",
+    ],
   },
   {
     id: "07",
     title: "Web & Mobile Application",
     count: "/6 services",
     img: webMobileApp,
+    subServices: [
+      "iOS Development",
+      "Android Development",
+      "React Native",
+      "Progressive Web Apps",
+      "App Store Optimization",
+      "Post-Launch Support",
+    ],
   },
   {
     id: "08",
     title: "Embedded & Hardware",
     count: "/3 services",
     img: embeddedHardware,
+    subServices: [
+      "IoT Solutions",
+      "Firmware Development",
+      "Hardware Prototyping",
+      "Circuit Design",
+      "Testing & Validation",
+    ],
   },
 ];
 const getServiceIcon = (id: string) => {
@@ -58,7 +120,7 @@ const getServiceIcon = (id: string) => {
   switch (id) {
     case "01":
       return (
-        <svg className="w-[1.2vw] h-[1.2vw] text-zinc-300" viewBox="0 0 24 24">
+        <svg className="w-[3.2vw] h-[3.2vw] text-zinc-300" viewBox="0 0 24 24">
           {[
             [12, 4],
             [12, 20],
@@ -80,7 +142,7 @@ const getServiceIcon = (id: string) => {
       );
     case "02":
       return (
-        <svg className="w-[1.2vw] h-[1.2vw] text-zinc-300" viewBox="0 0 24 24">
+        <svg className="w-[3.2vw] h-[3.2vw] text-zinc-300" viewBox="0 0 24 24">
           {[
             [6, 6],
             [9, 6],
@@ -108,7 +170,7 @@ const getServiceIcon = (id: string) => {
       );
     case "03":
       return (
-        <svg className="w-[1.2vw] h-[1.2vw] text-zinc-300" viewBox="0 0 24 24">
+        <svg className="w-[3.2vw] h-[3.2vw] text-zinc-300" viewBox="0 0 24 24">
           {[
             [6, 6],
             [9, 6],
@@ -130,7 +192,7 @@ const getServiceIcon = (id: string) => {
       );
     case "04":
       return (
-        <svg className="w-[1.2vw] h-[1.2vw] text-zinc-300" viewBox="0 0 24 24">
+        <svg className="w-[3.2vw] h-[3.2vw] text-zinc-300" viewBox="0 0 24 24">
           {[
             [5, 5],
             [5, 8],
@@ -154,7 +216,7 @@ const getServiceIcon = (id: string) => {
       );
     case "05":
       return (
-        <svg className="w-[1.2vw] h-[1.2vw] text-zinc-300" viewBox="0 0 24 24">
+        <svg className="w-[3.2vw] h-[3.2vw] text-zinc-300" viewBox="0 0 24 24">
           {[
             [6, 6],
             [9, 6],
@@ -178,7 +240,7 @@ const getServiceIcon = (id: string) => {
       );
     case "06":
       return (
-        <svg className="w-[1.2vw] h-[1.2vw] text-zinc-300" viewBox="0 0 24 24">
+        <svg className="w-[3.2vw] h-[3.2vw] text-zinc-300" viewBox="0 0 24 24">
           {[
             [9, 5],
             [12, 5],
@@ -200,7 +262,7 @@ const getServiceIcon = (id: string) => {
       );
     case "07":
       return (
-        <svg className="w-[1.2vw] h-[1.2vw] text-zinc-300" viewBox="0 0 24 24">
+        <svg className="w-[3.2vw] h-[3.2vw] text-zinc-300" viewBox="0 0 24 24">
           {[
             [6, 6],
             [9, 6],
@@ -227,7 +289,7 @@ const getServiceIcon = (id: string) => {
       );
     case "08":
       return (
-        <svg className="w-[1.2vw] h-[1.2vw] text-zinc-300" viewBox="0 0 24 24">
+        <svg className="w-[3.2vw] h-[3.2vw] text-zinc-300" viewBox="0 0 24 24">
           {[
             [8, 8],
             [12, 8],
@@ -269,13 +331,13 @@ export default function ServicesSection() {
               src={service.img}
               alt={service.title}
               fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              className="object-cover transition-all duration-700 group-hover:scale-105 group-hover:blur-xl opacity-80 group-hover:opacity-100"
             />
             {/* Dark Vignette Overlay */}
-            <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-black/70 z-10" />
+            <div className="absolute inset-0 bg-linear-to-b from-black/40 via-black/10 to-black/70 z-10 transition-opacity duration-500 group-hover:opacity-60" />
 
             {/* Content Container */}
-            <div className="absolute inset-0 z-20 flex flex-col justify-between p-6">
+            <div className="absolute inset-0 z-20 flex flex-col p-6">
               {/* Top: Title & Count */}
               <div className="flex items-start justify-between">
                 <h3 className="text-xl font-medium font-neue text-white leading-tight max-w-[70%]">
@@ -286,8 +348,35 @@ export default function ServicesSection() {
                 </span>
               </div>
 
-              {/* Bottom: Icon */}
-              <div className="mt-auto">{getServiceIcon(service.id)}</div>
+              {/* Middle: Subservices */}
+              <div className="flex flex-col items-start gap-2 mt-6 overflow-hidden">
+                {service.subServices?.map((sub, i) => (
+                  <div
+                    key={i}
+                    className="bg-zinc-200/90 text-zinc-900 px-3 py-1.5 rounded-lg text-sm font-base transition-all duration-300 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 font-neue"
+                    style={{
+                      transitionDelay: `${i * 50}ms`,
+                    }}
+                  >
+                    {sub}
+                  </div>
+                ))}
+              </div>
+
+              {/* Bottom: Icon / See More */}
+              <div className="mt-auto relative w-full h-8">
+                {/* Default Icon */}
+                <div className="absolute left-0 bottom-0 transition-all duration-500 group-hover:opacity-0 group-hover:-translate-x-4">
+                  {getServiceIcon(service.id)}
+                </div>
+
+                {/* See More Link */}
+                <div className="absolute right-0 bottom-0 opacity-0 translate-x-4 transition-all duration-500 delay-200 group-hover:opacity-100 group-hover:translate-x-0">
+                  <span className="text-sm font-neue font-base text-white hover:underline underline-offset-4 cursor-pointer underline">
+                    See More
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         ))}
