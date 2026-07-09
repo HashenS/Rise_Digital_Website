@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useRef, useEffect } from "react";
 
 const FooterList = ({ title, items }: { title: string; items: string[] }) => (
   <div className="flex flex-col">
@@ -26,17 +26,38 @@ const FooterList = ({ title, items }: { title: string; items: string[] }) => (
 
 export default function Footer() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const textRef = useRef<HTMLHeadingElement>(null);
+  const targetMousePos = useRef({ x: 0, y: 0 });
+  const currentMousePos = useRef({ x: 0, y: 0 });
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect();
-      setMousePos({
+      targetMousePos.current = {
         x: e.clientX - rect.left,
         y: e.clientY - rect.top,
-      });
+      };
     }
   };
+
+  useEffect(() => {
+    let animationFrameId: number;
+    const animate = () => {
+      // Lerp (linear interpolation) for smooth following effect
+      const easing = 0.08;
+      currentMousePos.current.x += (targetMousePos.current.x - currentMousePos.current.x) * easing;
+      currentMousePos.current.y += (targetMousePos.current.y - currentMousePos.current.y) * easing;
+      
+      if (textRef.current) {
+        const mask = `radial-gradient(15% 50% at ${currentMousePos.current.x}px ${currentMousePos.current.y}px, black, transparent)`;
+        textRef.current.style.maskImage = mask;
+        textRef.current.style.webkitMaskImage = mask;
+      }
+      animationFrameId = requestAnimationFrame(animate);
+    };
+    animate();
+    return () => cancelAnimationFrame(animationFrameId);
+  }, []);
 
   return (
     <footer className="bg-black pt-20 md:pt-[8vw] px-6 md:px-[4vw] font-inter relative overflow-hidden flex flex-col">
@@ -175,11 +196,8 @@ export default function Footer() {
 
         {/* Illuminated Overlay Text */}
         <h1 
-          className="absolute top-0 left-0 text-[35vw] leading-[0.8] font-neue font-medium tracking-tighter text-zinc-400 text-center w-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-          style={{
-            maskImage: `radial-gradient(20% 60% at ${mousePos.x}px ${mousePos.y}px, black, transparent)`,
-            WebkitMaskImage: `radial-gradient(20% 60% at ${mousePos.x}px ${mousePos.y}px, black, transparent)`,
-          }}
+          ref={textRef}
+          className="absolute top-0 left-0 text-[35vw] leading-[0.8] font-neue font-medium tracking-tighter text-zinc-700 text-center w-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
         >
           RISE
         </h1>

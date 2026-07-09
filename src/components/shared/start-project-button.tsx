@@ -11,7 +11,23 @@ export default function StartProjectButton() {
   useEffect(() => {
     // Listen to window scroll position
     const unsubscribe = scrollY.on("change", (latest) => {
-      if (latest > window.innerHeight * 0.8) {
+      // Show when scrolled past the hero section
+      const isPastHero = latest > window.innerHeight * 0.8;
+      
+      let isOverlappingFooter = false;
+      const footer = document.querySelector('footer');
+      if (footer) {
+        // footerTop is the distance from the top of the screen to the top of the footer
+        const footerTop = footer.getBoundingClientRect().top;
+        
+        // If the footer top is less than the window height, it means 
+        // the footer has entered the screen from the bottom.
+        if (footerTop < window.innerHeight) {
+          isOverlappingFooter = true;
+        }
+      }
+
+      if (isPastHero && !isOverlappingFooter) {
         setVisible(true);
       } else {
         setVisible(false);
