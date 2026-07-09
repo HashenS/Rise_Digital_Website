@@ -20,12 +20,24 @@ export default function Header() {
     switch (id) {
       case "01": // Brand Strategy
         return (
-          <svg className="w-[1.2vw] h-[1.2vw] text-zinc-400 group-hover:text-white transition-colors" viewBox="0 0 24 24">
+          <svg
+            className="w-[1.2vw] h-[1.2vw] text-zinc-400 group-hover:text-white transition-colors"
+            viewBox="0 0 24 24"
+          >
             {[
-              [12,4], [12,20], [4,12], [20,12],
-              [8,8], [16,8], [8,16], [16,16],
-              [12,8], [12,16], [8,12], [16,12],
-              [12,12]
+              [12, 4],
+              [12, 20],
+              [4, 12],
+              [20, 12],
+              [8, 8],
+              [16, 8],
+              [8, 16],
+              [16, 16],
+              [12, 8],
+              [12, 16],
+              [8, 12],
+              [16, 12],
+              [12, 12],
             ].map(([cx, cy], i) => (
               <circle key={i} cx={cx} cy={cy} r={r} fill="currentColor" />
             ))}
@@ -33,13 +45,30 @@ export default function Header() {
         );
       case "02": // Web Development
         return (
-          <svg className="w-[1.2vw] h-[1.2vw] text-zinc-400 group-hover:text-white transition-colors" viewBox="0 0 24 24">
+          <svg
+            className="w-[1.2vw] h-[1.2vw] text-zinc-400 group-hover:text-white transition-colors"
+            viewBox="0 0 24 24"
+          >
             {[
-              [6,6], [9,6], [12,6], [15,6], [18,6],
-              [6,9], [18,9],
-              [6,12], [9,12], [12,12], [15,12], [18,12],
-              [4,15], [7,15], [10,15], [14,15], [17,15], [20,15],
-              [12,17]
+              [6, 6],
+              [9, 6],
+              [12, 6],
+              [15, 6],
+              [18, 6],
+              [6, 9],
+              [18, 9],
+              [6, 12],
+              [9, 12],
+              [12, 12],
+              [15, 12],
+              [18, 12],
+              [4, 15],
+              [7, 15],
+              [10, 15],
+              [14, 15],
+              [17, 15],
+              [20, 15],
+              [12, 17],
             ].map(([cx, cy], i) => (
               <circle key={i} cx={cx} cy={cy} r={r} fill="currentColor" />
             ))}
@@ -47,13 +76,24 @@ export default function Header() {
         );
       case "03": // Brand Identity
         return (
-          <svg className="w-[1.2vw] h-[1.2vw] text-zinc-400 group-hover:text-white transition-colors" viewBox="0 0 24 24">
+          <svg
+            className="w-[1.2vw] h-[1.2vw] text-zinc-400 group-hover:text-white transition-colors"
+            viewBox="0 0 24 24"
+          >
             {[
-              [6,6], [9,6], [6,9],
-              [15,6], [18,6], [18,9],
-              [6,15], [6,18], [9,18],
-              [18,15], [18,18], [15,18],
-              [12,12]
+              [6, 6],
+              [9, 6],
+              [6, 9],
+              [15, 6],
+              [18, 6],
+              [18, 9],
+              [6, 15],
+              [6, 18],
+              [9, 18],
+              [18, 15],
+              [18, 18],
+              [15, 18],
+              [12, 12],
             ].map(([cx, cy], i) => (
               <circle key={i} cx={cx} cy={cy} r={r} fill="currentColor" />
             ))}
@@ -61,13 +101,26 @@ export default function Header() {
         );
       case "04": // eCommerce
         return (
-          <svg className="w-[1.2vw] h-[1.2vw] text-zinc-400 group-hover:text-white transition-colors" viewBox="0 0 24 24">
+          <svg
+            className="w-[1.2vw] h-[1.2vw] text-zinc-400 group-hover:text-white transition-colors"
+            viewBox="0 0 24 24"
+          >
             {[
-              [5,5], [5,8],
-              [8,8], [11,8], [14,8], [17,8],
-              [8,11], [11,11], [14,11], [17,11],
-              [8,14], [11,14], [14,14],
-              [9,17], [15,17]
+              [5, 5],
+              [5, 8],
+              [8, 8],
+              [11, 8],
+              [14, 8],
+              [17, 8],
+              [8, 11],
+              [11, 11],
+              [14, 11],
+              [17, 11],
+              [8, 14],
+              [11, 14],
+              [14, 14],
+              [9, 17],
+              [15, 17],
             ].map(([cx, cy], i) => (
               <circle key={i} cx={cx} cy={cy} r={r} fill="currentColor" />
             ))}
@@ -75,12 +128,26 @@ export default function Header() {
         );
       case "05": // User Experience Design
         return (
-          <svg className="w-[1.2vw] h-[1.2vw] text-zinc-400 group-hover:text-white transition-colors" viewBox="0 0 24 24">
+          <svg
+            className="w-[1.2vw] h-[1.2vw] text-zinc-400 group-hover:text-white transition-colors"
+            viewBox="0 0 24 24"
+          >
             {[
-              [6,6], [9,6], [12,6], [15,6], [18,6],
-              [6,9], [12,9], [18,9],
-              [6,12], [9,12], [12,12], [15,12], [18,12],
-              [12,15], [12,18]
+              [6, 6],
+              [9, 6],
+              [12, 6],
+              [15, 6],
+              [18, 6],
+              [6, 9],
+              [12, 9],
+              [18, 9],
+              [6, 12],
+              [9, 12],
+              [12, 12],
+              [15, 12],
+              [18, 12],
+              [12, 15],
+              [12, 18],
             ].map(([cx, cy], i) => (
               <circle key={i} cx={cx} cy={cy} r={r} fill="currentColor" />
             ))}
@@ -88,14 +155,24 @@ export default function Header() {
         );
       case "06": // Web & Mobile Applications
         return (
-          <svg className="w-[1.2vw] h-[1.2vw] text-zinc-400 group-hover:text-white transition-colors" viewBox="0 0 24 24">
+          <svg
+            className="w-[1.2vw] h-[1.2vw] text-zinc-400 group-hover:text-white transition-colors"
+            viewBox="0 0 24 24"
+          >
             {[
-              [9,5], [12,5], [15,5],
-              [9,8], [15,8],
-              [9,11], [15,11],
-              [9,14], [15,14],
-              [9,17], [12,17], [15,17],
-              [12,19]
+              [9, 5],
+              [12, 5],
+              [15, 5],
+              [9, 8],
+              [15, 8],
+              [9, 11],
+              [15, 11],
+              [9, 14],
+              [15, 14],
+              [9, 17],
+              [12, 17],
+              [15, 17],
+              [12, 19],
             ].map(([cx, cy], i) => (
               <circle key={i} cx={cx} cy={cy} r={r} fill="currentColor" />
             ))}
@@ -103,13 +180,29 @@ export default function Header() {
         );
       case "07": // Visual Content
         return (
-          <svg className="w-[1.2vw] h-[1.2vw] text-zinc-400 group-hover:text-white transition-colors" viewBox="0 0 24 24">
+          <svg
+            className="w-[1.2vw] h-[1.2vw] text-zinc-400 group-hover:text-white transition-colors"
+            viewBox="0 0 24 24"
+          >
             {[
-              [6,6], [9,6], [12,6], [15,6], [18,6],
-              [6,9], [9,9], [18,9],
-              [6,12], [18,12],
-              [6,15], [12,15], [18,15],
-              [6,18], [9,18], [12,18], [15,18], [18,18]
+              [6, 6],
+              [9, 6],
+              [12, 6],
+              [15, 6],
+              [18, 6],
+              [6, 9],
+              [9, 9],
+              [18, 9],
+              [6, 12],
+              [18, 12],
+              [6, 15],
+              [12, 15],
+              [18, 15],
+              [6, 18],
+              [9, 18],
+              [12, 18],
+              [15, 18],
+              [18, 18],
             ].map(([cx, cy], i) => (
               <circle key={i} cx={cx} cy={cy} r={r} fill="currentColor" />
             ))}
@@ -117,12 +210,24 @@ export default function Header() {
         );
       case "08": // Embedded & Hardware
         return (
-          <svg className="w-[1.2vw] h-[1.2vw] text-zinc-400 group-hover:text-white transition-colors" viewBox="0 0 24 24">
+          <svg
+            className="w-[1.2vw] h-[1.2vw] text-zinc-400 group-hover:text-white transition-colors"
+            viewBox="0 0 24 24"
+          >
             {[
-              [8,8], [12,8], [16,8],
-              [8,12], [12,12], [16,12],
-              [8,16], [12,16], [16,16],
-              [12,4], [12,20], [4,12], [20,12]
+              [8, 8],
+              [12, 8],
+              [16, 8],
+              [8, 12],
+              [12, 12],
+              [16, 12],
+              [8, 16],
+              [12, 16],
+              [16, 16],
+              [12, 4],
+              [12, 20],
+              [4, 12],
+              [20, 12],
             ].map(([cx, cy], i) => (
               <circle key={i} cx={cx} cy={cy} r={r} fill="currentColor" />
             ))}
@@ -135,25 +240,34 @@ export default function Header() {
 
   const getGraphicTransform = (id: string) => {
     switch (id) {
-      case "01": return "scale(1.7) rotate(15deg) translate(0.5vw, 0.5vw)";
-      case "02": return "scale(1.6) rotate(80deg) translate(1vw, -0.5vw)";
-      case "03": return "scale(1.8) rotate(140deg) translate(-0.5vw, 0.5vw)";
-      case "04": return "scale(1.5) rotate(210deg) translate(1vw, 1vw)";
-      case "05": return "scale(1.7) rotate(270deg) translate(0.8vw, 0.5vw)";
-      case "06": return "scale(1.6) rotate(320deg) translate(0.5vw, -0.2vw)";
-      case "07": return "scale(1.8) rotate(45deg) translate(0.8vw, 0.8vw)";
-      case "08": return "scale(1.5) rotate(190deg) translate(1vw, 1vw)";
-      default: return "scale(1.5)";
+      case "01":
+        return "scale(1.7) rotate(15deg) translate(0.5vw, 0.5vw)";
+      case "02":
+        return "scale(1.6) rotate(80deg) translate(1vw, -0.5vw)";
+      case "03":
+        return "scale(1.8) rotate(140deg) translate(-0.5vw, 0.5vw)";
+      case "04":
+        return "scale(1.5) rotate(210deg) translate(1vw, 1vw)";
+      case "05":
+        return "scale(1.7) rotate(270deg) translate(0.8vw, 0.5vw)";
+      case "06":
+        return "scale(1.6) rotate(320deg) translate(0.5vw, -0.2vw)";
+      case "07":
+        return "scale(1.8) rotate(45deg) translate(0.8vw, 0.8vw)";
+      case "08":
+        return "scale(1.5) rotate(190deg) translate(1vw, 1vw)";
+      default:
+        return "scale(1.5)";
     }
   };
 
-  const renderServiceCard = (service: typeof services[0]) => (
+  const renderServiceCard = (service: (typeof services)[0]) => (
     <div
       key={service.id}
-      className="group relative flex h-[6.2vw] hover:h-[12vw] items-start justify-between rounded-[0.8vw] bg-zinc-800/30  border-zinc-900/30  px-[1.2vw] py-[0.8vw] transition-all duration-500 ease-in-out hover:bg-zinc-950/20 cursor-pointer overflow-hidden"
+      className="group relative flex h-[6.2vw] hover:h-[8vw] items-start justify-between rounded-[0.8vw] bg-zinc-800/30  border-zinc-900/30  px-[1.2vw] py-[0.8vw] transition-all duration-500 ease-in-out hover:bg-zinc-950/20 cursor-pointer overflow-hidden"
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.04)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-      
+
       {/* 3D Background Graphic (Cropped logo-s.png on hover) */}
       <div
         className="absolute right-0 bottom-0 w-[14vw] h-[14vw] pointer-events-none opacity-0 group-hover:opacity-65 transition-all duration-500 ease-out select-none mix-blend-screen"
@@ -172,7 +286,7 @@ export default function Header() {
       {/* Left: Icon + Title */}
       <div className="flex items-center gap-[0.8vw] z-10">
         {getServiceIcon(service.id)}
-        <span className="text-[0.85vw] font-medium text-zinc-300 group-hover:text-white transition-colors">
+        <span className="text-[1vw] font-medium text-zinc-300 font-neue group-hover:text-white transition-colors">
           {service.title}
         </span>
       </div>
@@ -199,7 +313,7 @@ export default function Header() {
             isServiceOpen ? "justify-start" : "justify-center"
           }`}
           style={{
-            height: isServiceOpen ? "37vw" : "3.35vw",
+            height: isServiceOpen ? "31.5vw" : "3.35vw",
             transition:
               "height 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 1000ms",
           }}
