@@ -5,6 +5,10 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --color-theme-dark: var(--theme-bg-dark);
+  --color-theme-light: var(--theme-bg-light);
+  --color-theme-text-dark: var(--theme-text-dark);
+  
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-section-title: var(--section-title);
@@ -100,6 +104,10 @@
 }
 
 :root {
+  --theme-bg-dark: #000000;
+  --theme-bg-light: #ebebeb;
+  --theme-text-dark: #0c0c0c;
+  
   --background: #ebebeb;
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);

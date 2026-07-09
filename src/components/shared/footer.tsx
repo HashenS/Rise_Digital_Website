@@ -60,7 +60,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="bg-black pt-20 md:pt-[8vw] px-6 md:px-[4vw] font-inter relative overflow-hidden flex flex-col">
+    <footer className="bg-theme-dark pt-20 md:pt-[8vw] px-6 md:px-[4vw] font-inter relative overflow-hidden flex flex-col">
       {/* Visual & Marketing Row */}
       <div className="grid grid-cols-1 md:grid-cols-5 gap-12 md:gap-4 mb-20 md:mb-[6vw] relative z-10">
         <div className="col-span-1">
@@ -190,7 +190,7 @@ export default function Footer() {
         className="mt-10 md:mt-[4vw] flex flex-col w-full select-none relative group"
       >
         {/* Base Dark Text */}
-        <h1 className="text-[35vw] leading-[0.8] font-neue font-medium tracking-tighter text-[#0c0c0c] text-center w-full mb-4 md:mb-[2vw]">
+        <h1 className="text-[35vw] leading-[0.8] font-neue font-medium tracking-tighter text-theme-text-dark text-center w-full mb-4 md:mb-[2vw]">
           RISE
         </h1>
 

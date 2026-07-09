@@ -1,6 +1,17 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 
 export default function ContactSection() {
+  const [selectedServices, setSelectedServices] = useState<string[]>([]);
+
+  const toggleService = (service: string) => {
+    setSelectedServices((prev) =>
+      prev.includes(service)
+        ? prev.filter((s) => s !== service)
+        : [...prev, service]
+    );
+  };
+
   const servicesListLeft = [
     "Brand Strategy",
     "Brand Identity",
@@ -98,34 +109,66 @@ export default function ContactSection() {
 
                 {/* Left Column */}
                 <div className="flex flex-col gap-3 md:gap-[0.5vw]">
-                  {servicesListLeft.map((service, idx) => (
-                    <button
-                      type="button"
-                      key={idx}
-                      className="flex items-center gap-3 md:gap-[0.8vw] cursor-pointer group text-left"
-                    >
-                      <div className="w-5 h-5 md:w-[1vw] md:h-[1vw] rounded-full transition-colors duration-300 shrink-0 border border-white/20 md:border-[0.1vw] bg-transparent group-hover:border-white/50"></div>
-                      <span className="text-sm md:text-[1vw] text-white opacity-50 group-hover:opacity-80 transition-opacity">
-                        {service}
-                      </span>
-                    </button>
-                  ))}
+                  {servicesListLeft.map((service, idx) => {
+                    const isSelected = selectedServices.includes(service);
+                    return (
+                      <button
+                        type="button"
+                        key={idx}
+                        onClick={() => toggleService(service)}
+                        className="flex items-center gap-3 md:gap-[0.8vw] cursor-pointer group text-left"
+                      >
+                        <div
+                          className={`w-5 h-5 md:w-[1vw] md:h-[1vw] rounded-full transition-colors duration-300 shrink-0 border md:border-[0.1vw] ${
+                            isSelected
+                              ? "bg-white border-white"
+                              : "bg-transparent border-white/20 group-hover:border-white/50"
+                          }`}
+                        ></div>
+                        <span
+                          className={`text-sm md:text-[1vw] text-white transition-opacity ${
+                            isSelected
+                              ? "opacity-100"
+                              : "opacity-50 group-hover:opacity-80"
+                          }`}
+                        >
+                          {service}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
 
                 {/* Right Column */}
                 <div className="flex flex-col gap-3 md:gap-[0.5vw]">
-                  {servicesListRight.map((service, idx) => (
-                    <button
-                      type="button"
-                      key={idx}
-                      className="flex items-center gap-3 md:gap-[0.8vw] cursor-pointer group text-left"
-                    >
-                      <div className="w-5 h-5 md:w-[1vw] md:h-[1vw] rounded-full transition-colors duration-300 shrink-0 border border-white/20 md:border-[0.1vw] bg-transparent group-hover:border-white/50"></div>
-                      <span className="text-sm md:text-[1vw] text-white opacity-50 group-hover:opacity-80 transition-opacity">
-                        {service}
-                      </span>
-                    </button>
-                  ))}
+                  {servicesListRight.map((service, idx) => {
+                    const isSelected = selectedServices.includes(service);
+                    return (
+                      <button
+                        type="button"
+                        key={idx}
+                        onClick={() => toggleService(service)}
+                        className="flex items-center gap-3 md:gap-[0.8vw] cursor-pointer group text-left"
+                      >
+                        <div
+                          className={`w-5 h-5 md:w-[1vw] md:h-[1vw] rounded-full transition-colors duration-300 shrink-0 border md:border-[0.1vw] ${
+                            isSelected
+                              ? "bg-white border-white"
+                              : "bg-transparent border-white/20 group-hover:border-white/50"
+                          }`}
+                        ></div>
+                        <span
+                          className={`text-sm md:text-[1vw] text-white transition-opacity ${
+                            isSelected
+                              ? "opacity-100"
+                              : "opacity-50 group-hover:opacity-80"
+                          }`}
+                        >
+                          {service}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 

@@ -254,7 +254,7 @@ const getServiceIcon = (id: string) => {
 
 export default function ServicesSection() {
   return (
-    <div className="py-20 px-25 space-y-3 bg-[#EBEBEB]">
+    <div className="py-20 px-25 space-y-3 bg-theme-light">
       <h1 className="text-base uppercase text-section-title font-medium font-neue tracking-widest">
         Our Services
       </h1>
