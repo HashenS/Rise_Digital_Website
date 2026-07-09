@@ -320,11 +320,11 @@ export default function ServicesSection() {
       <h1 className="text-base uppercase text-section-title font-medium font-neue tracking-widest">
         Our Services
       </h1>
-      <div className="grid grid-cols-4 gap-5">
+      <div className="grid grid-cols-4 gap-3">
         {services.map((service) => (
           <div
             key={service.id}
-            className="group relative h-[25vw] rounded-xl overflow-hidden cursor-pointer"
+            className="group relative h-[30vw] rounded-xl overflow-hidden cursor-pointer"
           >
             {/* Image Background */}
             <Image
@@ -349,13 +349,13 @@ export default function ServicesSection() {
               </div>
 
               {/* Middle: Subservices */}
-              <div className="flex flex-col items-start gap-2 mt-6 overflow-hidden">
+              <div className="flex flex-col items-start gap-2 mt-auto mb-6 overflow-hidden">
                 {service.subServices?.map((sub, i) => (
                   <div
                     key={i}
-                    className="bg-zinc-200/90 text-zinc-900 px-3 py-1.5 rounded-lg text-sm font-base transition-all duration-300 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 font-neue"
+                    className="bg-[#dfdfdf] text-zinc-900 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 font-neue"
                     style={{
-                      transitionDelay: `${i * 50}ms`,
+                      transitionDelay: `${(service.subServices!.length - 1 - i) * 50}ms`,
                     }}
                   >
                     {sub}
@@ -364,7 +364,7 @@ export default function ServicesSection() {
               </div>
 
               {/* Bottom: Icon / See More */}
-              <div className="mt-auto relative w-full h-8">
+              <div className="relative w-full h-8 shrink-0">
                 {/* Default Icon */}
                 <div className="absolute left-0 bottom-0 transition-all duration-500 group-hover:opacity-0 group-hover:-translate-x-4">
                   {getServiceIcon(service.id)}
