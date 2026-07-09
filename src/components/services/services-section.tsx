@@ -353,7 +353,7 @@ export default function ServicesSection() {
                 {service.subServices?.map((sub, i) => (
                   <div
                     key={i}
-                    className="bg-[#dfdfdf] text-zinc-900 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 font-neue"
+                    className="bg-[#dfdfdf] text-zinc-900 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 font-neue"
                     style={{
                       transitionDelay: `${(service.subServices!.length - 1 - i) * 50}ms`,
                     }}
