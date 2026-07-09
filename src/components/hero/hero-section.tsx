@@ -121,7 +121,7 @@ export default function HeroSection() {
 
         {/* Right Side: Static Start Project Button (Matches Global Button) */}
         <div className="hidden md:block">
-          <button className="group flex h-12 md:h-[3vw] cursor-pointer items-center gap-[0.5vw] rounded-lg md:rounded-[0.5vw] pl-5 pr-4 md:pr-[1vw] md:pl-[1.5vw] text-sm md:text-[0.9vw] text-black bg-[#EBEBEB] transition-all duration-300 hover:bg-white active:scale-[0.98] font-inter font-medium">
+          <button className="group flex h-12 md:h-[3vw] cursor-pointer items-center mr-6 mb-8 gap-[0.5vw] rounded-lg md:rounded-[0.5vw] pl-5 pr-4 md:pr-[1vw] md:pl-[1.5vw] text-sm md:text-[0.9vw] text-black bg-[#EBEBEB] transition-all duration-300 hover:bg-white active:scale-[0.98] font-inter font-medium">
             Start a Project
             <svg
               className="ml-[0.5vw] inline-block w-6 md:w-[1.5vw] group-hover:translate-x-[0.3vw] transition-transform duration-300 text-black"
