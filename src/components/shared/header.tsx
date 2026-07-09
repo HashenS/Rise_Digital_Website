@@ -282,7 +282,7 @@ export default function Header() {
         key={service.id}
         onMouseEnter={() => setHoveredIndex(index)}
         onMouseLeave={() => setHoveredIndex(null)}
-        className={`group relative flex flex-col ${heightClass} rounded-[0.8vw] bg-zinc-800/30 border-zinc-900/30 px-[1.2vw] py-[0.8vw] transition-all duration-500 ease-in-out hover:bg-zinc-950/20 cursor-pointer overflow-hidden`}
+        className={`group shrink-0 relative flex flex-col ${heightClass} rounded-[0.8vw] bg-zinc-800/30 border-zinc-900/30 px-[1.2vw] py-[0.8vw] transition-all duration-500 ease-in-out hover:bg-zinc-950/20 cursor-pointer overflow-hidden`}
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.04)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
@@ -334,9 +334,7 @@ export default function Header() {
             setIsServiceOpen(false);
             setHoveredIndex(null);
           }}
-          className={`pointer-events-auto relative hidden md:flex w-[45vw] flex-col gap-[0.1vw] overflow-hidden rounded-[1vw] px-[1vw] py-[0.7vw] bg-[#24242480] text-white backdrop-blur-[3vw] font-inter font-semibold ${
-            isServiceOpen ? "justify-start" : "justify-center"
-          }`}
+          className="pointer-events-auto relative hidden md:flex w-[45vw] flex-col gap-[0.1vw] overflow-hidden rounded-[1vw] px-[1vw] py-[0.7vw] bg-[#24242480] text-white backdrop-blur-[3vw] font-inter font-semibold justify-start"
           style={{
             height: isServiceOpen ? "31.5vw" : "3.35vw",
             transition:
@@ -384,7 +382,7 @@ export default function Header() {
             className={`w-full flex gap-[0.8vw] mt-[0.5vw] transition-opacity duration-300 ${
               isServiceOpen
                 ? "opacity-100 delay-150 pointer-events-auto"
-                : "opacity-0 pointer-events-none absolute invisible h-0"
+                : "opacity-0 pointer-events-none"
             }`}
           >
             {/* Left Column (Even indices) */}
