@@ -202,7 +202,7 @@ export default function AandV() {
     ],
   ];
   return (
-    <div className="grid grid-cols-12 gap-8 py-20 px-25">
+    <div className="grid grid-cols-12 gap-8 py-20 px-25 bg-[#EBEBEB]">
       <div className="col-span-4">
         <h1 className="text-base uppercase text-section-title font-medium font-neue tracking-widest">
           Our Approach and Values

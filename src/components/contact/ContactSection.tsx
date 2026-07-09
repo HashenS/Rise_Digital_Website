@@ -44,7 +44,7 @@ export default function ContactSection() {
                     className="peer absolute z-0 w-full h-8 md:h-[1.75vw] bottom-0 md:bottom-[0.3vw] px-3 md:px-[0.75vw] bg-transparent border-none text-sm md:text-[1vw] text-white focus:outline-none"
                     required
                   />
-                  <div className="absolute pointer-events-none z-10 text-white peer-focus:text-white/50 peer-[:not(:placeholder-shown)]:text-white/50 transition-all duration-300 font-medium peer-focus:font-normal peer-[:not(:placeholder-shown)]:font-normal left-3 md:left-[0.75vw] top-1/2 -translate-y-1/2 text-sm md:text-[1vw] peer-focus:top-1.5 peer-focus:md:top-[0.4vw] peer-focus:-translate-y-0 peer-focus:text-[10px] peer-focus:md:text-[0.7vw] peer-[:not(:placeholder-shown)]:top-1.5 peer-[:not(:placeholder-shown)]:md:top-[0.4vw] peer-[:not(:placeholder-shown)]:-translate-y-0 peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:md:text-[0.7vw]">
+                  <div className="absolute pointer-events-none z-10 text-white peer-focus:text-white/50 peer-not-placeholder-shown:text-white/50 transition-all duration-300 font-medium peer-focus:font-normal peer-not-placeholder-shown:font-normal left-3 md:left-[0.75vw] top-1/2 -translate-y-1/2 text-sm md:text-[1vw] peer-focus:top-1.5 peer-focus:md:top-[0.4vw] peer-focus:translate-y-0 peer-focus:text-[10px] peer-focus:md:text-[0.7vw] peer-not-placeholder-shown:top-1.5 peer-not-placeholder-shown:md:top-[0.4vw] peer-not-placeholder-shown:translate-y-0 peer-not-placeholder-shown:text-[10px] peer-not-placeholder-shown:md:text-[0.7vw]">
                     Your Name *
                   </div>
                 </div>
@@ -56,7 +56,7 @@ export default function ContactSection() {
                     className="peer absolute z-0 w-full h-8 md:h-[1.75vw] bottom-0 md:bottom-[0.3vw] px-3 md:px-[0.75vw] bg-transparent border-none text-sm md:text-[1vw] text-white focus:outline-none"
                     required
                   />
-                  <div className="absolute pointer-events-none z-10 text-white peer-focus:text-white/50 peer-[:not(:placeholder-shown)]:text-white/50 transition-all duration-300 font-medium peer-focus:font-normal peer-[:not(:placeholder-shown)]:font-normal left-3 md:left-[0.75vw] top-1/2 -translate-y-1/2 text-sm md:text-[1vw] peer-focus:top-1.5 peer-focus:md:top-[0.4vw] peer-focus:-translate-y-0 peer-focus:text-[10px] peer-focus:md:text-[0.7vw] peer-[:not(:placeholder-shown)]:top-1.5 peer-[:not(:placeholder-shown)]:md:top-[0.4vw] peer-[:not(:placeholder-shown)]:-translate-y-0 peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:md:text-[0.7vw]">
+                  <div className="absolute pointer-events-none z-10 text-white peer-focus:text-white/50 peer-not-placeholder-shown:text-white/50 transition-all duration-300 font-medium peer-focus:font-normal peer-not-placeholder-shown:font-normal left-3 md:left-[0.75vw] top-1/2 -translate-y-1/2 text-sm md:text-[1vw] peer-focus:top-1.5 peer-focus:md:top-[0.4vw] peer-focus:translate-y-0 peer-focus:text-[10px] peer-focus:md:text-[0.7vw] peer-not-placeholder-shown:top-1.5 peer-not-placeholder-shown:md:top-[0.4vw] peer-not-placeholder-shown:translate-y-0 peer-not-placeholder-shown:text-[10px] peer-not-placeholder-shown:md:text-[0.7vw]">
                     Email *
                   </div>
                 </div>
@@ -70,7 +70,7 @@ export default function ContactSection() {
                     placeholder=" "
                     className="peer absolute z-0 w-full h-8 md:h-[1.75vw] bottom-0 md:bottom-[0.3vw] px-3 md:px-[0.75vw] bg-transparent border-none text-sm md:text-[1vw] text-white focus:outline-none"
                   />
-                  <div className="absolute pointer-events-none z-10 text-white peer-focus:text-white/50 peer-[:not(:placeholder-shown)]:text-white/50 transition-all duration-300 font-medium peer-focus:font-normal peer-[:not(:placeholder-shown)]:font-normal left-3 md:left-[0.75vw] top-1/2 -translate-y-1/2 text-sm md:text-[1vw] peer-focus:top-1.5 peer-focus:md:top-[0.4vw] peer-focus:-translate-y-0 peer-focus:text-[10px] peer-focus:md:text-[0.7vw] peer-[:not(:placeholder-shown)]:top-1.5 peer-[:not(:placeholder-shown)]:md:top-[0.4vw] peer-[:not(:placeholder-shown)]:-translate-y-0 peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:md:text-[0.7vw]">
+                  <div className="absolute pointer-events-none z-10 text-white peer-focus:text-white/50 peer-not-placeholder-shown:text-white/50 transition-all duration-300 font-medium peer-focus:font-normal peer-not-placeholder-shown:font-normal left-3 md:left-[0.75vw] top-1/2 -translate-y-1/2 text-sm md:text-[1vw] peer-focus:top-1.5 peer-focus:md:top-[0.4vw] peer-focus:translate-y-0 peer-focus:text-[10px] peer-focus:md:text-[0.7vw] peer-not-placeholder-shown:top-1.5 peer-not-placeholder-shown:md:top-[0.4vw] peer-not-placeholder-shown:translate-y-0 peer-not-placeholder-shown:text-[10px] peer-not-placeholder-shown:md:text-[0.7vw]">
                     Phone (Optional)
                   </div>
                 </div>
@@ -83,7 +83,7 @@ export default function ContactSection() {
                   className="peer absolute z-0 w-full h-[calc(100%-40px)] md:h-[calc(100%-2.5vw)] bottom-0 md:bottom-[0.3vw] px-3 md:px-[0.75vw] py-0 bg-transparent border-none text-sm md:text-[1vw] text-white focus:outline-none resize-none leading-snug md:leading-[1.2vw]"
                   required
                 ></textarea>
-                <div className="absolute pointer-events-none z-10 text-white peer-focus:text-white/50 peer-[:not(:placeholder-shown)]:text-white/50 transition-all duration-300 font-medium peer-focus:font-normal peer-[:not(:placeholder-shown)]:font-normal left-3 md:left-[0.75vw] top-4 md:top-[1.2vw] text-sm md:text-[1vw] peer-focus:top-1.5 peer-focus:md:top-[0.4vw] peer-focus:text-[10px] peer-focus:md:text-[0.7vw] peer-[:not(:placeholder-shown)]:top-1.5 peer-[:not(:placeholder-shown)]:md:top-[0.4vw] peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:md:text-[0.7vw]">
+                <div className="absolute pointer-events-none z-10 text-white peer-focus:text-white/50 peer-not-placeholder-shown:text-white/50 transition-all duration-300 font-medium peer-focus:font-normal peer-not-placeholder-shown:font-normal left-3 md:left-[0.75vw] top-4 md:top-[1.2vw] text-sm md:text-[1vw] peer-focus:top-1.5 peer-focus:md:top-[0.4vw] peer-focus:text-[10px] peer-focus:md:text-[0.7vw] peer-not-placeholder-shown:top-1.5 peer-not-placeholder-shown:md:top-[0.4vw] peer-not-placeholder-shown:text-[10px] peer-not-placeholder-shown:md:text-[0.7vw]">
                   Tell us about your project *
                 </div>
               </div>
