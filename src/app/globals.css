@@ -182,3 +182,20 @@
     @apply font-sans;
   }
 }
+@keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    /* Translate exactly half the height to seamlessly loop the two identical lists! */
+    transform: translateY(-50%);
+  }
+}
+
+.animate-marquee-vertical {
+  animation: marquee-vertical 18s linear infinite;
+}
+
+.animate-marquee-vertical:hover {
+  animation-play-state: paused;
+}

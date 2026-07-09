@@ -35,7 +35,7 @@ export default function LatestWork() {
   ];
   return (
     <div className="py-10 px-25 space-y-3 bg-black">
-      <h1 className="text-base uppercase font-medium font-neue text-section-title">
+      <h1 className="text-base uppercase font-medium font-neue text-section-title tracking-widest">
         Latest Work
       </h1>
       <div className="flex flex-col gap-12 mt-8">
