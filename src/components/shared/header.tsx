@@ -352,7 +352,7 @@ export default function Header() {
               Services
             </a>
             <a
-              href="#portfolio"
+              href="/portfolio"
               onMouseEnter={() => setIsServiceOpen(false)}
               className="px-[2vw] py-[0.5vw] text-white hover:bg-zinc-800/30 duration-200 transition rounded-[0.6vw]"
             >
