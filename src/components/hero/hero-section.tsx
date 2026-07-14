@@ -38,6 +38,7 @@ export default function HeroSection() {
               src={Rise_logo}
               alt="Rise 3D Logo"
               fill
+              sizes="(max-width: 768px) 70vw, (max-width: 1024px) 45vw, 35vw"
               className="object-contain"
               priority
             />

@@ -298,6 +298,7 @@ export default function Header() {
             src="/logo-s.png"
             alt="Service Graphic"
             fill
+            sizes="14vw"
             className="object-contain object-right-bottom"
           />
         </div>

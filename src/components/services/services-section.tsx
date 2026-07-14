@@ -331,6 +331,7 @@ export default function ServicesSection() {
               src={service.img}
               alt={service.title}
               fill
+              sizes="(max-width: 768px) 50vw, 25vw"
               className="object-cover transition-all duration-700 group-hover:scale-105 group-hover:blur-xl opacity-80 group-hover:opacity-100"
             />
             {/* Dark Vignette Overlay */}
