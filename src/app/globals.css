@@ -16,6 +16,7 @@
   --font-mono: var(--font-geist-mono);
   --font-inter: var(--font-inter);
   --font-neue: var(--font-neue-montreal);
+  --font-dmsans: "DMSans", sans-serif;
   --animate-float: float 6s ease-in-out infinite;
 
   @keyframes float {

@@ -22,80 +22,80 @@ const projects = [
   {
     id: 1,
     title: "Duo Nutrition",
-    categories: ["Branding", "Website"],
+    location: "Russia",
     image: duoNutritionImg,
   },
   {
     id: 2,
     title: "Vera",
-    categories: ["Branding", "Website"],
+    location: "Germany",
     image: veraImg,
   },
   {
     id: 3,
     title: "Freja",
-    categories: ["Strategy", "Design"],
+    location: "Sweden",
     image: frejaImg,
   },
   {
     id: 4,
     title: "Czeku",
-    categories: ["Development"],
+    location: "Japan",
     image: czekuImg,
   },
   {
     id: 5,
     title: "Touché",
-    categories: ["Design"],
+    location: "France",
     image: toucheImg,
   },
   {
     id: 6,
     title: "Everyday",
-    categories: ["Strategy"],
+    location: "United Kingdom",
     image: everydayImg,
   },
   {
     id: 7,
     title: "Mollier",
-    categories: ["Design"],
+    location: "Canada",
     image: mollierImg,
   },
   {
     id: 8,
     title: "Nymph",
-    categories: ["Design"],
+    location: "Australia",
     image: nymphImg,
   },
   {
     id: 9,
     title: "Nemo Juju",
-    categories: ["Strategy", "Design"],
+    location: "Brazil",
     image: nemoJujuImg,
   },
   {
     id: 10,
     title: "L'ORCÉ",
-    categories: ["Branding", "Development"],
+    location: "Italy",
     image: lorceImg,
     isCarousel: true,
   },
   {
     id: 11,
     title: "Indio White",
-    categories: ["Website"],
+    location: "Spain",
     image: indioImg,
   },
   {
     id: 12,
     title: "Valve Synergy",
-    categories: ["Website"],
+    location: "Netherlands",
     image: valveSynergyImg,
   },
   {
     id: 13,
     title: "Within Our Home",
-    categories: ["Branding", "Website"],
+    location: "Switzerland",
     image: withinOurHomeImg,
   },
 ];
@@ -108,16 +108,17 @@ export default function PortfolioPage() {
         {/* Intro Header Section */}
         <div className="grid grid-cols-12 gap-6 md:gap-8 items-start mb-16 md:mb-[6vw]">
           <div className="col-span-12 md:col-span-8">
-            <h1 className="text-3xl md:text-[3.6vw] font-medium font-neue leading-[1.1] tracking-tight text-black">
-              More than one hundred projects delivered.{" "}
-              <span className="text-[#a0a0a0] font-normal">
-                A selection of the work we are most proud of, across strategy,
-                design, and technology.
+            <h1 className="text-2xl md:text-[3vw] font-medium font-neue leading-[1.1] tracking-tight text-black">
+              More than one hundred projects <br />
+              delivered. A selection of the work <br />
+              <span className="opacity-20 font-medium">
+                we are most proud of, across <br />
+                strategy, design, and technology.
               </span>
             </h1>
           </div>
           <div className="col-span-12 md:col-span-4 mt-6 md:mt-2">
-            <p className="text-sm md:text-[1.15vw] text-zinc-600 font-medium leading-relaxed font-neue">
+            <p className="text-sm md:text-[1vw] font-medium leading-relaxed font-neue opacity-35">
               A curated selection of project outcomes across strategy, brand
               identity, and design development. Each work is chosen from
               projects that successfully captured the clients&apos; needs,
@@ -185,19 +186,17 @@ export default function PortfolioPage() {
               </div>
 
               {/* Project Metadata */}
-              <div className="flex justify-between items-start mt-[1.2vw] px-1 font-neue">
-                <h3 className="text-lg md:text-[1.5vw] font-medium text-black transition-colors duration-300">
+              <div className="flex justify-between items-start mt-[0.8vw] px-1 font-neue">
+                <h3 className="text-lg md:text-[2vw] -mt-4 font-medium text-black transition-colors duration-300">
                   {project.title}
                 </h3>
-                <div className="flex flex-col items-end text-right">
-                  {project.categories.map((cat, idx) => (
-                    <span
-                      key={idx}
-                      className="text-[10px] md:text-[0.75vw] text-zinc-500 uppercase tracking-widest font-medium leading-tight"
-                    >
-                      {cat}
-                    </span>
-                  ))}
+                <div className="flex flex-col items-start text-left pr-25">
+                  <span className="text-[10px] md:text-[0.95vw] font-medium leading-none opacity-35 font-neue">
+                    Location:
+                  </span>
+                  <span className="text-xs md:text-[0.9vw] font-medium text-black uppercase tracking-wider mt-1 font-neue">
+                    {project.location}
+                  </span>
                 </div>
               </div>
             </div>

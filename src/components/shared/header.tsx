@@ -336,7 +336,7 @@ export default function Header() {
             setIsServiceOpen(false);
             setHoveredIndex(null);
           }}
-          className="pointer-events-auto relative hidden md:flex w-[45vw] flex-col gap-[0.1vw] overflow-hidden rounded-[1vw] px-[1vw] py-[0.7vw] bg-[#24242480] text-white backdrop-blur-[3vw] font-inter font-semibold justify-start"
+          className="pointer-events-auto relative hidden md:flex w-[45vw] flex-col gap-[0.1vw] overflow-hidden rounded-[1vw] px-[1vw] py-[0.55vw] bg-[#24242480] text-white backdrop-blur-[3vw] font-inter font-semibold justify-start"
           style={{
             height: isServiceOpen ? "31.5vw" : "3.35vw",
             transition:
