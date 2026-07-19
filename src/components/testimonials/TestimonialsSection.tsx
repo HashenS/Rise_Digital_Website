@@ -16,8 +16,8 @@ export default function TestimonialsSection() {
     },
   ];
   return (
-    <section className="py-20 px-4 md:px-25 bg-black">
-      <div className="bg-[#0a0a0a] rounded-[1vw] p-8 md:p-12 flex flex-col md:flex-row gap-12 h-auto md:h-[85vh] overflow-hidden text-white">
+    <section className="testimonials-section py-20 px-4 md:px-25 bg-theme-light transition-colors duration-[1200ms] ease-out">
+      <div className="testimonials-inner bg-[#0a0a0a] rounded-[1vw] p-8 md:p-12 flex flex-col md:flex-row gap-12 h-auto md:h-[85vh] overflow-hidden text-white transition-all duration-[1200ms] ease-out">
         <div className="w-full md:w-1/2 flex flex-col justify-between">
           <div className="flex flex-col gap-8">
             <div>
@@ -29,7 +29,7 @@ export default function TestimonialsSection() {
             {/* Middle: Large Heading */}
             <div className="mt-12 md:mt-0">
               <h2 className="text-5xl md:text-[3.2vw] leading-[0.9] font-neue font-medium tracking-tight">
-                <span className="text-white block">What our clients say</span>
+                <span className="testimonials-title text-black block transition-colors duration-[1200ms] ease-out">What our clients say</span>
                 <span className="opacity-20 block">about working with</span>
                 <span className="opacity-20 block">us.</span>
               </h2>
@@ -100,15 +100,15 @@ export default function TestimonialsSection() {
               {[...reviews, ...reviews].map((review, index) => (
                 <div
                   key={`first-${index}`}
-                  className="bg-black p-6 md:p-8 rounded-[1vw] flex flex-col gap-10"
+                  className="testimonial-card p-6 md:p-8 rounded-[1vw] flex flex-col gap-10 transition-all duration-[1200ms] ease-out"
                 >
-                  <p className="text-zinc-300 text-base md:text-[0.9vw] font-neue leading-relaxed text-center">
+                  <p className="text-zinc-500 text-base md:text-[0.9vw] font-neue leading-relaxed text-center transition-colors duration-[1200ms] ease-out">
                     {review.quote}
                   </p>
                   <div className="flex items-center justify-center gap-4">
                     <div className="w-12 h-12 rounded-full bg-zinc-800 shrink-0"></div>
                     <div className="flex flex-col text-left">
-                      <span className="text-white font-medium font-neue uppercase tracking-wide">
+                      <span className="testimonial-name text-black font-medium font-neue uppercase tracking-wide transition-colors duration-[1200ms] ease-out">
                         {review.name}
                       </span>
                       <span className="text-zinc-500 text-sm font-neue">
@@ -125,15 +125,15 @@ export default function TestimonialsSection() {
               {[...reviews, ...reviews].map((review, index) => (
                 <div
                   key={`second-${index}`}
-                  className="bg-black p-6 md:p-8 rounded-[1vw] flex flex-col gap-10"
+                  className="testimonial-card p-6 md:p-8 rounded-[1vw] flex flex-col gap-10 transition-all duration-[1200ms] ease-out"
                 >
-                  <p className="text-zinc-300 text-base md:text-[0.9vw] font-neue leading-relaxed text-center">
+                  <p className="text-zinc-500 text-base md:text-[0.9vw] font-neue leading-relaxed text-center transition-colors duration-[1200ms] ease-out">
                     {review.quote}
                   </p>
                   <div className="flex items-center justify-center gap-4">
                     <div className="w-12 h-12 rounded-full bg-zinc-800 shrink-0"></div>
                     <div className="flex flex-col text-left">
-                      <span className="text-white font-medium font-neue uppercase tracking-wide">
+                      <span className="testimonial-name text-black font-medium font-neue uppercase tracking-wide transition-colors duration-[1200ms] ease-out">
                         {review.name}
                       </span>
                       <span className="text-zinc-500 text-sm font-neue">

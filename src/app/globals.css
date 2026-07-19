@@ -8,7 +8,7 @@
   --color-theme-dark: var(--theme-bg-dark);
   --color-theme-light: var(--theme-bg-light);
   --color-theme-text-dark: var(--theme-text-dark);
-  
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-section-title: var(--section-title);
@@ -108,7 +108,7 @@
   --theme-bg-dark: #000000;
   --theme-bg-light: #ebebeb;
   --theme-text-dark: #0c0c0c;
-  
+
   --background: #ebebeb;
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -185,7 +185,154 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors duration-[1200ms] ease-out;
+  }
+  body.bg-black-active {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    --theme-bg-light: #000000 !important;
+    --background: #000000 !important;
+    --foreground: #ffffff !important;
+    --section-title: rgba(255, 255, 255, 0.4) !important;
+  }
+  body.bg-black-active .bg-theme-light {
+    background-color: #000000 !important;
+  }
+  body.bg-black-active .text-black {
+    color: #ffffff !important;
+  }
+  body.bg-black-active .text-section-title {
+    color: rgba(255, 255, 255, 0.4) !important;
+  }
+  body.bg-black-active .text-zinc-300\/60 {
+    color: rgba(255, 255, 255, 0.2) !important;
+  }
+
+  body.bg-black-active .latest-work {
+    background-color: #000000 !important;
+  }
+  body.bg-black-active .latest-work-card {
+    background: linear-gradient(
+      96deg,
+      rgb(15, 15, 15) 2.75%,
+      rgb(9, 9, 9) 98.47%
+    ) !important;
+    box-shadow: none;
+  }
+  body.bg-black-active .latest-work-title,
+  body.bg-black-active .latest-work-value {
+    color: #ffffff !important;
+  }
+  body.bg-black-active .testimonials-section {
+    background-color: #000000 !important;
+  }
+  body.bg-black-active .testimonials-inner {
+    background-color: #0a0a0a !important;
+    color: #ffffff !important;
+    box-shadow: none;
+  }
+  body.bg-black-active .testimonials-title {
+    color: #ffffff !important;
+  }
+  body.bg-black-active .testimonial-card {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+  }
+  body.bg-black-active .testimonial-name {
+    color: #ffffff !important;
+  }
+  body.bg-black-active .latest-news-section {
+    background-color: #000000 !important;
+  }
+  body.bg-black-active .latest-news-card-1 {
+    background-color: rgba(93, 93, 93, 0.2) !important;
+    border-color: transparent !important;
+  }
+  body.bg-black-active .latest-news-card-2 {
+    background-color: rgba(93, 93, 93, 0.3) !important;
+    border-color: rgba(255, 255, 255, 0.05) !important;
+  }
+  body.bg-black-active .latest-news-title {
+    color: #ffffff !important;
+  }
+  body.bg-black-active .news-btn {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  /* Smooth transitions for global theme classes */
+  .bg-theme-light {
+    transition:
+      background-color 1200ms ease-out,
+      color 1200ms ease-out !important;
+  }
+  .text-black {
+    transition: color 1200ms ease-out !important;
+  }
+  .text-section-title {
+    transition: color 1200ms ease-out !important;
+  }
+  .text-zinc-300\/60 {
+    transition: color 1200ms ease-out !important;
+  }
+
+  .latest-work,
+  .latest-work-card,
+  .latest-work-title,
+  .latest-work-value,
+  .testimonials-section,
+  .testimonials-inner,
+  .testimonials-title,
+  .testimonial-card,
+  .testimonial-name,
+  .latest-news-section,
+  .latest-news-card-1,
+  .latest-news-card-2,
+  .latest-news-title,
+  .news-btn {
+    transition:
+      background-color 1200ms ease-out,
+      color 1200ms ease-out,
+      border-color 1200ms ease-out,
+      box-shadow 1200ms ease-out !important;
+  }
+
+  /* Light mode defaults for overridden layout blocks */
+  .latest-work-card {
+    background: linear-gradient(
+      96deg,
+      #ffffff 2.75%,
+      #f5f5f5 98.47%
+    ) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  }
+  .latest-work-title,
+  .latest-work-value,
+  .testimonials-title,
+  .testimonial-name,
+  .latest-news-title {
+    color: #000000 !important;
+  }
+  .testimonials-inner {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  }
+  .testimonial-card {
+    background-color: #f9f9f9 !important;
+    color: #000000 !important;
+  }
+  .latest-news-card-1 {
+    background-color: rgba(0, 0, 0, 0.03) !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  }
+  .latest-news-card-2 {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  }
+  .news-btn {
+    background-color: #000000 !important;
+    color: #ffffff !important;
   }
   html {
     @apply font-sans;
@@ -242,4 +389,136 @@
   background: linear-gradient(#c4c4c4, #e7e7e7 119.29%);
   -webkit-background-clip: text;
   background-clip: text;
+}
+
+/* Insights & Portfolio Global Transition Classes */
+.insights-wrapper,
+.portfolio-wrapper {
+  background-color: #ebebeb;
+  color: #000000;
+  transition:
+    background-color 2500ms ease-in-out,
+    color 2500ms ease-in-out !important;
+}
+body.bg-black-active .insights-wrapper,
+body.bg-black-active .portfolio-wrapper {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.insights-title,
+.portfolio-title {
+  color: #000000;
+  transition: color 2500ms ease-in-out !important;
+}
+body.bg-black-active .insights-title,
+body.bg-black-active .portfolio-title {
+  color: #ffffff;
+}
+
+.portfolio-title-fade {
+  opacity: 0.2;
+  transition: opacity 2500ms ease-in-out !important;
+}
+body.bg-black-active .portfolio-title-fade {
+  opacity: 0.4;
+}
+
+.portfolio-desc {
+  color: rgba(0, 0, 0, 0.35);
+  transition: color 2500ms ease-in-out !important;
+}
+body.bg-black-active .portfolio-desc {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.insights-filter-btn {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #000000;
+  transition:
+    background-color 2500ms ease-in-out,
+    color 2500ms ease-in-out,
+    opacity 2500ms ease-in-out !important;
+}
+.insights-filter-btn:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.insights-filter-btn.active {
+  background-color: #000000;
+  color: #ffffff;
+}
+body.bg-black-active .insights-filter-btn {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+body.bg-black-active .insights-filter-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+body.bg-black-active .insights-filter-btn.active {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.insights-card-inner {
+  background-color: #e7e7e7;
+  transition: background-color 2500ms ease-in-out !important;
+}
+body.bg-black-active .insights-card-inner {
+  background-color: #18181b;
+}
+
+.insights-card-title,
+.portfolio-project-title {
+  color: #000000;
+  transition: color 2500ms ease-in-out !important;
+}
+body.bg-black-active .insights-card-title,
+body.bg-black-active .portfolio-project-title {
+  color: #ffffff;
+}
+
+.portfolio-project-loc-label {
+  color: rgba(0, 0, 0, 0.35);
+  transition: color 2500ms ease-in-out !important;
+}
+body.bg-black-active .portfolio-project-loc-label {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.portfolio-project-loc-val {
+  color: #000000;
+  transition: color 2500ms ease-in-out !important;
+}
+body.bg-black-active .portfolio-project-loc-val {
+  color: #ffffff;
+}
+
+.insights-bottom-wrapper,
+.portfolio-bottom-wrapper {
+  background-color: #ebebeb;
+  transition: background-color 2500ms ease-in-out !important;
+}
+body.bg-black-active .insights-bottom-wrapper,
+body.bg-black-active .portfolio-bottom-wrapper {
+  background-color: #000000;
+}
+
+.insights-bottom-title,
+.portfolio-bottom-title {
+  color: #000000;
+  transition: color 2500ms ease-in-out !important;
+}
+body.bg-black-active .insights-bottom-title,
+body.bg-black-active .portfolio-bottom-title {
+  color: #ffffff;
+}
+
+.insights-bottom-para,
+.portfolio-bottom-para {
+  color: rgba(0, 0, 0, 0.5);
+  transition: color 1500ms ease-out !important;
+}
+body.bg-black-active .insights-bottom-para,
+body.bg-black-active .portfolio-bottom-para {
+  color: rgba(255, 255, 255, 0.5);
 }

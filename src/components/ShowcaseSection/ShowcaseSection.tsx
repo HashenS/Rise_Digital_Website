@@ -27,6 +27,30 @@ export default function ShowcaseSection() {
     offset: ["start start", "end end"],
   });
 
+  const [isBlack, setIsBlack] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.on("change", (latest) => {
+      if (latest >= 0.15) {
+        setIsBlack(true);
+      } else {
+        setIsBlack(false);
+      }
+    });
+    return () => unsubscribe();
+  }, [scrollYProgress]);
+
+  useEffect(() => {
+    if (isBlack) {
+      document.body.classList.add("bg-black-active");
+    } else {
+      document.body.classList.remove("bg-black-active");
+    }
+    return () => {
+      document.body.classList.remove("bg-black-active");
+    };
+  }, [isBlack]);
+
   // Scale the box container dimensions as we scroll
   const width = useTransform(scrollYProgress, [0.1, 0.6], ["40vw", "90vw"]);
   const height = useTransform(scrollYProgress, [0.1, 0.6], ["62vw", "90vh"]);
@@ -37,19 +61,18 @@ export default function ShowcaseSection() {
     ["24px", "16px"],
   );
 
-  // Fade the surrounding page background from white/grey to black after hitting full size
-  const backgroundColor = useTransform(
-    scrollYProgress,
-    [0.1, 0.3],
-    ["#ebebeb", "#000000"], 
-  );
-
   return (
-    <div className="relative h-[250vh] w-full" ref={containerRef}>
+    <div
+      className={`relative h-[250vh] w-full transition-colors duration-1200 ease-out ${
+        isBlack ? "bg-black" : "bg-[#ebebeb]"
+      }`}
+      ref={containerRef}
+    >
       {/* Sticky page wrapper (fades background to black) */}
-      <motion.div
-        style={{ backgroundColor }}
-        className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden"
+      <div
+        className={`sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden transition-colors duration-1200 ease-out ${
+          isBlack ? "bg-black" : "bg-[#ebebeb]"
+        }`}
       >
         {/* Scaling card container */}
         <motion.div
@@ -75,7 +98,7 @@ export default function ShowcaseSection() {
             </div>
           ))}
         </motion.div>
-      </motion.div>
+      </div>
     </div>
   );
 }

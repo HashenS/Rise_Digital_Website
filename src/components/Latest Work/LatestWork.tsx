@@ -34,7 +34,7 @@ export default function LatestWork() {
     },
   ];
   return (
-    <div className="py-10 px-25 space-y-3 bg-black">
+    <div className="latest-work py-10 px-25 space-y-3 bg-theme-light transition-colors duration-[1200ms] ease-out">
       <h1 className="text-base uppercase font-medium font-neue text-section-title tracking-widest">
         Latest Work
       </h1>
@@ -42,11 +42,7 @@ export default function LatestWork() {
         {projects.map((project) => (
           <div
             key={project.id}
-            className="rounded-[1.5vw] flex flex-col md:flex-row p-4 min-h-[60vh] gap-8"
-            style={{
-              background:
-                "linear-gradient(96deg, rgb(15, 15, 15) 2.75%, rgb(9, 9, 9) 98.47%)",
-            }}
+            className="latest-work-card rounded-[1.5vw] flex flex-col md:flex-row p-4 min-h-[60vh] gap-8 transition-all duration-[1200ms] ease-out"
           >
             {/* Left Side: Image Area */}
             <div className="w-full md:w-1/2 rounded-xl bg-zinc-600 relative min-h-[40vh] overflow-hidden">
@@ -62,7 +58,7 @@ export default function LatestWork() {
             {/* Right Side: Text Content */}
             <div className="w-full md:w-1/2 md:py-6 py-4 pr-4 flex flex-col justify-between">
               <div className="flex flex-col gap-6">
-                <h2 className="text-white font-neue font-medium text-4xl md:text-6xl">
+                <h2 className="latest-work-title font-neue font-medium text-4xl md:text-6xl text-black transition-colors duration-[1200ms] ease-out">
                   {project.title}
                 </h2>
                 <p className="text-[#707070] font-medium font-neue text-xl leading-relaxed">
@@ -74,7 +70,7 @@ export default function LatestWork() {
                   <span className="text-[#707070] font-medium text-base font-neue">
                     Location
                   </span>
-                  <span className="text-white text-base font-medium uppercase font-neue">
+                  <span className="latest-work-value text-black text-base font-medium uppercase font-neue transition-colors duration-[1200ms] ease-out">
                     {project.location}
                   </span>
                 </div>
@@ -82,7 +78,7 @@ export default function LatestWork() {
                   <span className="text-[#707070] font-medium text-base font-neue">
                     Industry
                   </span>
-                  <span className="text-white text-base font-medium uppercase font-neue">
+                  <span className="latest-work-value text-black text-base font-medium uppercase font-neue transition-colors duration-[1200ms] ease-out">
                     {project.industry}
                   </span>
                 </div>
@@ -92,7 +88,7 @@ export default function LatestWork() {
         ))}
       </div>
       <div className="w-full flex justify-center mt-12">
-        <button className="text-black bg-zinc-300 font-neue px-6 py-4  text-xl font-medium rounded-xl cursor-pointer hover:bg-white transition-all duration-300 hover:scale-105">
+        <button className="news-btn bg-black text-white font-neue px-6 py-4 text-xl font-medium rounded-xl cursor-pointer hover:bg-zinc-800 transition-all duration-300 hover:scale-105">
           View full portfolio
         </button>
       </div>

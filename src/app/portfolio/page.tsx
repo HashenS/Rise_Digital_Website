@@ -2,6 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import ContactSection from "@/components/contact/ContactSection";
+import { motion, useMotionValue, animate } from "motion/react";
 
 // Import all project images
 import duoNutritionImg from "@/assets/project_duo_nutrition.png";
@@ -101,24 +102,89 @@ const projects = [
 ];
 
 export default function PortfolioPage() {
+  const textRef = React.useRef<HTMLHeadingElement>(null);
+  
+  // Use Framer Motion values for smooth, reliable color interpolation in both directions
+  const bgColor = useMotionValue("#ebebeb");
+  const textColor = useMotionValue("#000000");
+  
+  // Track current state for text classes
+  const [isBlack, setIsBlack] = React.useState(false);
+  const isBlackRef = React.useRef(false);
+
+  const animateTo = React.useCallback((black: boolean) => {
+    if (isBlackRef.current === black) return; // already in this state, skip
+    isBlackRef.current = black;
+    setIsBlack(black);
+    animate(bgColor, black ? "#000000" : "#ebebeb", { duration: 0.5, ease: "easeInOut" });
+    animate(textColor, black ? "#ffffff" : "#000000", { duration: 0.5, ease: "easeInOut" });
+    
+    if (black) {
+      document.body.classList.add("bg-black-active");
+    } else {
+      // Delay body class removal to match animation duration
+      setTimeout(() => document.body.classList.remove("bg-black-active"), 500);
+    }
+  }, [bgColor, textColor]);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY < 50) {
+        animateTo(false);
+        return;
+      }
+
+      if (!textRef.current) return;
+      const rect = textRef.current.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const textCenter = rect.top + rect.height / 2;
+      const viewportCenter = viewportHeight / 2;
+      const isAtBottom =
+        (window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 150) && window.scrollY > 50;
+
+      if (textCenter <= viewportCenter || isAtBottom) {
+        animateTo(true);
+      } else {
+        animateTo(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      document.body.classList.remove("bg-black-active");
+    };
+  }, [animateTo]);
+
   return (
-    <div className="w-full bg-theme-light text-black transition-colors duration-300">
+    <motion.div
+      className="w-full"
+      style={{ backgroundColor: bgColor, color: textColor }}
+    >
       {/* Light Background Section: Heading & Projects Grid */}
       <div className="pt-28 md:pt-[10vw] pb-24 md:pb-[8vw] px-6 md:px-[5vw]">
         {/* Intro Header Section */}
         <div className="grid grid-cols-12 gap-6 md:gap-8 items-start mb-16 md:mb-[6vw]">
           <div className="col-span-12 md:col-span-8">
-            <h1 className="text-2xl md:text-[3vw] font-medium font-neue leading-[1.1] tracking-tight text-black">
+            <h1
+              className={`text-2xl md:text-[3vw] font-medium font-neue leading-[1.1] tracking-tight transition-colors duration-[2500ms] ease-in-out ${isBlack ? "text-white" : "text-black"}`}
+            >
               More than one hundred projects <br />
               delivered. A selection of the work <br />
-              <span className="opacity-20 font-medium">
+              <span
+                className={`font-medium transition-opacity duration-[1500ms] ${isBlack ? "opacity-40" : "opacity-20"}`}
+              >
                 we are most proud of, across <br />
                 strategy, design, and technology.
               </span>
             </h1>
           </div>
           <div className="col-span-12 md:col-span-4 mt-6 md:mt-2">
-            <p className="text-sm md:text-[1vw] font-medium leading-relaxed font-neue opacity-35">
+            <p
+              className={`text-sm md:text-[1vw] font-medium leading-relaxed font-neue transition-colors duration-[2500ms] ease-in-out ${isBlack ? "text-white/50" : "text-black/35"}`}
+            >
               A curated selection of project outcomes across strategy, brand
               identity, and design development. Each work is chosen from
               projects that successfully captured the clients&apos; needs,
@@ -187,14 +253,20 @@ export default function PortfolioPage() {
 
               {/* Project Metadata */}
               <div className="flex justify-between items-start mt-[0.8vw] px-1 font-neue">
-                <h3 className="text-lg md:text-[2vw] -mt-4 font-medium text-black transition-colors duration-300">
+                <h3
+                  className={`text-lg md:text-[2vw] -mt-4 font-medium transition-colors duration-[2500ms] ease-in-out ${isBlack ? "text-white" : "text-black"}`}
+                >
                   {project.title}
                 </h3>
                 <div className="flex flex-col items-start text-left pr-25">
-                  <span className="text-[10px] md:text-[0.95vw] font-medium leading-none opacity-35 font-neue">
+                  <span
+                    className={`text-[10px] md:text-[0.95vw] font-medium leading-none font-neue transition-colors duration-[2500ms] ease-in-out ${isBlack ? "text-white/40" : "text-black/35"}`}
+                  >
                     Location:
                   </span>
-                  <span className="text-xs md:text-[0.9vw] font-medium text-black uppercase tracking-wider mt-1 font-neue">
+                  <span
+                    className={`text-xs md:text-[0.9vw] font-medium uppercase tracking-wider mt-1 font-neue transition-colors duration-[2500ms] ease-in-out ${isBlack ? "text-white" : "text-black"}`}
+                  >
                     {project.location}
                   </span>
                 </div>
@@ -205,13 +277,22 @@ export default function PortfolioPage() {
       </div>
 
       {/* Dark Background Section: Call to action & Contact Form */}
-      <div className="bg-black text-white pt-24 md:pt-[8vw] pb-[2vw] transition-colors duration-300">
+      <div className="pt-24 md:pt-[8vw] pb-[2vw]">
         {/* Pitch / Headline Section */}
         <div className="flex flex-col items-center justify-center text-center px-6 mb-8 md:mb-12">
-          <h2 className="text-3xl md:text-[3.8vw] md:leading-[1.1] font-medium font-neue max-w-[80vw] md:max-w-[50vw] mb-4 md:mb-6 tracking-tight text-white">
+          <h2
+            ref={textRef}
+            className={`text-3xl md:text-[3.8vw] md:leading-[1.1] font-medium font-neue max-w-[80vw] md:max-w-[50vw] mb-4 md:mb-6 tracking-tight transition-colors duration-[2500ms] ease-in-out ${
+              isBlack ? "text-white" : "text-black"
+            }`}
+          >
             Crafting Thoughtful Brands and Digital Products
           </h2>
-          <p className="text-zinc-500 text-sm md:text-[1vw] max-w-[90vw] md:max-w-[32vw] leading-relaxed font-neue">
+          <p
+            className={`text-sm md:text-[1vw] max-w-[90vw] md:max-w-[32vw] leading-relaxed font-neue transition-colors duration-[2500ms] ease-in-out ${
+              isBlack ? "text-white/50" : "text-black/50"
+            }`}
+          >
             Rise is a design and technology studio. We create digital products
             that are intuitive, beautiful, and built to perform.
           </p>
@@ -220,6 +301,6 @@ export default function PortfolioPage() {
         {/* Reusing existing Contact Form Component */}
         <ContactSection />
       </div>
-    </div>
+    </motion.div>
   );
 }
