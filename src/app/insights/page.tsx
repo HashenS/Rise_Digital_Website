@@ -29,6 +29,36 @@ const insightsData = [
 
 export default function InsightsPage() {
   const [activeFilter, setActiveFilter] = useState("All");
+  const [isBlack, setIsBlack] = useState(false);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const textRef = React.useRef<HTMLHeadingElement>(null);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      if (!textRef.current) return;
+      const rect = textRef.current.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      
+      // Calculate the center point of the text element
+      const textCenter = rect.top + rect.height / 2;
+      // Center of the screen viewport
+      const viewportCenter = viewportHeight / 2;
+      
+      // Trigger transition to black when the text center reaches or passes the screen center
+      if (textCenter <= viewportCenter) {
+        setIsBlack(true);
+      } else {
+        setIsBlack(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const filteredInsights =
     activeFilter === "All"
@@ -36,14 +66,18 @@ export default function InsightsPage() {
       : insightsData.filter((item) => item.category === activeFilter);
 
   return (
-    <div className="w-full bg-[#ebebeb] text-black transition-colors duration-300">
+    <div className={`w-full transition-colors duration-1000 ease-out ${
+      isBlack ? "bg-black text-white" : "bg-[#ebebeb] text-black"
+    }`}>
       {/* Top Header & Tagline Section */}
       <div className="pt-30 md:pt-[11vw] pb-12 px-5 md:px-[5vw] ">
         <div className="flex flex-col gap-10 md:flex-row font-neue">
           {/* Left Column: Heading */}
           <div className="md:w-1/2">
             <h1 
-              className="mst text-3xl md:text-[3vw] font-neue tracking-tight text-black"
+              className={`mst text-3xl md:text-[3vw] font-neue tracking-normal transition-colors duration-1000 ease-out ${
+                isBlack ? "text-white" : "text-black"
+              }`}
               style={{ "--mst-leading-desktop": "-1vw", "--mst-leading-mobile": "-2vw" } as React.CSSProperties}
             >
               <span className="mst__lines block">
@@ -119,25 +153,25 @@ export default function InsightsPage() {
       </div>
 
       {/* Filter and Grid Content Section */}
-      <section className="flex min-h-[50vw] flex-col gap-[1vw] px-5 mt-15 md:px-[5vw] md:pt-[5vw] pb-24 md:pb-[8vw]">
+      <section className="flex flex-col gap-[1vw] px-5 mt-15 md:px-[5vw] md:pt-[3vw] pb-12 md:pb-[5vw]">
         {/* Category Filters */}
         <div className="flex gap-2 md:gap-[0.5vw] font-neue">
           <button
             onClick={() => setActiveFilter("All")}
-            className={`cursor-pointer rounded-lg md:rounded-[0.5vw] px-4 py-1 md:px-[0.75vw] md:py-[0.35vw] text-md md:text-[1vw] transition-colors ${
+            className={`cursor-pointer rounded-lg md:rounded-[0.5vw] px-4 py-1 md:px-[0.75vw] md:py-[0.35vw] text-md md:text-[1vw] transition-all duration-1000 ease-out ${
               activeFilter === "All"
-                ? "bg-black text-white"
-                : "bg-black/10 text-black hover:bg-black/20"
+                ? isBlack ? "bg-white text-black" : "bg-black text-white"
+                : isBlack ? "bg-white/10 text-white hover:bg-white/20" : "bg-black/10 text-black hover:bg-black/20"
             }`}
           >
             All
           </button>
           <button
             onClick={() => setActiveFilter("Design")}
-            className={`cursor-pointer rounded-lg md:rounded-[0.5vw] px-4 py-1 md:px-[0.75vw] md:py-[0.35vw] text-md md:text-[1vw] transition-colors font-medium ${
+            className={`cursor-pointer rounded-lg md:rounded-[0.5vw] px-4 py-1 md:px-[0.75vw] md:py-[0.35vw] text-md md:text-[1vw] transition-all duration-1000 ease-out font-medium ${
               activeFilter === "Design"
-                ? "bg-black text-white"
-                : "bg-black/10 text-black hover:bg-black/20"
+                ? isBlack ? "bg-white text-black" : "bg-black text-white"
+                : isBlack ? "bg-white/10 text-white hover:bg-white/20" : "bg-black/10 text-black hover:bg-black/20"
             }`}
           >
             Design
@@ -150,9 +184,11 @@ export default function InsightsPage() {
             <Link 
               key={insight.id} 
               href={`/insights/${insight.slug}`} 
-              className="group block aspect-[9/10] flex flex-col"
+              className="group block aspect-[3/4] flex flex-col"
             >
-              <div className="relative w-full flex-1 rounded-lg md:rounded-[0.5vw] overflow-hidden bg-[#E7E7E7]">
+              <div className={`relative w-full flex-1 rounded-lg md:rounded-[0.5vw] overflow-hidden transition-colors duration-1000 ease-out ${
+                isBlack ? "bg-zinc-900" : "bg-[#E7E7E7]"
+              }`}>
                 {/* Badges overlay top left */}
                 <div className="absolute top-2 left-2 md:top-[1vw] md:left-[1vw] flex gap-[0.5vw] z-10">
                   {insight.category && (
@@ -178,7 +214,9 @@ export default function InsightsPage() {
 
               {/* Title below card */}
               <div className="mt-2 md:mt-[0.5vw]">
-                <h5 className="font-neue font-medium leading-5 text-lg px-1 md:px-0 md:text-[1.3vw] text-black  ">
+                <h5 className={`font-neue font-medium leading-5 text-lg px-1 md:px-0 md:text-[1.3vw] transition-colors duration-1000 ease-out ${
+                  isBlack ? "text-white" : "text-black"
+                }`}>
                   {insight.title}
                 </h5>
               </div>
@@ -190,48 +228,58 @@ export default function InsightsPage() {
       
 
       {/* Dark Background Section: Call to action & Contact Form */}
-      <div className="bg-black text-white pt-24 md:pt-[8vw] pb-[2vw] transition-colors duration-300">
+      <div 
+        ref={containerRef}
+        className={`transition-colors duration-1000 ease-out pt-24 md:pt-[8vw] pb-[2vw] ${
+          isBlack ? "bg-black" : "bg-[#ebebeb]"
+        }`}
+      >
         {/* Middle Tagline Section */}
-      <div className="flex flex-col items-center h-120 md:h-[40vw] justify-center mt-12 md:mt-0">
-        <section className="flex w-full px-3 md:px-0 md:w-4/5 h-full flex-col items-center justify-center gap-5 md:gap-[2vw]">
-          <h3 
-            className="mst text-3xl md:text-[3vw] text-center md:w-3/4 font-neue text-white"
-            style={{ "--mst-leading-desktop": "-0.7vw", "--mst-leading-mobile": "-2vw" } as React.CSSProperties}
-          >
-            <span className="mst__lines block">
-              <span className="mst__mask block" style={{ marginBottom: "var(--mst-leading)", paddingBottom: "0.12em", overflow: "visible" }}>
-                <span className="mst__inner block" style={{ transition: "transform 1000ms cubic-bezier(0.76, 0, 0.24, 1)", transform: "translateY(0px)", animationDelay: "0s" }}>
-                  <span>Crafting Thoughtful Brands and Digital </span>
-                </span>
-              </span>
-              <span className="mst__mask block" style={{ marginBottom: "var(--mst-leading)", paddingBottom: "0.12em", overflow: "visible" }}>
-                <span className="mst__inner block" style={{ transition: "transform 1000ms cubic-bezier(0.76, 0, 0.24, 1)", transform: "translateY(0px)", animationDelay: "0.15s" }}>
-                  <span>Products</span>
-                </span>
-              </span>
-            </span>
-          </h3>
-          <div className="px-10 md:w-2/3">
-            <p 
-              className="mst opacity-50 text-md md:text-[1vw] text-center leading-relaxed font-neue font-medium text-white"
-              style={{ "--mst-leading-desktop": "-0.5vw", "--mst-leading-mobile": "-1vw" } as React.CSSProperties}
+        <div className="flex flex-col items-center h-120 md:h-[40vw] justify-center mt-12 md:mt-0">
+          <section className="flex w-full px-3 md:px-0 md:w-4/5 h-full flex-col items-center justify-center gap-5 md:gap-[2vw]">
+            <h3 
+              ref={textRef}
+              className={`mst text-3xl md:text-[3vw] text-center md:w-3/4 font-neue transition-colors duration-1000 ease-out ${
+                isBlack ? "text-white" : "text-black"
+              }`}
+              style={{ "--mst-leading-desktop": "-0.7vw", "--mst-leading-mobile": "-2vw" } as React.CSSProperties}
             >
               <span className="mst__lines block">
                 <span className="mst__mask block" style={{ marginBottom: "var(--mst-leading)", paddingBottom: "0.12em", overflow: "visible" }}>
-                  <span className="mst__inner block" style={{ transition: "transform 1000ms cubic-bezier(0.76, 0, 0.24, 1)", transform: "translateY(0px)", animationDelay: "0.2s" }}>
-                    <span>Lesse is a design and technology studio. We create digital products and identities defined by strategy, </span>
+                  <span className="mst__inner block" style={{ transition: "transform 1000ms cubic-bezier(0.76, 0, 0.24, 1)", transform: "translateY(0px)", animationDelay: "0s" }}>
+                    <span>Crafting Thoughtful Brands and Digital </span>
                   </span>
                 </span>
                 <span className="mst__mask block" style={{ marginBottom: "var(--mst-leading)", paddingBottom: "0.12em", overflow: "visible" }}>
-                  <span className="mst__inner block" style={{ transition: "transform 1000ms cubic-bezier(0.76, 0, 0.24, 1)", transform: "translateY(0px)", animationDelay: "0.35s" }}>
-                    <span>precision, and vision.</span>
+                  <span className="mst__inner block" style={{ transition: "transform 1000ms cubic-bezier(0.76, 0, 0.24, 1)", transform: "translateY(0px)", animationDelay: "0.15s" }}>
+                    <span>Products</span>
                   </span>
                 </span>
               </span>
-            </p>
-          </div>
-        </section>
-      </div>
+            </h3>
+            <div className="px-10 md:w-2/3">
+              <p 
+                className={`mst text-md md:text-[1vw] text-center leading-relaxed font-neue font-medium transition-colors duration-1000 ease-out ${
+                  isBlack ? "text-white/50" : "text-black/50"
+                }`}
+                style={{ "--mst-leading-desktop": "-0.5vw", "--mst-leading-mobile": "-1vw" } as React.CSSProperties}
+              >
+                <span className="mst__lines block">
+                  <span className="mst__mask block" style={{ marginBottom: "var(--mst-leading)", paddingBottom: "0.12em", overflow: "visible" }}>
+                    <span className="mst__inner block" style={{ transition: "transform 1000ms cubic-bezier(0.76, 0, 0.24, 1)", transform: "translateY(0px)", animationDelay: "0.2s" }}>
+                      <span>Lesse is a design and technology studio. We create digital products and identities defined by strategy, </span>
+                    </span>
+                  </span>
+                  <span className="mst__mask block" style={{ marginBottom: "var(--mst-leading)", paddingBottom: "0.12em", overflow: "visible" }}>
+                    <span className="mst__inner block" style={{ transition: "transform 1000ms cubic-bezier(0.76, 0, 0.24, 1)", transform: "translateY(0px)", animationDelay: "0.35s" }}>
+                      <span>precision, and vision.</span>
+                    </span>
+                  </span>
+                </span>
+              </p>
+            </div>
+          </section>
+        </div>
         <ContactSection />
       </div>
     </div>
