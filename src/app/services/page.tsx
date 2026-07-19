@@ -183,8 +183,8 @@ function ServiceRow({
     <div className="mb-[1.5vw] last:mb-0">
       {/* Service title header */}
       <div className="group flex items-center gap-3 mb-[0.6vw]">
-        <DotGridIcon className="w-[1.4vw] min-w-[18px] shrink-0 text-zinc-300 group-hover:text-black transition-colors duration-500" />
-        <span className="font-neue text-base md:text-[1.05vw] font-medium text-black/60 group-hover:text-black transition-colors duration-300">
+        <DotGridIcon className="w-[3.2vw] min-w-[18px] shrink-0 text-black/20 group-hover:text-black transition-colors duration-500" />
+        <span className="font-neue text-base md:text-[2vw] font-medium text-black group-hover:text-black transition-colors duration-300">
           {service.title}
         </span>
       </div>
@@ -194,16 +194,16 @@ function ServiceRow({
         {service.subServices.map((sub, i) => (
           <div
             key={i}
-            className="group/row flex items-center justify-between px-4 py-[0.7vw] rounded-lg cursor-pointer hover:bg-black transition-all duration-200 border-t border-zinc-100 first:border-0"
+            className="group/row flex items-center justify-between px-4 py-[0.7vw] rounded-lg cursor-pointer hover:bg-black transition-all duration-200 border-t border-zinc-100 first:border-0 font-medium"
           >
-            <span className="font-neue text-sm md:text-[0.9vw] text-zinc-800 group-hover/row:text-white transition-colors duration-200">
+            <span className="font-neue text-sm md:text-[1vw] text-zinc-800 group-hover/row:text-white transition-colors duration-200 tracking-[0.02vw]">
               {sub}
             </span>
             {/* Dotted chevron › icon */}
             <svg
               viewBox="0 0 8 14"
               fill="none"
-              className="w-2.5 h-3.5 shrink-0 text-zinc-400 group-hover/row:text-white transition-colors duration-200"
+              className="w-2.5 h-3.5 shrink-0 text-black/40 group-hover/row:text-white transition-colors duration-200"
             >
               <circle cx="2" cy="2" r="1.3" fill="currentColor" />
               <circle cx="6" cy="7" r="1.3" fill="currentColor" />
@@ -248,7 +248,7 @@ function CategorySection({
               >
                 {category.label}
               </h2>
-              <span className="mb-[0.6vw] inline-flex items-center justify-center w-6 h-6 rounded-full border border-zinc-200 text-zinc-400 font-neue text-[10px] font-medium shrink-0">
+              <span className="mb-[2vw] inline-flex items-center justify-center w-7 h-7 rounded-md border border-zinc-200 text-black/50 font-neue text-[14px] font-medium shrink-0 bg-black/15">
                 {category.serviceCount}
               </span>
             </div>
