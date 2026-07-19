@@ -1,5 +1,6 @@
 "use client";
 import React, { useRef, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 const FooterList = ({ title, items }: { title: string; items: string[] }) => (
   <div className="flex flex-col">
@@ -25,6 +26,8 @@ const FooterList = ({ title, items }: { title: string; items: string[] }) => (
 );
 
 export default function Footer() {
+  const pathname = usePathname();
+  if (pathname === "/contact") return null;
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLHeadingElement>(null);
   const targetMousePos = useRef({ x: 0, y: 0 });

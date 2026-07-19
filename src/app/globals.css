@@ -208,3 +208,38 @@
 .animate-marquee-vertical:hover {
   animation-play-state: paused;
 }
+
+/* Masked Split Text (MST) styles */
+.mst {
+  --mst-leading: var(--mst-leading-mobile, 0em);
+}
+@media (min-width: 768px) {
+  .mst {
+    --mst-leading: var(--mst-leading-desktop, 0em);
+  }
+}
+
+.mst__mask {
+  display: block;
+  overflow: hidden;
+  position: relative;
+}
+
+.mst__inner {
+  display: block;
+  transform: translateY(100%);
+  animation: mstReveal 1s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+@keyframes mstReveal {
+  to {
+    transform: translateY(0);
+  }
+}
+
+.service-title {
+  -webkit-text-fill-color: transparent;
+  background: linear-gradient(#c4c4c4, #e7e7e7 119.29%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}

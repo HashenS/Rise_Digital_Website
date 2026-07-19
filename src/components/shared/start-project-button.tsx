@@ -3,10 +3,14 @@
 import React, { useState, useEffect } from "react";
 import { motion, useScroll, AnimatePresence } from "motion/react";
 import { ChevronRight } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export default function StartProjectButton() {
+  const pathname = usePathname();
   const { scrollY } = useScroll();
   const [visible, setVisible] = useState(false);
+
+  if (pathname === "/contact") return null;
 
   useEffect(() => {
     // Listen to window scroll position
