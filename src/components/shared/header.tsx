@@ -345,7 +345,7 @@ export default function Header() {
         >
           <div className="relative flex w-full shrink-0 items-center justify-between gap-[0.5vw] text-[0.85vw]">
             <a
-              href="/#services"
+              href="/services"
               onMouseEnter={() => setIsServiceOpen(true)}
               className="px-[2vw] py-[0.5vw] text-white hover:bg-zinc-800/30 duration-200 transition rounded-[0.6vw]"
             >
