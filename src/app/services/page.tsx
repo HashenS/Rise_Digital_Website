@@ -1,12 +1,7 @@
 "use client";
 import React, { useState, useRef } from "react";
 import Image from "next/image";
-import {
-  motion,
-  AnimatePresence,
-  useMotionValue,
-  animate,
-} from "motion/react";
+import { motion, AnimatePresence, useMotionValue, animate } from "motion/react";
 import ContactSection from "@/components/contact/ContactSection";
 import AnimatedArrowButton from "@/components/shared/animated-arrow-button";
 
@@ -141,92 +136,82 @@ const categories = [
   },
 ];
 
-// ─── Dot-grid icon (matches existing site style) ───────────────────────────────
+// ─── Dot-grid icon ─────────────────────────────────────────────────────────────
 
-function ServiceDotIcon() {
+const DOT_GRID_RECTS: [number, number][] = [
+  [38.75, 2],     [51, 2],
+  [38.75, 14.25], [51, 14.25],
+  [26.5,  26.5],  [63.25, 26.5],
+  [2,     38.75], [14.25, 38.75], [38.75, 38.75], [51, 38.75], [75.5, 38.75], [87.75, 38.75],
+  [2,     51],    [14.25, 51],    [38.75, 51],    [51, 51],    [75.5, 51],    [87.75, 51],
+  [26.5,  63.25], [63.25, 63.25],
+  [38.75, 75.5],  [51, 75.5],
+  [38.75, 87.75], [51, 87.75],
+];
+
+function DotGridIcon({ className }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 24 24"
       fill="none"
-      className="w-5 h-5 shrink-0 text-zinc-400"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 100 100"
+      className={className}
     >
-      {[
-        [6, 6],[9, 6],[12, 6],[15, 6],[18, 6],
-        [6, 9],[18, 9],
-        [6, 12],[9, 12],[12, 12],[15, 12],[18, 12],
-        [12, 15],[12, 18],
-      ].map(([cx, cy], i) => (
-        <circle key={i} cx={cx} cy={cy} r={1.2} fill="currentColor" />
+      {DOT_GRID_RECTS.map(([x, y], i) => (
+        <rect
+          key={i}
+          x={x}
+          y={y}
+          width="10.25"
+          height="10.25"
+          rx="5.125"
+          fill="currentColor"
+        />
       ))}
     </svg>
   );
 }
 
-// ─── Service accordion row ─────────────────────────────────────────────────────
+// ─── Service row ───────────────────────────────────────────────────────────────
 
 function ServiceRow({
   service,
-  isOpen,
-  onToggle,
 }: {
   service: { id: string; title: string; subServices: string[] };
-  isOpen: boolean;
-  onToggle: () => void;
 }) {
   return (
-    <div className="border-b border-zinc-200/60">
-      <button
-        onClick={onToggle}
-        className="w-full flex items-center gap-4 py-4 text-left group cursor-pointer"
-      >
-        <ServiceDotIcon />
-        <span className="flex-1 font-neue text-base md:text-[1.1vw] font-medium text-black group-hover:text-zinc-500 transition-colors duration-200">
+    <div className="mb-[1.5vw] last:mb-0">
+      {/* Service title header */}
+      <div className="group flex items-center gap-3 mb-[0.6vw]">
+        <DotGridIcon className="w-[1.4vw] min-w-[18px] shrink-0 text-zinc-300 group-hover:text-black transition-colors duration-500" />
+        <span className="font-neue text-base md:text-[1.05vw] font-medium text-black/60 group-hover:text-black transition-colors duration-300">
           {service.title}
         </span>
-        {/* expand toggle */}
-        <motion.div
-          animate={{ rotate: isOpen ? 45 : 0 }}
-          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="flex-shrink-0 text-zinc-400"
-        >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <line x1="7" y1="0" x2="7" y2="14" stroke="currentColor" strokeWidth="1.5" />
-            <line x1="0" y1="7" x2="14" y2="7" stroke="currentColor" strokeWidth="1.5" />
-          </svg>
-        </motion.div>
-      </button>
+      </div>
 
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            key="sub"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden"
+      {/* Sub-service rows */}
+      <div className="flex flex-col">
+        {service.subServices.map((sub, i) => (
+          <div
+            key={i}
+            className="group/row flex items-center justify-between px-4 py-[0.7vw] rounded-lg cursor-pointer hover:bg-black transition-all duration-200 border-t border-zinc-100 first:border-0"
           >
-            <ul className="pb-4 pl-9 space-y-2">
-              {service.subServices.map((sub, i) => (
-                <motion.li
-                  key={i}
-                  initial={{ opacity: 0, x: -8 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{
-                    delay: i * 0.035,
-                    duration: 0.3,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  className="text-zinc-500 font-neue text-sm md:text-[0.95vw] flex items-center gap-2"
-                >
-                  <span className="w-1 h-1 rounded-full bg-zinc-300 shrink-0" />
-                  {sub}
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <span className="font-neue text-sm md:text-[0.9vw] text-zinc-800 group-hover/row:text-white transition-colors duration-200">
+              {sub}
+            </span>
+            {/* Dotted chevron › icon */}
+            <svg
+              viewBox="0 0 8 14"
+              fill="none"
+              className="w-2.5 h-3.5 shrink-0 text-zinc-400 group-hover/row:text-white transition-colors duration-200"
+            >
+              <circle cx="2" cy="2" r="1.3" fill="currentColor" />
+              <circle cx="6" cy="7" r="1.3" fill="currentColor" />
+              <circle cx="2" cy="12" r="1.3" fill="currentColor" />
+            </svg>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -235,58 +220,65 @@ function ServiceRow({
 
 function CategorySection({
   category,
+  index,
 }: {
   category: (typeof categories)[0];
+  index: number;
 }) {
-  const [openId, setOpenId] = useState<string | null>(null);
-
   return (
-    <section className="md:px-[6.25vw] px-4 pt-[4vw] pb-[5vw]">
-      {/* Top row: huge label + count badge | description */}
-      <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-[2vw] gap-4">
-        {/* Label + count */}
-        <div className="flex items-end gap-3">
-          <h2 className="font-neue font-medium text-[12vw] md:text-[7vw] leading-none tracking-tight text-black">
-            {category.label}
-          </h2>
-          <span className="mb-[1vw] inline-flex items-center justify-center w-8 h-8 rounded-full bg-zinc-200 text-zinc-600 font-neue text-xs font-semibold shrink-0">
-            {category.serviceCount}
-          </span>
-        </div>
-        {/* Description — right-aligned on desktop */}
-        <p className="md:max-w-[30vw] text-zinc-500 font-neue text-sm md:text-[0.9vw] leading-relaxed md:text-right md:mt-[2vw]">
-          {category.description}
-        </p>
-      </div>
+    <section className="md:px-[6.25vw] px-4 border-t border-zinc-200 py-[4vw]">
+      <div className="flex flex-col md:flex-row gap-6 md:gap-[3vw]">
 
-      {/* Bottom row: wide image | service accordion */}
-      <div className="flex flex-col md:flex-row gap-6 md:gap-[2vw]">
-        {/* Image — left, ~55% */}
-        <div className="relative h-[60vw] md:h-[28vw] md:w-[55%] rounded-[1.2vw] overflow-hidden shrink-0">
-          <Image
-            src={category.img}
-            alt={category.label}
-            fill
-            sizes="(max-width: 768px) 90vw, 55vw"
-            className="object-cover"
-          />
-          {/* subtle dark overlay */}
-          <div className="absolute inset-0 bg-black/20" />
-        </div>
+        {/* ── Left col: index + title + image ── */}
+        <div className="md:w-[52%] shrink-0 flex flex-col gap-[1.5vw]">
+          <div className="flex items-start gap-3">
+            <span className="font-neue text-xs md:text-[0.7vw] text-zinc-400 mt-[1vw] shrink-0 tabular-nums">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <div className="flex items-end gap-2.5">
+              <h2
+                className="font-neue font-medium text-[12vw] md:text-[5.5vw] leading-none tracking-tight select-none"
+                style={{
+                  background:
+                    "linear-gradient(rgb(200 200 200) 20%, rgb(232 232 232) 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
+                {category.label}
+              </h2>
+              <span className="mb-[0.6vw] inline-flex items-center justify-center w-6 h-6 rounded-full border border-zinc-200 text-zinc-400 font-neue text-[10px] font-medium shrink-0">
+                {category.serviceCount}
+              </span>
+            </div>
+          </div>
 
-        {/* Service rows — right, ~45% */}
-        <div className="md:w-[45%] flex flex-col justify-start pt-1">
-          {category.services.map((service) => (
-            <ServiceRow
-              key={service.id}
-              service={service}
-              isOpen={openId === service.id}
-              onToggle={() =>
-                setOpenId(openId === service.id ? null : service.id)
-              }
+          <div className="relative h-[60vw] md:h-[26vw] rounded-[1vw] overflow-hidden">
+            <Image
+              src={category.img}
+              alt={category.label}
+              fill
+              sizes="(max-width: 768px) 90vw, 42vw"
+              className="object-cover"
             />
-          ))}
+            <div className="absolute inset-0 bg-black/15" />
+          </div>
         </div>
+
+        {/* ── Right col: description + services ── */}
+        <div className="md:flex-1 flex flex-col">
+          <p className="md:max-w-[38vw] md:pl-[15vw] text-black/25 font-neue text-base md:text-[1vw] leading-[1.25] tracking-[0.04em] font-medium md:mb-[2.5vw] md:mt-[0.5vw]">
+            {category.description}
+          </p>
+
+          <div className="flex flex-col mt-6 md:mt-auto">
+            {category.services.map((service) => (
+              <ServiceRow key={service.id} service={service} />
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   );
@@ -317,11 +309,11 @@ export default function ServicesPage() {
       } else {
         setTimeout(
           () => document.body.classList.remove("bg-black-active"),
-          500
+          500,
         );
       }
     },
-    [bgColor, textColor]
+    [bgColor, textColor],
   );
 
   React.useEffect(() => {
@@ -336,8 +328,7 @@ export default function ServicesPage() {
       const viewportCenter = window.innerHeight / 2;
       const isAtBottom =
         window.innerHeight + window.scrollY >=
-          document.documentElement.scrollHeight - 150 &&
-        window.scrollY > 50;
+          document.documentElement.scrollHeight - 150 && window.scrollY > 50;
       if (textCenter <= viewportCenter || isAtBottom) animateTo(true);
       else animateTo(false);
     };
@@ -351,13 +342,12 @@ export default function ServicesPage() {
 
   return (
     <motion.main style={{ backgroundColor: bgColor }} className="min-h-screen">
-
       {/* ── Hero ────────────────────────────────────────────────────── */}
       <section className="md:px-[6.25vw] px-4 pt-[12vw] pb-[8vw]">
         <div className="flex flex-col md:flex-row gap-8 md:gap-[4vw]">
           {/* Left: small label */}
-          <div className="md:w-[18%] shrink-0 pt-1">
-            <span className="font-neue text-xs uppercase tracking-widest text-zinc-500 font-medium">
+          <div className="md:w-[31%] shrink-0 pt-1">
+            <span className="text-base uppercase text-section-title font-medium font-neue tracking-widest">
               Our Services
             </span>
           </div>
@@ -386,20 +376,30 @@ export default function ServicesPage() {
               }}
               className="mt-10 md:mt-[3vw]"
             >
-              <AnimatedArrowButton
-                className="bg-black text-white px-7 py-3.5 rounded-lg font-neue text-sm font-medium"
-              >
+              <button className="bg-black text-white px-7 py-3.5 rounded-lg font-neue text-base font-medium">
                 Discuss The Project
-              </AnimatedArrowButton>
+              </button>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* ── Service categories ────────────────────────────────────────── */}
-      {categories.map((category) => (
-        <CategorySection key={category.id} category={category} />
+      {categories.map((category, index) => (
+        <CategorySection key={category.id} category={category} index={index} />
       ))}
+
+      {/* ── Start a project pill ───────────────────────────────────────── */}
+      <div className="flex justify-center py-[4vw]">
+        <button className="group flex items-center gap-3 bg-black text-white font-neue font-medium text-base md:text-[1vw] px-8 py-4 rounded-full hover:bg-zinc-800 transition-colors duration-300">
+          Start a project
+          <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200">
+            <circle cx="4" cy="4" r="1.4" fill="currentColor" />
+            <circle cx="10" cy="8" r="1.4" fill="currentColor" />
+            <circle cx="4" cy="12" r="1.4" fill="currentColor" />
+          </svg>
+        </button>
+      </div>
 
       {/* ── Tagline — triggers dark bg ────────────────────────────────── */}
       <section className="md:px-[6.25vw] px-4 py-[10vw] border-t border-zinc-200/20">
