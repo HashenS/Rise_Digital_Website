@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Rise_logo from "@/assets/Rise Digital(without text).svg";
 import { ChevronDown, ChevronRight } from "lucide-react";
+import AnimatedArrowButton from "@/components/shared/animated-arrow-button";
 
 export default function HeroSection() {
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
@@ -122,58 +123,12 @@ export default function HeroSection() {
 
         {/* Right Side: Static Start Project Button (Matches Global Button) */}
         <div className="hidden md:block">
-          <button className="group flex h-12 md:h-[3vw] cursor-pointer items-center mr-6 mb-8 gap-[0.5vw] rounded-lg md:rounded-[0.5vw] pl-5 pr-4 md:pr-[1vw] md:pl-[1.5vw] text-sm md:text-[0.9vw] text-black bg-[#EBEBEB] transition-all duration-300 hover:bg-white active:scale-[0.98] font-inter font-medium">
+          <AnimatedArrowButton
+            className="h-12 md:h-[3vw] mr-6 mb-8 rounded-lg md:rounded-[0.5vw] pl-5 pr-4 md:pr-[1vw] md:pl-[1.5vw] text-sm md:text-[0.9vw] text-black bg-[#EBEBEB] font-inter"
+            hoverBg="#ffffff"
+          >
             Start a Project
-            <svg
-              className="ml-[0.5vw] inline-block w-6 md:w-[1.5vw] group-hover:translate-x-[0.3vw] transition-transform duration-300 text-black"
-              viewBox="0 0 100 100"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g transform="translate(-18.375, 6.125)">
-                <rect
-                  x="51"
-                  y="14.25"
-                  width="10.25"
-                  height="10.25"
-                  rx="5.125"
-                  fill="currentColor"
-                />
-                <rect
-                  x="63.25"
-                  y="26.5"
-                  width="10.25"
-                  height="10.25"
-                  rx="5.125"
-                  fill="currentColor"
-                />
-                <rect
-                  x="75.5"
-                  y="38.75"
-                  width="10.25"
-                  height="10.25"
-                  rx="5.125"
-                  fill="currentColor"
-                />
-                <rect
-                  x="63.25"
-                  y="51"
-                  width="10.25"
-                  height="10.25"
-                  rx="5.125"
-                  fill="currentColor"
-                />
-                <rect
-                  x="51"
-                  y="63.25"
-                  width="10.25"
-                  height="10.25"
-                  rx="5.125"
-                  fill="currentColor"
-                />
-              </g>
-            </svg>
-          </button>
+          </AnimatedArrowButton>
         </div>
       </div>
     </section>

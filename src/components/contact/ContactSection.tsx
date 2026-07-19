@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import AnimatedArrowButton from "@/components/shared/animated-arrow-button";
 
 export default function ContactSection() {
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
@@ -174,69 +175,15 @@ export default function ContactSection() {
 
               {/* Submit Button */}
               <div className="flex items-center gap-4 mt-4 md:mt-[1vw]">
-                <button
+                <AnimatedArrowButton
                   type="submit"
-                  className="group cursor-pointer flex w-fit items-center transition-all duration-200 hover:scale-105 bg-white/70 hover:bg-white text-black text-sm md:text-[1vw] rounded-lg md:rounded-[0.5vw] px-6 md:px-[2vw] py-3 md:py-[1vw] font-medium"
+                  className="contact-submit-btn bg-white/70 text-black text-sm md:text-[1vw] rounded-lg md:rounded-[0.5vw] px-6 md:px-[2vw] py-3 md:py-[1vw]"
+                  arrowColor="#000000"
+                  hoverBg="#ffffff"
+                  hoverScale={1.03}
                 >
                   Send Message
-                  <svg
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 100 100"
-                    className="ml-2 md:ml-[1vw] inline-block group-hover:translate-x-[0.3vw] transition-transform duration-300"
-                    width="1.5em"
-                    height="1.5em"
-                    style={
-                      {
-                        "--dot-color": "#000000",
-                        display: "block",
-                      } as React.CSSProperties
-                    }
-                  >
-                    <g transform="translate(-18.375, 6.125)">
-                      <rect
-                        x="51"
-                        y="14.25"
-                        width="10.25"
-                        height="10.25"
-                        rx="5.125"
-                        style={{ fill: "var(--dot-color)" }}
-                      ></rect>
-                      <rect
-                        x="63.25"
-                        y="26.5"
-                        width="10.25"
-                        height="10.25"
-                        rx="5.125"
-                        style={{ fill: "var(--dot-color)" }}
-                      ></rect>
-                      <rect
-                        x="75.5"
-                        y="38.75"
-                        width="10.25"
-                        height="10.25"
-                        rx="5.125"
-                        style={{ fill: "var(--dot-color)" }}
-                      ></rect>
-                      <rect
-                        x="63.25"
-                        y="51"
-                        width="10.25"
-                        height="10.25"
-                        rx="5.125"
-                        style={{ fill: "var(--dot-color)" }}
-                      ></rect>
-                      <rect
-                        x="51"
-                        y="63.25"
-                        width="10.25"
-                        height="10.25"
-                        rx="5.125"
-                        style={{ fill: "var(--dot-color)" }}
-                      ></rect>
-                    </g>
-                  </svg>
-                </button>
+                </AnimatedArrowButton>
               </div>
             </div>
           </form>

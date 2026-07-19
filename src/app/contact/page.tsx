@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import AnimatedArrowButton from "@/components/shared/animated-arrow-button";
 
 export default function ContactPage() {
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
@@ -265,61 +266,15 @@ export default function ContactPage() {
 
               {/* Submit Button */}
               <div>
-                <button
+                <AnimatedArrowButton
                   type="submit"
-                  className="group cursor-pointer flex w-fit items-center transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] bg-black text-white hover:bg-zinc-800 text-md md:text-[1vw] rounded-lg md:rounded-[0.5vw] px-8 md:px-[2vw] py-3 md:py-[0.8vw] mt-3"
+                  className="bg-black text-white text-md md:text-[1vw] rounded-lg md:rounded-[0.5vw] px-8 md:px-[2vw] py-3 md:py-[0.8vw] mt-3"
+                  arrowColor="#ffffff"
+                  hoverBg="#27272a"
+                  hoverScale={1.02}
                 >
                   Send Message
-                  <svg
-                    className="ml-[1vw] inline-block w-6 md:w-[1.5vw] group-hover:translate-x-[0.3vw] transition-transform duration-300 text-white"
-                    viewBox="0 0 100 100"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g transform="translate(-18.375, 6.125)">
-                      <rect
-                        x="51"
-                        y="14.25"
-                        width="10.25"
-                        height="10.25"
-                        rx="5.125"
-                        fill="currentColor"
-                      />
-                      <rect
-                        x="63.25"
-                        y="26.5"
-                        width="10.25"
-                        height="10.25"
-                        rx="5.125"
-                        fill="currentColor"
-                      />
-                      <rect
-                        x="75.5"
-                        y="38.75"
-                        width="10.25"
-                        height="10.25"
-                        rx="5.125"
-                        fill="currentColor"
-                      />
-                      <rect
-                        x="63.25"
-                        y="51"
-                        width="10.25"
-                        height="10.25"
-                        rx="5.125"
-                        fill="currentColor"
-                      />
-                      <rect
-                        x="51"
-                        y="63.25"
-                        width="10.25"
-                        height="10.25"
-                        rx="5.125"
-                        fill="currentColor"
-                      />
-                    </g>
-                  </svg>
-                </button>
+                </AnimatedArrowButton>
               </div>
             </form>
           </div>

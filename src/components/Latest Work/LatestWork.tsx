@@ -1,3 +1,5 @@
+"use client";
+import { motion } from "motion/react";
 import Image from "next/image";
 import frejaImg from "@/assets/project_freja_mockup.png";
 import everydayImg from "@/assets/project_everyday_mockup.webp";
@@ -88,9 +90,14 @@ export default function LatestWork() {
         ))}
       </div>
       <div className="w-full flex justify-center mt-12">
-        <button className="news-btn bg-black text-white font-neue px-6 py-4 text-xl font-medium rounded-xl cursor-pointer hover:bg-zinc-800 transition-all duration-300 hover:scale-105">
+        <motion.button
+          className="news-btn bg-black text-white font-neue px-6 py-4 text-xl font-medium rounded-xl cursor-pointer"
+          whileHover={{ scale: 1.04, backgroundColor: "#27272a" }}
+          whileTap={{ scale: 0.97 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        >
           View full portfolio
-        </button>
+        </motion.button>
       </div>
     </div>
   );

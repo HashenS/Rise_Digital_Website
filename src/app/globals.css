@@ -201,6 +201,13 @@
   body.bg-black-active .text-black {
     color: #ffffff !important;
   }
+  body.bg-black-active .contact-submit-btn {
+    color: #000000 !important;
+  }
+  body.bg-black-active .testimonials-btn,
+  body.bg-black-active .testimonials-btn * {
+    color: #000000 !important;
+  }
   body.bg-black-active .text-section-title {
     color: rgba(255, 255, 255, 0.4) !important;
   }
@@ -248,10 +255,7 @@
     background-color: rgba(93, 93, 93, 0.2) !important;
     border-color: transparent !important;
   }
-  body.bg-black-active .latest-news-card-2 {
-    background-color: rgba(93, 93, 93, 0.3) !important;
-    border-color: rgba(255, 255, 255, 0.05) !important;
-  }
+  /* card-2 glass is always dark — no bg-black-active override needed */
   body.bg-black-active .latest-news-title {
     color: #ffffff !important;
   }
@@ -287,7 +291,6 @@
   .testimonial-name,
   .latest-news-section,
   .latest-news-card-1,
-  .latest-news-card-2,
   .latest-news-title,
   .news-btn {
     transition:
@@ -327,8 +330,9 @@
     border: 1px solid rgba(0, 0, 0, 0.05) !important;
   }
   .latest-news-card-2 {
-    background-color: rgba(0, 0, 0, 0.05) !important;
-    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    background-color: rgba(10, 10, 10, 0.32) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    /* NOTE: backdrop-filter NOT set here — applied via inline style in TSX to avoid stacking context conflict */
   }
   .news-btn {
     background-color: #000000 !important;

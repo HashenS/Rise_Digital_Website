@@ -417,8 +417,8 @@ export default function InsightsPage() {
         className="pt-24 md:pt-[8vw] pb-[2vw]"
       >
         {/* Middle Tagline Section */}
-        <div className="flex flex-col items-center h-120 md:h-[40vw] justify-center mt-12 md:mt-0">
-          <section className="flex w-full px-3 md:px-0 md:w-4/5 h-full flex-col items-center justify-center gap-5 md:gap-[2vw]">
+        <div className="flex flex-col items-center py-16 md:pt-[15vw] justify-center">
+          <section className="flex w-full px-3 md:px-0 md:w-4/5 flex-col items-center justify-center gap-5 md:gap-[2vw]">
             <h3
               ref={textRef}
               className={`mst text-3xl md:text-[3vw] text-center md:w-3/4 font-neue transition-colors duration-[2500ms] ease-in-out ${
@@ -441,7 +441,7 @@ export default function InsightsPage() {
                   }}
                 >
                   <span
-                    className="mst__inner block"
+                    className="mst__inner block font-medium"
                     style={{
                       transition:
                         "transform 1000ms cubic-bezier(0.76, 0, 0.24, 1)",
@@ -461,7 +461,7 @@ export default function InsightsPage() {
                   }}
                 >
                   <span
-                    className="mst__inner block"
+                    className="mst__inner block font-medium"
                     style={{
                       transition:
                         "transform 1000ms cubic-bezier(0.76, 0, 0.24, 1)",
