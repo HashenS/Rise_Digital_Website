@@ -645,7 +645,7 @@ export default function ServicesPage() {
       {/* ── Start a project pill ───────────────────────────────────────── */}
 
       {/* ── Tagline — triggers dark bg ────────────────────────────────── */}
-      <section className="md:px-[6.25vw] px-4 py-[10vw] border-t border-zinc-200/20 flex flex-col items-center text-center">
+      <section className="md:px-[6.25vw] px-4 pt-[10vw] pb-[4vw] border-t border-zinc-200/20 flex flex-col items-center text-center">
         {/* Line-mask reveal heading */}
         <h2
           ref={textRef}
@@ -682,7 +682,7 @@ export default function ServicesPage() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 0.4, y: 0 }}
           transition={{ duration: 0.8, delay: 0.35, ease: [0.76, 0, 0.24, 1] }}
-          className="mt-6 md:mt-[2vw] font-neue text-sm md:text-[1vw] max-w-[42ch] leading-relaxed"
+          className="mt-6 md:mt-[2vw] font-neue text-sm md:text-[1vw] max-w-[42ch] leading-relaxed font-medium"
         >
           Rise Digital is a design and technology studio. We create digital
           products and identities defined by strategy, precision, and vision.
