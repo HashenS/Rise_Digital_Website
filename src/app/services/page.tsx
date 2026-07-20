@@ -428,8 +428,10 @@ function DotGridIcon({
 
 function ServiceRow({
   service,
+  isDark,
 }: {
   service: { id: string; title: string; subServices: string[] };
+  isDark: boolean;
 }) {
   return (
     <div className="mb-[6vw] last:mb-0">
@@ -437,9 +439,17 @@ function ServiceRow({
       <div className="group flex items-center gap-3 mb-[0.6vw]">
         <DotGridIcon
           rects={SERVICE_ICONS[service.id] ?? DOT_GRID_RECTS}
-          className="w-[3.2vw] min-w-[18px] shrink-0 text-black/20 group-hover:text-black transition-colors duration-500"
+          className={`w-[3.2vw] min-w-[18px] shrink-0 transition-colors duration-500 ${
+            isDark
+              ? "text-white/20 group-hover:text-white"
+              : "text-black/20 group-hover:text-black"
+          }`}
         />
-        <span className="font-neue text-base md:text-[2vw] font-medium text-black group-hover:text-black transition-colors duration-300">
+        <span
+          className={`font-neue text-base md:text-[2vw] font-medium transition-colors duration-300 ${
+            isDark ? "text-white" : "text-black"
+          }`}
+        >
           {service.title}
         </span>
       </div>
@@ -449,20 +459,27 @@ function ServiceRow({
         {service.subServices.map((sub, i) => (
           <div
             key={i}
-            className="group/row flex items-center justify-between px-4 py-[0.7vw] rounded-lg cursor-pointer hover:bg-black transition-all duration-200 border-t border-zinc-100 first:border-0 font-medium"
+            className={`group/row flex items-center justify-between py-[0.8vw] cursor-pointer transition-colors duration-200 border-b ${
+              isDark ? "border-zinc-800" : "border-zinc-100"
+            }`}
           >
-            <span className="font-neue text-sm md:text-[1vw] text-zinc-800 group-hover/row:text-white transition-colors duration-200 tracking-[0.02vw]">
+            <span
+              className={`font-neue text-sm md:text-[1vw] font-medium tracking-[0.02vw] transition-colors duration-200 ${
+                isDark
+                  ? "text-zinc-400 group-hover/row:text-white"
+                  : "text-zinc-500 group-hover/row:text-black"
+              }`}
+            >
               {sub}
             </span>
-            {/* Dotted chevron › icon */}
             <svg
-              viewBox="0 0 8 14"
+              viewBox="0 0 10 10"
               fill="none"
-              className="w-2.5 h-3.5 shrink-0 text-black/40 group-hover/row:text-white transition-colors duration-200"
+              className={`w-2 h-2 shrink-0 opacity-0 group-hover/row:opacity-100 transition-opacity duration-200 ${
+                isDark ? "text-white" : "text-black"
+              }`}
             >
-              <circle cx="2" cy="2" r="1.3" fill="currentColor" />
-              <circle cx="6" cy="7" r="1.3" fill="currentColor" />
-              <circle cx="2" cy="12" r="1.3" fill="currentColor" />
+              <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
         ))}
@@ -476,12 +493,18 @@ function ServiceRow({
 function CategorySection({
   category,
   index,
+  isDark,
 }: {
   category: (typeof categories)[0];
   index: number;
+  isDark: boolean;
 }) {
   return (
-    <section className="md:px-[6.25vw] px-4 border-t border-zinc-200 py-[4vw]">
+    <section
+      className={`md:px-[6.25vw] px-4 py-[4vw] border-t transition-colors duration-500 ${
+        isDark ? "border-zinc-800" : "border-zinc-200"
+      }`}
+    >
       <div className="flex flex-col md:flex-row gap-6 md:gap-[3vw]">
         {/* ── Left col: index + title + image ── */}
         <div className="md:w-[52%] shrink-0 flex flex-col gap-[1.5vw]">
@@ -493,8 +516,9 @@ function CategorySection({
               <h2
                 className="font-neue font-medium text-[12vw] md:text-[5.5vw] leading-none tracking-tight select-none"
                 style={{
-                  background:
-                    "linear-gradient(rgb(200 200 200) 20%, rgb(232 232 232) 100%)",
+                  backgroundImage: isDark
+                    ? "linear-gradient(rgb(70 70 70) 20%, rgb(40 40 40) 100%)"
+                    : "linear-gradient(rgb(200 200 200) 20%, rgb(232 232 232) 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -502,7 +526,13 @@ function CategorySection({
               >
                 {category.label}
               </h2>
-              <span className="mb-[2vw] inline-flex items-center justify-center w-7 h-7 rounded-md border border-zinc-200 text-black/50 font-neue text-[14px] font-medium shrink-0 bg-black/15">
+              <span
+                className={`mb-[2vw] inline-flex items-center justify-center w-7 h-7 rounded-md border font-neue text-[14px] font-medium shrink-0 transition-colors duration-500 ${
+                  isDark
+                    ? "border-zinc-700 text-white/40 bg-white/10"
+                    : "border-zinc-200 text-black/50 bg-black/15"
+                }`}
+              >
                 {category.serviceCount}
               </span>
             </div>
@@ -522,13 +552,17 @@ function CategorySection({
 
         {/* ── Right col: description + services ── */}
         <div className="md:flex-1 flex flex-col">
-          <p className="md:max-w-[40vw] md:pl-[14vw] text-black/25 font-neue text-base md:text-[1vw] leading-tight tracking-[0.04em] font-medium md:mb-[2.5vw] md:mt-[0.5vw]">
+          <p
+            className={`md:max-w-[40vw] md:pl-[14vw] font-neue text-base md:text-[1vw] leading-tight tracking-[0.04em] font-medium md:mb-[2.5vw] md:mt-[0.5vw] transition-colors duration-500 ${
+              isDark ? "text-white/25" : "text-black/25"
+            }`}
+          >
             {category.description}
           </p>
 
           <div className="flex flex-col mt-1">
             {category.services.map((service) => (
-              <ServiceRow key={service.id} service={service} />
+              <ServiceRow key={service.id} service={service} isDark={isDark} />
             ))}
           </div>
         </div>
@@ -544,11 +578,13 @@ export default function ServicesPage() {
   const isBlackRef = useRef(false);
   const bgColor = useMotionValue("#ebebeb");
   const textColor = useMotionValue("#000000");
+  const [isDark, setIsDark] = useState(false);
 
   const animateTo = React.useCallback(
     (black: boolean) => {
       if (isBlackRef.current === black) return;
       isBlackRef.current = black;
+      setIsDark(black);
       animate(bgColor, black ? "#000000" : "#ebebeb", {
         duration: 0.5,
         ease: "easeInOut",
@@ -639,7 +675,7 @@ export default function ServicesPage() {
 
       {/* ── Service categories ────────────────────────────────────────── */}
       {categories.map((category, index) => (
-        <CategorySection key={category.id} category={category} index={index} />
+        <CategorySection key={category.id} category={category} index={index} isDark={isDark} />
       ))}
 
       {/* ── Start a project pill ───────────────────────────────────────── */}

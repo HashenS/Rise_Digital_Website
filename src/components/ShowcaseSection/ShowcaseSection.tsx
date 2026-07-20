@@ -9,12 +9,10 @@ import indioImg from "@/assets/project_indio_laptop.png";
 export default function ShowcaseSection() {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // List of images for the automatic slideshow
   const images = [frejaImg, indioImg, silenceImg];
   const [activeIndex, setActiveIndex] = useState(0);
   const SLIDESHOW_DURATION = 300;
 
-  // Automatic slideshow interval
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % images.length);
@@ -27,63 +25,38 @@ export default function ShowcaseSection() {
     offset: ["start start", "end end"],
   });
 
-  const [isBlack, setIsBlack] = useState(false);
-
+  // Drive bg-black-active for the nav — fires at midpoint of transition
   useEffect(() => {
     const unsubscribe = scrollYProgress.on("change", (latest) => {
-      if (latest >= 0.15) {
-        setIsBlack(true);
+      if (latest >= 0.3) {
+        document.body.classList.add("bg-black-active");
       } else {
-        setIsBlack(false);
+        document.body.classList.remove("bg-black-active");
       }
     });
-    return () => unsubscribe();
-  }, [scrollYProgress]);
-
-  useEffect(() => {
-    if (isBlack) {
-      document.body.classList.add("bg-black-active");
-    } else {
-      document.body.classList.remove("bg-black-active");
-    }
     return () => {
+      unsubscribe();
       document.body.classList.remove("bg-black-active");
     };
-  }, [isBlack]);
+  }, [scrollYProgress]);
 
-  // Scale the box container dimensions as we scroll
+  // Card scale animation — unchanged
   const width = useTransform(scrollYProgress, [0.1, 0.6], ["40vw", "90vw"]);
   const height = useTransform(scrollYProgress, [0.1, 0.6], ["62vw", "90vh"]);
-
-  const borderRadius = useTransform(
-    scrollYProgress,
-    [0.1, 0.6],
-    ["24px", "16px"],
-  );
+  const borderRadius = useTransform(scrollYProgress, [0.1, 0.6], ["24px", "16px"]);
 
   return (
-    <div
-      className={`relative h-[250vh] w-full transition-colors duration-1200 ease-out ${
-        isBlack ? "bg-black" : "bg-[#ebebeb]"
-      }`}
-      ref={containerRef}
-    >
-      {/* Sticky page wrapper (fades background to black) */}
-      <div
-        className={`sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden transition-colors duration-1200 ease-out ${
-          isBlack ? "bg-black" : "bg-[#ebebeb]"
-        }`}
-      >
-        {/* Scaling card container */}
+    // No background on this section — the parent page bg shows through
+    <div className="relative h-[250vh] w-full" ref={containerRef}>
+      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
         <motion.div
           style={{ width, height, borderRadius }}
           className="relative bg-zinc-950 overflow-hidden flex items-center justify-center shadow-2xl"
         >
-          {/* Automatic Slideshow Layers */}
           {images.map((img, idx) => (
             <div
               key={idx}
-              className={`absolute inset-0 w-full h-full  ${
+              className={`absolute inset-0 w-full h-full transition-opacity duration-300 ${
                 activeIndex === idx ? "opacity-100" : "opacity-0"
               }`}
             >
