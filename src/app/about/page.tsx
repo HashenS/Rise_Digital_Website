@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { motion, useMotionValue, animate } from "motion/react";
 import ContactSection from "@/components/contact/ContactSection";
 import ShowcaseSection from "@/components/ShowcaseSection/ShowcaseSection";
 
@@ -27,8 +28,49 @@ const values = [
 ];
 
 export default function AboutPage() {
+  const textRef = React.useRef<HTMLHeadingElement>(null);
+  const isBlackRef = React.useRef(false);
+  const bgColor = useMotionValue("#ebebeb");
+  const textColor = useMotionValue("#000000");
+
+  const animateTo = React.useCallback(
+    (black: boolean) => {
+      if (isBlackRef.current === black) return;
+      isBlackRef.current = black;
+      animate(bgColor, black ? "#000000" : "#ebebeb", { duration: 0.5, ease: "easeInOut" });
+      animate(textColor, black ? "#ffffff" : "#000000", { duration: 0.5, ease: "easeInOut" });
+      if (black) {
+        document.body.classList.add("bg-black-active");
+      } else {
+        setTimeout(() => document.body.classList.remove("bg-black-active"), 500);
+      }
+    },
+    [bgColor, textColor],
+  );
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY < 50) { animateTo(false); return; }
+      if (!textRef.current) return;
+      const rect = textRef.current.getBoundingClientRect();
+      const textCenter = rect.top + rect.height / 2;
+      const viewportCenter = window.innerHeight / 2;
+      const isAtBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 150 &&
+        window.scrollY > 50;
+      if (textCenter <= viewportCenter || isAtBottom) animateTo(true);
+      else animateTo(false);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      document.body.classList.remove("bg-black-active");
+    };
+  }, [animateTo]);
+
   return (
-    <div className="w-full bg-theme-light text-black transition-colors duration-300">
+    <motion.div className="w-full" style={{ backgroundColor: bgColor }}>
       {/* Light Background Section: Intro Header & Stats */}
       <div className="pt-28 md:pt-[10vw] pb-24 md:pb-[8vw] px-6 md:px-[5vw]">
         <div className="grid grid-cols-12 gap-8 md:gap-12 items-start">
@@ -183,22 +225,51 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* Dark Background Section: Call to action & Contact Form */}
-      <div className="bg-black text-white pt-24 md:pt-[8vw] pb-[2vw] transition-colors duration-300">
-        {/* Pitch / Headline Section */}
-        <div className="flex flex-col items-center justify-center text-center px-6 mb-8 md:mb-12">
-          <h2 className="text-3xl md:text-[3.8vw] md:leading-[1.1] font-medium font-neue max-w-[80vw] md:max-w-[50vw] mb-4 md:mb-6 tracking-tight text-white">
-            Crafting Thoughtful Brands and Digital Products
-          </h2>
-          <p className="text-zinc-500 text-sm md:text-[1vw] max-w-[90vw] md:max-w-[32vw] leading-relaxed font-neue">
-            Rise is a design and technology studio. We create digital products
-            that are intuitive, beautiful, and built to perform.
-          </p>
-        </div>
+      <section className="md:px-[6.25vw] px-4 py-[10vw] border-t border-zinc-200/20 flex flex-col items-center text-center">
+        {/* Line-mask reveal heading */}
+        <h2
+          ref={textRef}
+          className="font-neue text-[7vw] md:text-[3vw] font-medium leading-tight tracking-tight"
+        >
+          {[
+            "Crafting Thoughtful Brands and Digital",
+            "Products",
+          ].map((line, i) => (
+            <span
+              key={i}
+              className="block"
+              style={{ paddingBottom: "0.12em", overflow: "hidden" }}
+            >
+              <motion.span
+                className="block"
+                style={{ color: textColor }}
+                initial={{ y: "105%" }}
+                animate={{ y: 0 }}
+                transition={{
+                  duration: 1,
+                  delay: i * 0.1,
+                  ease: [0.76, 0, 0.24, 1],
+                }}
+              >
+                {line}
+              </motion.span>
+            </span>
+          ))}
+        </h2>
 
-        {/* Reusing existing Contact Form Component */}
-        <ContactSection />
-      </div>
-    </div>
+        <motion.p
+          style={{ color: textColor }}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 0.4, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.35, ease: [0.76, 0, 0.24, 1] }}
+          className="mt-6 md:mt-[2vw] font-neue text-sm md:text-[1vw] max-w-[42ch] leading-relaxed"
+        >
+          Rise Digital is a design and technology studio. We create digital
+          products and identities defined by strategy, precision, and vision.
+        </motion.p>
+      </section>
+      {/* ── Contact ──────────────────────────────────────────────────── */}
+      <ContactSection />
+    </motion.div>
   );
 }

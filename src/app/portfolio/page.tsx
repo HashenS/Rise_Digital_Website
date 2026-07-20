@@ -276,31 +276,51 @@ export default function PortfolioPage() {
         </div>
       </div>
 
-      {/* Dark Background Section: Call to action & Contact Form */}
-      <div className="pt-24 md:pt-[8vw] pb-[2vw]">
-        {/* Pitch / Headline Section */}
-        <div className="flex flex-col items-center justify-center text-center px-6 mb-8 md:mb-12">
-          <h2
-            ref={textRef}
-            className={`text-3xl md:text-[3.8vw] md:leading-[1.1] font-medium font-neue max-w-[80vw] md:max-w-[50vw] mb-4 md:mb-6 tracking-tight transition-colors duration-[2500ms] ease-in-out ${
-              isBlack ? "text-white" : "text-black"
-            }`}
-          >
-            Crafting Thoughtful Brands and Digital Products
-          </h2>
-          <p
-            className={`text-sm md:text-[1vw] max-w-[90vw] md:max-w-[32vw] leading-relaxed font-neue transition-colors duration-[2500ms] ease-in-out ${
-              isBlack ? "text-white/50" : "text-black/50"
-            }`}
-          >
-            Rise is a design and technology studio. We create digital products
-            that are intuitive, beautiful, and built to perform.
-          </p>
-        </div>
+      <section className="md:px-[6.25vw] px-4 py-[10vw] border-t border-zinc-200/20 flex flex-col items-center text-center">
+        {/* Line-mask reveal heading */}
+        <h2
+          ref={textRef}
+          className="font-neue text-[7vw] md:text-[3vw] font-medium leading-tight tracking-tight"
+        >
+          {[
+            "Crafting Thoughtful Brands and Digital",
+            "Products",
+          ].map((line, i) => (
+            <span
+              key={i}
+              className="block"
+              style={{ paddingBottom: "0.12em", overflow: "hidden" }}
+            >
+              <motion.span
+                className="block"
+                style={{ color: textColor }}
+                initial={{ y: "105%" }}
+                animate={{ y: 0 }}
+                transition={{
+                  duration: 1,
+                  delay: i * 0.1,
+                  ease: [0.76, 0, 0.24, 1],
+                }}
+              >
+                {line}
+              </motion.span>
+            </span>
+          ))}
+        </h2>
 
-        {/* Reusing existing Contact Form Component */}
-        <ContactSection />
-      </div>
+        <motion.p
+          style={{ color: textColor }}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 0.4, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.35, ease: [0.76, 0, 0.24, 1] }}
+          className="mt-6 md:mt-[2vw] font-neue text-sm md:text-[1vw] max-w-[42ch] leading-relaxed"
+        >
+          Rise Digital is a design and technology studio. We create digital
+          products and identities defined by strategy, precision, and vision.
+        </motion.p>
+      </section>
+      {/* ── Contact ──────────────────────────────────────────────────── */}
+      <ContactSection />
     </motion.div>
   );
 }
