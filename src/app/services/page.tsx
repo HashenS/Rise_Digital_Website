@@ -37,6 +37,16 @@ const categories = [
           "Brand Messaging & Tone of Voice",
         ],
       },
+    ],
+  },
+  {
+    id: "visual",
+    label: "Visual",
+    serviceCount: 14,
+    description:
+      "Visual craft is how your brand earns attention and trust. We create systems and assets that are as thoughtful as they are beautiful.",
+    img: uiDesignImg,
+    services: [
       {
         id: "02",
         title: "Brand Identity",
@@ -48,16 +58,6 @@ const categories = [
           "Marketing Materials",
         ],
       },
-    ],
-  },
-  {
-    id: "visual",
-    label: "Visual",
-    serviceCount: 9,
-    description:
-      "Visual craft is how your brand earns attention and trust. We create systems and assets that are as thoughtful as they are beautiful.",
-    img: uiDesignImg,
-    services: [
       {
         id: "03",
         title: "User Experience Design",
@@ -99,7 +99,7 @@ const categories = [
       },
       {
         id: "06",
-        title: "E-Commerce Development",
+        title: "eCommerce",
         subServices: [
           "Shopify Development",
           "Custom Storefronts",
@@ -139,17 +139,99 @@ const categories = [
 // ─── Dot-grid icon ─────────────────────────────────────────────────────────────
 
 const DOT_GRID_RECTS: [number, number][] = [
-  [38.75, 2],     [51, 2],
+  [38.75, 2],   [51, 2],
   [38.75, 14.25], [51, 14.25],
-  [26.5,  26.5],  [63.25, 26.5],
-  [2,     38.75], [14.25, 38.75], [38.75, 38.75], [51, 38.75], [75.5, 38.75], [87.75, 38.75],
-  [2,     51],    [14.25, 51],    [38.75, 51],    [51, 51],    [75.5, 51],    [87.75, 51],
-  [26.5,  63.25], [63.25, 63.25],
-  [38.75, 75.5],  [51, 75.5],
-  [38.75, 87.75], [51, 87.75],
+  [26.5, 26.5],  [63.25, 26.5],
+  [2, 38.75],  [14.25, 38.75], [38.75, 38.75], [51, 38.75], [75.5, 38.75], [87.75, 38.75],
+  [2, 51],     [14.25, 51],   [38.75, 51],   [51, 51],   [75.5, 51],   [87.75, 51],
+  [26.5, 63.25], [63.25, 63.25],
+  [38.75, 75.5], [51, 75.5],
+  [38.75, 87.75],[51, 87.75],
 ];
 
-function DotGridIcon({ className }: { className?: string }) {
+// Per-service custom icons keyed by service id
+const SERVICE_ICONS: Record<string, [number, number][]> = {
+  // Brand Identity
+  "02": [
+    [2, 2], [87.75, 2],
+    [14.25, 14.25], [26.5, 14.25], [63.25, 14.25], [75.5, 14.25],
+    [14.25, 26.5], [26.5, 26.5], [38.75, 26.5], [51, 26.5], [63.25, 26.5], [75.5, 26.5],
+    [26.5, 38.75], [63.25, 38.75],
+    [26.5, 51], [63.25, 51],
+    [14.25, 63.25], [26.5, 63.25], [38.75, 63.25], [51, 63.25], [63.25, 63.25], [75.5, 63.25],
+    [14.25, 75.5], [26.5, 75.5], [63.25, 75.5], [75.5, 75.5],
+    [2, 87.75], [87.75, 87.75],
+  ],
+  // User Experience Design
+  "03": [
+    [14.25, 14.25], [26.5, 14.25], [38.75, 14.25], [51, 14.25], [63.25, 14.25], [75.5, 14.25],
+    [14.25, 26.5], [75.5, 26.5],
+    [14.25, 38.75], [75.5, 38.75],
+    [14.25, 51], [75.5, 51],
+    [2, 63.25], [14.25, 63.25], [26.5, 63.25], [38.75, 63.25], [51, 63.25], [63.25, 63.25], [75.5, 63.25], [87.75, 63.25],
+    [2, 75.5], [14.25, 75.5], [26.5, 75.5], [38.75, 75.5], [51, 75.5], [63.25, 75.5], [75.5, 75.5], [87.75, 75.5],
+  ],
+  // Visual Content
+  "04": [
+    [26.5, 2], [38.75, 2], [51, 2], [63.25, 2],
+    [26.5, 14.25], [38.75, 14.25], [51, 14.25], [63.25, 14.25],
+    [2, 26.5], [14.25, 26.5], [26.5, 26.5], [38.75, 26.5], [51, 26.5], [63.25, 26.5], [75.5, 26.5], [87.75, 26.5],
+    [2, 38.75], [14.25, 38.75], [26.5, 38.75], [63.25, 38.75], [75.5, 38.75], [87.75, 38.75],
+    [2, 51], [14.25, 51], [26.5, 51], [63.25, 51], [75.5, 51], [87.75, 51],
+    [2, 63.25], [14.25, 63.25], [26.5, 63.25], [38.75, 63.25], [51, 63.25], [63.25, 63.25], [75.5, 63.25], [87.75, 63.25],
+    [2, 75.5], [14.25, 75.5], [26.5, 75.5], [38.75, 75.5], [51, 75.5], [63.25, 75.5], [75.5, 75.5], [87.75, 75.5],
+  ],
+  // Web Development (same shape as UX Design)
+  "05": [
+    [14.25, 14.25], [26.5, 14.25], [38.75, 14.25], [51, 14.25], [63.25, 14.25], [75.5, 14.25],
+    [14.25, 26.5], [75.5, 26.5],
+    [14.25, 38.75], [75.5, 38.75],
+    [14.25, 51], [75.5, 51],
+    [2, 63.25], [14.25, 63.25], [26.5, 63.25], [38.75, 63.25], [51, 63.25], [63.25, 63.25], [75.5, 63.25], [87.75, 63.25],
+    [2, 75.5], [14.25, 75.5], [26.5, 75.5], [38.75, 75.5], [51, 75.5], [63.25, 75.5], [75.5, 75.5], [87.75, 75.5],
+  ],
+  // E-Commerce Development
+  "06": [
+    [2, 2], [14.25, 2],
+    [14.25, 14.25],
+    [14.25, 26.5], [26.5, 26.5], [38.75, 26.5], [51, 26.5], [63.25, 26.5], [75.5, 26.5], [87.75, 26.5],
+    [14.25, 38.75], [87.75, 38.75],
+    [14.25, 51], [87.75, 51],
+    [14.25, 63.25], [26.5, 63.25], [38.75, 63.25], [51, 63.25], [63.25, 63.25], [75.5, 63.25], [87.75, 63.25],
+    [26.5, 75.5], [38.75, 75.5], [63.25, 75.5], [75.5, 75.5],
+    [26.5, 87.75], [38.75, 87.75], [63.25, 87.75], [75.5, 87.75],
+  ],
+  // Web & Mobile Application
+  "07": [
+    [2, 2],
+    [2, 14.25], [14.25, 14.25],
+    [14.25, 26.5], [26.5, 26.5],
+    [26.5, 38.75], [38.75, 38.75],
+    [26.5, 51], [38.75, 51],
+    [14.25, 63.25], [26.5, 63.25],
+    [2, 75.5], [14.25, 75.5], [51, 75.5], [63.25, 75.5], [75.5, 75.5], [87.75, 75.5],
+    [2, 87.75], [51, 87.75], [63.25, 87.75], [75.5, 87.75], [87.75, 87.75],
+  ],
+  // Embedded & Hardware
+  "08": [
+    [51, 2],
+    [38.75, 14.25], [51, 14.25],
+    [26.5, 26.5], [38.75, 26.5], [51, 26.5],
+    [14.25, 38.75], [26.5, 38.75], [38.75, 38.75], [51, 38.75], [63.25, 38.75], [75.5, 38.75], [87.75, 38.75],
+    [2, 51], [14.25, 51], [26.5, 51], [38.75, 51], [51, 51], [63.25, 51], [75.5, 51],
+    [38.75, 63.25], [51, 63.25], [63.25, 63.25],
+    [38.75, 75.5], [51, 75.5],
+    [38.75, 87.75],
+  ],
+};
+
+function DotGridIcon({
+  className,
+  rects = DOT_GRID_RECTS,
+}: {
+  className?: string;
+  rects?: [number, number][];
+}) {
   return (
     <svg
       fill="none"
@@ -157,7 +239,7 @@ function DotGridIcon({ className }: { className?: string }) {
       viewBox="0 0 100 100"
       className={className}
     >
-      {DOT_GRID_RECTS.map(([x, y], i) => (
+      {rects.map(([x, y], i) => (
         <rect
           key={i}
           x={x}
@@ -180,10 +262,13 @@ function ServiceRow({
   service: { id: string; title: string; subServices: string[] };
 }) {
   return (
-    <div className="mb-[1.5vw] last:mb-0">
+    <div className="mb-[6vw] last:mb-0">
       {/* Service title header */}
       <div className="group flex items-center gap-3 mb-[0.6vw]">
-        <DotGridIcon className="w-[3.2vw] min-w-[18px] shrink-0 text-black/20 group-hover:text-black transition-colors duration-500" />
+        <DotGridIcon
+          rects={SERVICE_ICONS[service.id] ?? DOT_GRID_RECTS}
+          className="w-[3.2vw] min-w-[18px] shrink-0 text-black/20 group-hover:text-black transition-colors duration-500"
+        />
         <span className="font-neue text-base md:text-[2vw] font-medium text-black group-hover:text-black transition-colors duration-300">
           {service.title}
         </span>
@@ -228,7 +313,6 @@ function CategorySection({
   return (
     <section className="md:px-[6.25vw] px-4 border-t border-zinc-200 py-[4vw]">
       <div className="flex flex-col md:flex-row gap-6 md:gap-[3vw]">
-
         {/* ── Left col: index + title + image ── */}
         <div className="md:w-[52%] shrink-0 flex flex-col gap-[1.5vw]">
           <div className="flex items-start gap-3">
@@ -268,17 +352,16 @@ function CategorySection({
 
         {/* ── Right col: description + services ── */}
         <div className="md:flex-1 flex flex-col">
-          <p className="md:max-w-[38vw] md:pl-[15vw] text-black/25 font-neue text-base md:text-[1vw] leading-[1.25] tracking-[0.04em] font-medium md:mb-[2.5vw] md:mt-[0.5vw]">
+          <p className="md:max-w-[40vw] md:pl-[14vw] text-black/25 font-neue text-base md:text-[1vw] leading-tight tracking-[0.04em] font-medium md:mb-[2.5vw] md:mt-[0.5vw]">
             {category.description}
           </p>
 
-          <div className="flex flex-col mt-6 md:mt-auto">
+          <div className="flex flex-col mt-1">
             {category.services.map((service) => (
               <ServiceRow key={service.id} service={service} />
             ))}
           </div>
         </div>
-
       </div>
     </section>
   );
@@ -393,7 +476,11 @@ export default function ServicesPage() {
       <div className="flex justify-center py-[4vw]">
         <button className="group flex items-center gap-3 bg-black text-white font-neue font-medium text-base md:text-[1vw] px-8 py-4 rounded-full hover:bg-zinc-800 transition-colors duration-300">
           Start a project
-          <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200">
+          <svg
+            viewBox="0 0 16 16"
+            fill="none"
+            className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200"
+          >
             <circle cx="4" cy="4" r="1.4" fill="currentColor" />
             <circle cx="10" cy="8" r="1.4" fill="currentColor" />
             <circle cx="4" cy="12" r="1.4" fill="currentColor" />
