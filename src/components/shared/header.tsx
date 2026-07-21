@@ -2,10 +2,12 @@
 import React, { useState } from "react";
 import Rise_logo from "@/assets/Rise Digital(without text).svg";
 import Image from "next/image";
+import ContactSlidePanel from "@/components/shared/ContactSlidePanel";
 
 export default function Header() {
   const [isServiceOpen, setIsServiceOpen] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
 
   const services = [
     { id: "01", title: "Brand Strategy", count: "/6 services" },
@@ -326,7 +328,7 @@ export default function Header() {
     <div>
       <header className="fixed top-0 left-0 right-0 flex items-start justify-between p-6 md:p-4 z-50 ">
         <a
-          href="#"
+          href="/"
           className=" pl flex items-center justify-center w-16 h-16 rounded-[1vw] bg-[#24242480]  backdrop-blur-md"
         >
           <Image src={Rise_logo} alt="Rise Logo" className="w-12 h-12" />
@@ -402,7 +404,10 @@ export default function Header() {
             </div>
           </div>
         </nav>
-        <button className="w-16 h-16 rounded-[1vw] bg-[#24242480] backdrop-blur-md flex items-center justify-center text-white">
+        <button
+          onClick={() => setIsPanelOpen(true)}
+          className="w-16 h-16 rounded-[1vw] bg-[#24242480] backdrop-blur-md flex items-center justify-center text-white"
+        >
           <svg
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -739,6 +744,7 @@ export default function Header() {
           </svg>
         </button>
       </header>
+      <ContactSlidePanel isOpen={isPanelOpen} onClose={() => setIsPanelOpen(false)} />
     </div>
   );
 }

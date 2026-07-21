@@ -109,7 +109,7 @@ export default function AboutPage() {
                 <p
                   className="service-title text-8xl md:text-[10vw] md:leading-[8vw] select-none font-neue"
                   style={{
-                    background:
+                    backgroundImage:
                       "linear-gradient(to bottom, #a0a0a0 25%, #E7E7E7 100%)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
@@ -140,7 +140,7 @@ export default function AboutPage() {
                 <span
                   className="service-title text-8xl md:text-[10vw] md:leading-[8vw] select-none font-neue"
                   style={{
-                    background:
+                    backgroundImage:
                       "linear-gradient(to bottom, #a0a0a0 25%, #E7E7E7 100%)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
@@ -171,7 +171,7 @@ export default function AboutPage() {
                 <span
                   className="service-title text-8xl md:text-[10vw] md:leading-[8vw] select-none font-neue"
                   style={{
-                    background:
+                    backgroundImage:
                       "linear-gradient(to bottom, #a0a0a0 25%, #E7E7E7 100%)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
