@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Rise_logo from "@/assets/Rise Digital(without text).svg";
-import { ChevronDown, ChevronRight } from "lucide-react";
+import { motion } from "motion/react";
 import AnimatedArrowButton from "@/components/shared/animated-arrow-button";
 
 export default function HeroSection() {
@@ -53,15 +53,47 @@ export default function HeroSection() {
       {/* Bottom Content Area */}
       <div className="relative z-20 w-full flex flex-col md:flex-row md:items-end justify-between pb-4 md:pb-[1vw]">
         {/* Left Side: Headline */}
-        <div className="w-full md:w-3/4 max-w-[85vw] md:max-w-[65vw]">
-          <p className="text-xs md:text-[0.95vw] uppercase tracking-widest text-zinc-500 font-medium mb-3 ml-7 md:mb-[1vw] font-neue">
-            Full-Service Agency
-          </p>
-          <h1 className="text-4xl md:text-[3.8vw] lg:text-[3vw] font-medium font-neue leading-[1.05] ml-7 mb-9 tracking-tight text-white">
-            Rise is a design and technology studio.{" "}
-            <span className="text-white/30">
-              We deliver holistic brand identity & digital experiences.
-            </span>
+        <div className="w-full md:w-1/2 mb-4 md:mb-[4.5vw]">
+          {/* Small label - single line mask reveal */}
+          <h2 className="text-xs md:text-[1vw] uppercase tracking-widest text-zinc-500 font-medium font-neue mb-3 md:mb-[1vw] ml-7 overflow-hidden" style={{ paddingBottom: "0.12em" }}>
+            <motion.span
+              className="block"
+              initial={{ y: "105%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1, delay: 0, ease: [0.76, 0, 0.24, 1] }}
+            >
+              Full-Service Agency
+            </motion.span>
+          </h2>
+
+          {/* Main h1 - per-line mask reveal */}
+          <h1 className="text-4xl md:text-[3vw] font-medium font-neue leading-[1.05] ml-7 tracking-tight text-white">
+            {[
+              { text: "Rise is a design and technology studio.", dim: false },
+              { text: "We deliver holistic brand identity", dim: true },
+              { text: "& digital experiences.", dim: true },
+            ].map((line, i) => (
+              <span
+                key={i}
+                className="block"
+                style={{ paddingBottom: "0.12em", overflow: "hidden" }}
+              >
+                <motion.span
+                  className="block"
+                  initial={{ y: "105%" }}
+                  animate={{ y: 0 }}
+                  transition={{
+                    duration: 1,
+                    delay: 0.1 + i * 0.1,
+                    ease: [0.76, 0, 0.24, 1],
+                  }}
+                >
+                  <span className={line.dim ? "opacity-20" : undefined}>
+                    {line.text}
+                  </span>
+                </motion.span>
+              </span>
+            ))}
           </h1>
         </div>
 

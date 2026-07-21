@@ -1,3 +1,6 @@
+"use client";
+import { motion } from "motion/react";
+
 export default function AandV() {
   const valueIcons = [
     // 1. Heart (Passionate/Care)
@@ -210,10 +213,35 @@ export default function AandV() {
       </div>
       <div className="col-span-8">
         <p className="text-[2.8vw] font-medium leading-tight tracking-tight text-black dark:text-white font-neue">
-          <span> We combine creativity, strategic ideas and technology </span>
-          <span className="text-section-title">
-            to create bespoke solutions that drive your success.
-          </span>
+          {[
+            { parts: [{ text: "We combine creativity, strategic ideas", dim: false }] },
+            { parts: [{ text: "and technology", dim: false }, { text: " to create bespoke", dim: true }] },
+            { parts: [{ text: "solutions that drive your success.", dim: true }] },
+          ].map((line, i) => (
+            <span
+              key={i}
+              className="block"
+              style={{ paddingBottom: "0.12em", overflow: "hidden" }}
+            >
+              <motion.span
+                className="block"
+                initial={{ y: "105%" }}
+                whileInView={{ y: 0 }}
+                viewport={{ once: true, margin: "0px 0px -60px 0px" }}
+                transition={{
+                  duration: 1,
+                  delay: i * 0.1,
+                  ease: [0.76, 0, 0.24, 1],
+                }}
+              >
+                {line.parts.map((part, j) => (
+                  <span key={j} className={part.dim ? "opacity-20" : undefined}>
+                    {part.text}
+                  </span>
+                ))}
+              </motion.span>
+            </span>
+          ))}
         </p>
       </div>
       <div className="col-span-12 flex justify-between items-center pt-24 text-zinc-300 dark:text-zinc-700/80">
