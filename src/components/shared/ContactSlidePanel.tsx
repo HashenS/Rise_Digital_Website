@@ -17,19 +17,31 @@ function FloatingInput({
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
+  const [focused, setFocused] = useState(false);
+  const lifted = focused || value.length > 0;
+
   return (
-    <div
-      className="relative h-12 md:h-[3.5vw] rounded-lg md:rounded-[0.5vw] border md:border-[0.1vw] w-full hover:cursor-text outline-none transition-colors duration-1000 bg-black border-[#9F9F9F]/30 font-neue"
+    <div className="relative h-12 md:h-[3.5vw] rounded-lg md:rounded-[0.5vw] border md:border-[0.1vw] w-full outline-none transition-colors duration-300 bg-black font-neue cursor-text"
+      style={{ borderColor: focused ? "rgba(159,159,159,0.6)" : "rgba(159,159,159,0.3)" }}
     >
-      <div className="absolute pointer-events-none z-[2] text-white/50 text-xs md:text-[0.7vw] left-2.5 md:left-[0.75vw] top-2 md:top-[0.5vw]">
-        <span>{label}</span>
-      </div>
+      {/* Floating label */}
+      <span
+        className={`absolute pointer-events-none z-[2] text-white font-neue font-medium transition-all duration-200 left-2.5 md:left-[0.75vw] ${
+          lifted
+            ? "top-1.5 md:top-[0.4vw] text-[10px] md:text-[0.6vw] opacity-50"
+            : "top-1/2 -translate-y-1/2 text-sm md:text-[1vw] opacity-70"
+        }`}
+      >
+        {label}
+      </span>
       <input
         type={type}
         name={name}
         value={value}
         onChange={onChange}
-        className="absolute z-[1] w-full h-8 md:h-[1.75vw] bottom-0 md:bottom-[0.3vw] px-2.5 md:px-[0.75vw] py-0 bg-transparent border-none text-sm md:text-[1vw] focus:outline-none focus:ring-0 focus:shadow-none text-white"
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        className="absolute z-[1] w-full h-8 md:h-[1.75vw] bottom-0 md:bottom-[0.3vw] px-2.5 md:px-[0.75vw] py-0 bg-transparent border-none text-sm md:text-[1vw] focus:outline-none focus:ring-0 focus:shadow-none text-white font-neue"
       />
     </div>
   );
@@ -46,16 +58,31 @@ function FloatingTextarea({
   value: string;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }) {
+  const [focused, setFocused] = useState(false);
+  const lifted = focused || value.length > 0;
+
   return (
-    <div className="relative flex-1 min-h-[7.5rem] md:min-h-[3.5vw] rounded-lg md:rounded-[0.5vw] border md:border-[0.1vw] w-full hover:cursor-text outline-none transition-colors duration-1000 bg-black border-[#9F9F9F]/30">
-      <div className="absolute pointer-events-none z-[2] text-white/50 text-xs md:text-[0.7vw] left-2.5 md:left-[0.75vw] top-2 md:top-[0.5vw] font-neue">
-        <span>{label}</span>
-      </div>
+    <div
+      className="relative flex-1 min-h-[7.5rem] md:min-h-[3.5vw] rounded-lg md:rounded-[0.5vw] border md:border-[0.1vw] w-full outline-none transition-colors duration-300 bg-black cursor-text"
+      style={{ borderColor: focused ? "rgba(159,159,159,0.6)" : "rgba(159,159,159,0.3)" }}
+    >
+      {/* Floating label */}
+      <span
+        className={`absolute pointer-events-none z-[2] text-white font-neue font-medium transition-all duration-200 left-2.5 md:left-[0.75vw] ${
+          lifted
+            ? "top-1.5 md:top-[0.4vw] text-[10px] md:text-[0.6vw] opacity-50"
+            : "top-4 md:top-[0.9vw] text-sm md:text-[1vw] opacity-70"
+        }`}
+      >
+        {label}
+      </span>
       <textarea
         name={name}
         value={value}
         onChange={onChange}
-        className="absolute z-[1] w-full h-[calc(100%-20px)] md:h-[calc(100%-1.75vw)] top-5 md:top-[1.75vw] px-2.5 md:px-[0.75vw] py-0 bg-transparent border-none text-sm md:text-[1vw] focus:outline-none focus:ring-0 focus:shadow-none resize-none leading-snug md:leading-[1.2vw] text-white font-neue"
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        className="absolute z-[1] w-full h-[calc(100%-24px)] md:h-[calc(100%-1.75vw)] top-6 md:top-[1.75vw] px-2.5 md:px-[0.75vw] py-0 bg-transparent border-none text-sm md:text-[1vw] focus:outline-none focus:ring-0 focus:shadow-none resize-none leading-snug md:leading-[1.2vw] text-white font-neue"
       />
     </div>
   );
