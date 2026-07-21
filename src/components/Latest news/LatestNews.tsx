@@ -150,7 +150,7 @@ export default function LatestNews() {
 
         <div className="mt-12 md:mt-24 flex justify-center">
           <motion.button
-            className="news-btn bg-black text-white px-8 py-3 font-neue rounded-lg font-medium cursor-pointer text-lg"
+            className="news-btn bg-black text-white px-8 py-3 font-neue rounded-lg font-medium cursor-pointer md:text-[1vw] text-base"
             whileHover={{ scale: 1.04, backgroundColor: "#27272a" }}
             whileTap={{ scale: 0.97 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}

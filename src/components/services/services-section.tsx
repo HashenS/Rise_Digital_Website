@@ -384,7 +384,7 @@ export default function ServicesSection() {
       </div>
 
       <div className="flex justify-center pt-10">
-        <button className="bg-black text-white px-8 py-3.5 rounded-lg border border-zinc-800/80 text-sm font-neue font-medium hover:bg-zinc-900 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 cursor-pointer">
+        <button className="bg-black text-white px-8 py-3.5 rounded-lg border border-zinc-800/80 md:text-[1vw] text-base font-neue font-medium hover:bg-zinc-900 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 cursor-pointer">
           Explore All Services
         </button>
       </div>
