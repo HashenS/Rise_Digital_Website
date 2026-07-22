@@ -1,0 +1,61 @@
+name: Deploy RISE Digital Website To Hostinger VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies & Build
+        env:
+          ENV: ${{ secrets.SERVER_ENV }}
+        run: |
+          echo "$ENV" > .env
+          bun install
+          bun run build
+
+      - name: Deploy to VPS via SCP
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          source: "package.json,bun.lock,.next,public,next.config.ts"
+          target: "/var/www/rise-digital"
+
+      - name: Restart PM2 via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          envs: ENV
+          script: |
+            cd /var/www/rise-digital
+
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            export BUN_INSTALL="$HOME/.bun"
+            export PATH="$BUN_INSTALL/bin:$PATH"
+
+            echo "$ENV" > .env.production.local
+            
+            bun install --production
+
+            pm2 delete rise-digital || true
+            pm2 start bun --name "rise-digital" -- run start -- -p 3002
+            
+            pm2 save
+        env:
+          ENV: ${{ secrets.SERVER_ENV }}
