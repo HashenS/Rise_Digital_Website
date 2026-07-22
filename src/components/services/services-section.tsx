@@ -1,120 +1,8 @@
 import Image from "next/image";
-import brandStrategy from "@/assets/services-img/brand_strategy.webp";
-import brandIdentity from "@/assets/services-img/brand_identity.webp";
-import uiDesign from "@/assets/services-img/ui_design.webp";
-import visualContent from "@/assets/services-img/visual_content.webp";
-import webDev from "@/assets/services-img/web_dev.webp";
-import eCommerce from "@/assets/services-img/e-commerce.webp";
-import webMobileApp from "@/assets/services-img/web_mobile_application.webp";
-import embeddedHardware from "@/assets/services-img/embedded-_hardware.webp";
+import Link from "next/link";
+import { getAllServices } from "@/data/services";
 
-const services = [
-  {
-    id: "01",
-    title: "Brand Strategy",
-    count: "/6 services",
-    img: brandStrategy,
-    subServices: [
-      "Brand Positioning",
-      "Competitor & Market Research",
-      "Brand Architecture",
-      "Brand Audit",
-      "Brand Naming & Tagline",
-      "Brand Messaging & Tone of Voice",
-    ],
-  },
-  {
-    id: "02",
-    title: "Brand Identity",
-    count: "/5 services",
-    img: brandIdentity,
-    subServices: [
-      "Logo Design",
-      "Visual Language",
-      "Brand Guidelines",
-      "Typography & Color",
-      "Marketing Materials",
-    ],
-  },
-  {
-    id: "03",
-    title: "User Experiance Design",
-    count: "/6 services",
-    img: uiDesign,
-    subServices: [
-      "User Research",
-      "Wireframing",
-      "Prototyping",
-      "Usability Testing",
-      "Information Architecture",
-      "Interaction Design",
-    ],
-  },
-  {
-    id: "04",
-    title: "Visual Content",
-    count: "/3 services",
-    img: visualContent,
-    subServices: ["Photography", "Videography", "3D Motion Graphics"],
-  },
-  {
-    id: "05",
-    title: "Web Development",
-    count: "/7 services",
-    img: webDev,
-    subServices: [
-      "Frontend Development",
-      "Backend Architecture",
-      "CMS Integration",
-      "Performance Optimization",
-      "E-Commerce Solutions",
-      "Web Animation",
-      "Maintenance & Support",
-    ],
-  },
-  {
-    id: "06",
-    title: "E-commerce Development",
-    count: "/4 services",
-    img: eCommerce,
-    subServices: [
-      "Shopify Development",
-      "Custom Storefronts",
-      "Payment Gateways",
-      "Inventory Management",
-      "Conversion Optimization",
-      "Subscription Models",
-      "Platform Migration",
-    ],
-  },
-  {
-    id: "07",
-    title: "Web & Mobile Application",
-    count: "/6 services",
-    img: webMobileApp,
-    subServices: [
-      "iOS Development",
-      "Android Development",
-      "React Native",
-      "Progressive Web Apps",
-      "App Store Optimization",
-      "Post-Launch Support",
-    ],
-  },
-  {
-    id: "08",
-    title: "Embedded & Hardware",
-    count: "/3 services",
-    img: embeddedHardware,
-    subServices: [
-      "IoT Solutions",
-      "Firmware Development",
-      "Hardware Prototyping",
-      "Circuit Design",
-      "Testing & Validation",
-    ],
-  },
-];
+
 const getServiceIcon = (id: string) => {
   const r = 1;
   switch (id) {
@@ -315,6 +203,7 @@ const getServiceIcon = (id: string) => {
 };
 
 export default function ServicesSection() {
+  const services = getAllServices();
   return (
     <div className="py-20 px-25 space-y-3 bg-theme-light">
       <h1 className="text-base uppercase text-section-title font-medium font-neue tracking-widest">
@@ -322,9 +211,10 @@ export default function ServicesSection() {
       </h1>
       <div className="grid grid-cols-4 gap-3">
         {services.map((service) => (
-          <div
+          <Link
             key={service.id}
-            className="group relative h-[30vw] rounded-xl overflow-hidden cursor-pointer"
+            href={`/services/${service.slug}`}
+            className="group relative h-[30vw] rounded-xl overflow-hidden cursor-pointer block"
           >
             {/* Image Background */}
             <Image
@@ -379,7 +269,7 @@ export default function ServicesSection() {
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 
