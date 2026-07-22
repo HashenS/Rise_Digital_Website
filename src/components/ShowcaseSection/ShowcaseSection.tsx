@@ -25,10 +25,10 @@ export default function ShowcaseSection() {
     offset: ["start start", "end end"],
   });
 
-  // Drive bg-black-active for the nav — fires at midpoint of transition
+  // Drive bg-black-active for the entire page background — triggers after AandV has scrolled off-screen
   useEffect(() => {
     const unsubscribe = scrollYProgress.on("change", (latest) => {
-      if (latest >= 0.3) {
+      if (latest >= 0.18) {
         document.body.classList.add("bg-black-active");
       } else {
         document.body.classList.remove("bg-black-active");
@@ -40,14 +40,16 @@ export default function ShowcaseSection() {
     };
   }, [scrollYProgress]);
 
-  // Card scale animation — unchanged
-  const width = useTransform(scrollYProgress, [0.1, 0.6], ["40vw", "90vw"]);
-  const height = useTransform(scrollYProgress, [0.1, 0.6], ["62vw", "90vh"]);
-  const borderRadius = useTransform(scrollYProgress, [0.1, 0.6], ["24px", "16px"]);
+  // Card scale animation during sticky pin
+  const width = useTransform(scrollYProgress, [0.18, 0.60], ["40vw", "90vw"]);
+  const height = useTransform(scrollYProgress, [0.18, 0.60], ["62vw", "90vh"]);
+  const borderRadius = useTransform(scrollYProgress, [0.18, 0.60], ["24px", "16px"]);
 
   return (
-    // No background on this section — the parent page bg shows through
-    <div className="relative h-[250vh] w-full" ref={containerRef}>
+    <div
+      ref={containerRef}
+      className="relative h-[250vh] w-full bg-theme-light transition-colors duration-[1200ms] ease-out"
+    >
       <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
         <motion.div
           style={{ width, height, borderRadius }}
