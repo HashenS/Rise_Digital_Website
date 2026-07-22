@@ -120,32 +120,194 @@ function SubServiceRow({ label }: { label: string }) {
   );
 }
 
+// ─── Process dot grid icon ──────────────────────────────────────────────────
+function ProcessDotGridIcon({ index }: { index: number }) {
+  const patternIndex = index % 6;
+  const gradientId = `dot-gradient-process-${index}`;
+
+  const patterns = [
+    // Pattern 0 (Discovery)
+    {
+      transform: "translate(0, 0)",
+      dots: [
+        [38.75, 2], [51, 2], [63.25, 2], [75.5, 2],
+        [26.5, 14.25], [38.75, 14.25], [51, 14.25], [63.25, 14.25], [75.5, 14.25], [87.75, 14.25],
+        [26.5, 26.5], [38.75, 26.5], [75.5, 26.5], [87.75, 26.5],
+        [26.5, 38.75], [38.75, 38.75], [75.5, 38.75], [87.75, 38.75],
+        [26.5, 51], [38.75, 51], [51, 51], [63.25, 51], [75.5, 51], [87.75, 51],
+        [14.25, 63.25], [26.5, 63.25], [38.75, 63.25], [51, 63.25], [63.25, 63.25], [75.5, 63.25],
+        [2, 75.5], [14.25, 75.5], [26.5, 75.5],
+        [2, 87.75], [14.25, 87.75],
+      ],
+    },
+    // Pattern 1 (Platform Strategy)
+    {
+      transform: "translate(0, 0)",
+      dots: [
+        [2, 2], [14.25, 2],
+        [14.25, 14.25],
+        [14.25, 26.5], [26.5, 26.5], [38.75, 26.5], [51, 26.5], [63.25, 26.5], [75.5, 26.5], [87.75, 26.5],
+        [14.25, 38.75], [87.75, 38.75],
+        [14.25, 51], [87.75, 51],
+        [14.25, 63.25], [26.5, 63.25], [38.75, 63.25], [51, 63.25], [63.25, 63.25], [75.5, 63.25], [87.75, 63.25],
+        [26.5, 75.5], [38.75, 75.5], [63.25, 75.5], [75.5, 75.5],
+        [26.5, 87.75], [38.75, 87.75], [63.25, 87.75], [75.5, 87.75],
+      ],
+    },
+    // Pattern 2 (UX & Store Design)
+    {
+      transform: "translate(0, 0)",
+      dots: [
+        [14.25, 14.25], [26.5, 14.25], [38.75, 14.25], [51, 14.25], [63.25, 14.25], [75.5, 14.25],
+        [14.25, 26.5], [75.5, 26.5],
+        [14.25, 38.75], [75.5, 38.75],
+        [14.25, 51], [75.5, 51],
+        [2, 63.25], [14.25, 63.25], [26.5, 63.25], [38.75, 63.25], [51, 63.25], [63.25, 63.25], [75.5, 63.25], [87.75, 63.25],
+        [2, 75.5], [14.25, 75.5], [26.5, 75.5], [38.75, 75.5], [51, 75.5], [63.25, 75.5], [75.5, 75.5], [87.75, 75.5],
+      ],
+    },
+    // Pattern 3 (Development)
+    {
+      transform: "translate(0, 0)",
+      dots: [
+        [26.5, 2], [63.25, 2],
+        [14.25, 14.25], [26.5, 14.25], [63.25, 14.25], [75.5, 14.25],
+        [14.25, 26.5], [75.5, 26.5],
+        [2, 38.75], [14.25, 38.75], [75.5, 38.75], [87.75, 38.75],
+        [2, 51], [14.25, 51], [75.5, 51], [87.75, 51],
+        [14.25, 63.25], [75.5, 63.25],
+        [14.25, 75.5], [26.5, 75.5], [63.25, 75.5], [75.5, 75.5],
+        [26.5, 87.75], [63.25, 87.75],
+      ],
+    },
+    // Pattern 4 (Testing & Optimization)
+    {
+      transform: "translate(0, 0)",
+      dots: [
+        [2, 2], [14.25, 2], [26.5, 2], [38.75, 2], [51, 2], [63.25, 2], [75.5, 2], [87.75, 2],
+        [2, 14.25], [87.75, 14.25],
+        [2, 26.5], [26.5, 26.5], [38.75, 26.5], [51, 26.5], [63.25, 26.5], [87.75, 26.5],
+        [2, 38.75], [26.5, 38.75], [38.75, 38.75], [51, 38.75], [63.25, 38.75], [87.75, 38.75],
+        [2, 51], [14.25, 51], [38.75, 51], [51, 51], [75.5, 51], [87.75, 51],
+        [14.25, 63.25], [26.5, 63.25], [63.25, 63.25], [75.5, 63.25],
+        [26.5, 75.5], [38.75, 75.5], [51, 75.5], [63.25, 75.5],
+        [38.75, 87.75], [51, 87.75],
+      ],
+    },
+    // Pattern 5 (Launch & Growth)
+    {
+      transform: "translate(0, -6.125)",
+      dots: [
+        [75.5, 14.25], [87.75, 14.25],
+        [75.5, 26.5], [87.75, 26.5],
+        [38.75, 38.75], [51, 38.75], [75.5, 38.75], [87.75, 38.75],
+        [38.75, 51], [51, 51], [75.5, 51], [87.75, 51],
+        [2, 63.25], [14.25, 63.25], [38.75, 63.25], [51, 63.25], [75.5, 63.25], [87.75, 63.25],
+        [2, 75.5], [14.25, 75.5], [38.75, 75.5], [51, 75.5], [75.5, 75.5], [87.75, 75.5],
+        [2, 87.75], [14.25, 87.75], [38.75, 87.75], [51, 87.75], [75.5, 87.75], [87.75, 87.75],
+      ],
+    },
+  ];
+
+  const currentPattern = patterns[patternIndex];
+
+  return (
+    <svg
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 100 100"
+      className="w-20 h-20 md:w-[6vw] md:h-[6vw] my-2 md:my-0 flex-shrink-0"
+      style={{ display: "block" }}
+    >
+      <defs>
+        <linearGradient
+          id={gradientId}
+          x1="0"
+          y1="0"
+          x2="0"
+          y2="100"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0%" stopColor="#BBBBBB" />
+          <stop offset="100%" stopColor="#D8D8D8" />
+        </linearGradient>
+      </defs>
+      <g transform={currentPattern.transform}>
+        {currentPattern.dots.map(([x, y], i) => (
+          <rect
+            key={i}
+            x={x}
+            y={y}
+            width="10.25"
+            height="10.25"
+            rx="5.125"
+            fill={`url(#${gradientId})`}
+          />
+        ))}
+      </g>
+    </svg>
+  );
+}
+
 // ─── Process card ────────────────────────────────────────────────────────────
 function ProcessCard({
   step,
+  index,
 }: {
   step: { number: string; title: string; description: string };
+  index: number;
 }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "0px 0px -40px 0px" }}
-      transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
-      className="flex flex-col items-start justify-between gap-4 rounded-2xl border border-[#DCDCDC] bg-[#E7E7E7] p-5 md:p-[2vw] min-h-[220px] md:min-h-[14vw]"
+      transition={{ duration: 0.6, delay: index * 0.08, ease: [0.76, 0, 0.24, 1] }}
+      className="service-process-card flex aspect-[2/3] h-full flex-col items-center justify-between gap-4 rounded-2xl md:rounded-[1vw] border border-[#DCDCDC] bg-[#E7E7E7] p-5 md:p-[1vw]"
     >
-      <div className="flex w-full justify-between">
-        <h4 className="text-sm md:text-[0.85vw] text-[#606060] uppercase font-neue font-medium tracking-widest">
+      <div className="flex w-full justify-between items-center">
+        <h4 className="w-full text-left text-sm md:text-[1vw] text-[#606060] uppercase font-neue font-medium">
           {step.title}
         </h4>
-        <span className="text-sm md:text-[0.85vw] text-[#606060] font-neue">
+        <span className="text-sm md:text-[1vw] text-[#606060] font-neue">
           {step.number}
         </span>
       </div>
-      <p className="text-sm md:text-[0.85vw] text-[#606060] font-neue leading-relaxed">
+
+      <ProcessDotGridIcon index={index} />
+
+      <p className="w-full text-xs md:text-[0.9vw] leading-relaxed md:leading-[1.2vw] text-[#8D8D8D] font-neue">
         {step.description}
       </p>
     </motion.div>
+  );
+}
+
+// ─── Studio Statement Section ──────────────────────────────────────────────
+function StudioStatementSection() {
+  return (
+    <div className="flex flex-col items-center min-h-[300px] h-120 md:h-[35vw] justify-center text-black py-16 md:py-0 font-neue">
+      <section className="flex w-full px-5 md:px-0 md:w-4/5 h-full flex-col items-center justify-center gap-5 md:gap-[2vw]">
+        <h2 className="text-3xl md:text-[3vw] text-center md:w-3/4 font-medium leading-tight md:leading-[3.4vw] tracking-tight">
+          <MaskLineInView delay={0.1}>
+            Crafting Thoughtful Brands and Digital
+          </MaskLineInView>
+          <MaskLineInView delay={0.2}>
+            Products
+          </MaskLineInView>
+        </h2>
+        <div className="px-5 md:px-10 md:w-2/3">
+          <div className="text-sm md:text-[1vw] md:leading-[1.5vw] text-center opacity-50 font-medium">
+            <MaskLineInView delay={0.3}>
+              Rise Digital is a design and technology studio. We create digital products and identities defined by strategy,
+            </MaskLineInView>
+            <MaskLineInView delay={0.4}>
+              precision, and vision.
+            </MaskLineInView>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
 
@@ -275,7 +437,7 @@ export default function ServiceDetailPage({
       </section>
 
       {/* ── SECTION 4: Our Process ── */}
-      <section className="mt-10 md:mt-0 flex w-full flex-col pt-10 md:pt-[8vw] px-5 md:px-[5vw] pb-16 md:pb-[8vw]">
+      <section className="mt-10 md:mt-0 flex w-full flex-col pt-10 md:pt-[8vw] px-5 md:px-[5vw] pb-16 md:pb-[4vw]">
         <h3
           className="text-xs md:text-[1vw] secondary-text uppercase tracking-widest font-neue font-medium text-[#606060] mb-8 md:mb-[3vw] overflow-hidden"
           style={{ paddingBottom: "0.12em" }}
@@ -290,14 +452,17 @@ export default function ServiceDetailPage({
             Our Process
           </motion.span>
         </h3>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-[1vw]">
-          {service.process.map((step) => (
-            <ProcessCard key={step.number} step={step} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-[1vw] mt-[1vw]">
+          {service.process.map((step, index) => (
+            <ProcessCard key={step.number} step={step} index={index} />
           ))}
         </div>
       </section>
 
-      {/* ── SECTION 5: Contact ── */}
+      {/* ── SECTION 5: Studio Statement ── */}
+      <StudioStatementSection />
+
+      {/* ── SECTION 6: Contact ── */}
       <ContactSection />
     </main>
   );
