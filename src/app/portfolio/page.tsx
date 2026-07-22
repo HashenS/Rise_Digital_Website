@@ -136,14 +136,11 @@ export default function PortfolioPage() {
 
       if (!textRef.current) return;
       const rect = textRef.current.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      const textCenter = rect.top + rect.height / 2;
-      const viewportCenter = viewportHeight / 2;
       const isAtBottom =
-        (window.innerHeight + window.scrollY >=
-        document.documentElement.scrollHeight - 150) && window.scrollY > 50;
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 150 && window.scrollY > 50;
 
-      if (textCenter <= viewportCenter || isAtBottom) {
+      if (rect.top <= window.innerHeight || isAtBottom) {
         animateTo(true);
       } else {
         animateTo(false);
@@ -278,9 +275,16 @@ export default function PortfolioPage() {
 
       <section className="md:px-[6.25vw] px-4 pt-[10vw] pb-[4vw] border-t border-zinc-200/20 flex flex-col items-center text-center">
         {/* Line-mask reveal heading */}
-        <h2
+        <motion.h2
           ref={textRef}
           className="font-neue text-[7vw] md:text-[3vw] font-medium leading-tight tracking-tight"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: "some" }}
+          variants={{
+            hidden: {},
+            show: { transition: { staggerChildren: 0.1 } },
+          }}
         >
           {[
             "Crafting Thoughtful Brands and Digital",
@@ -294,11 +298,12 @@ export default function PortfolioPage() {
               <motion.span
                 className="block"
                 style={{ color: textColor }}
-                initial={{ y: "105%" }}
-                animate={{ y: 0 }}
+                variants={{
+                  hidden: { y: "105%" },
+                  show: { y: 0 },
+                }}
                 transition={{
                   duration: 1,
-                  delay: i * 0.1,
                   ease: [0.76, 0, 0.24, 1],
                 }}
               >
@@ -306,12 +311,13 @@ export default function PortfolioPage() {
               </motion.span>
             </span>
           ))}
-        </h2>
+        </motion.h2>
 
         <motion.p
           style={{ color: textColor }}
           initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 0.4, y: 0 }}
+          whileInView={{ opacity: 0.4, y: 0 }}
+          viewport={{ once: true, amount: "some" }}
           transition={{ duration: 0.8, delay: 0.35, ease: [0.76, 0, 0.24, 1] }}
           className="mt-6 md:mt-[2vw] font-neue text-sm md:text-[1vw] max-w-[42ch] leading-relaxed font-medium"
         >

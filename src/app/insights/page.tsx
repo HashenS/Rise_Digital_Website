@@ -61,14 +61,11 @@ export default function InsightsPage() {
 
       if (!textRef.current) return;
       const rect = textRef.current.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      const textCenter = rect.top + rect.height / 2;
-      const viewportCenter = viewportHeight / 2;
       const isAtBottom =
-        (window.innerHeight + window.scrollY >=
-        document.documentElement.scrollHeight - 150) && window.scrollY > 50;
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 150 && window.scrollY > 50;
 
-      if (textCenter <= viewportCenter || isAtBottom) {
+      if (rect.top <= window.innerHeight || isAtBottom) {
         animateTo(true);
       } else {
         animateTo(false);
@@ -419,120 +416,82 @@ export default function InsightsPage() {
         {/* Middle Tagline Section */}
         <div className="flex flex-col items-center py-16 md:pt-[15vw] justify-center">
           <section className="flex w-full px-3 md:px-0 md:w-4/5 flex-col items-center justify-center gap-5 md:gap-[2vw]">
-            <h3
+            <motion.h3
               ref={textRef}
-              className={`mst text-3xl md:text-[3vw] text-center md:w-3/4 font-neue transition-colors duration-[2500ms] ease-in-out ${
+              className={`mst text-3xl md:text-[3vw] text-center md:w-3/4 font-neue font-medium tracking-normal transition-colors duration-[2500ms] ease-in-out ${
                 isBlack ? "text-white" : "text-black"
               }`}
-              style={
-                {
-                  "--mst-leading-desktop": "-0.7vw",
-                  "--mst-leading-mobile": "-2vw",
-                } as React.CSSProperties
-              }
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: "some" }}
+              variants={{
+                hidden: {},
+                show: { transition: { staggerChildren: 0.1 } },
+              }}
             >
-              <span className="mst__lines block">
+              {[
+                "Crafting Thoughtful Brands and Digital",
+                "Products",
+              ].map((line, i) => (
                 <span
-                  className="mst__mask block"
-                  style={{
-                    marginBottom: "var(--mst-leading)",
-                    paddingBottom: "0.12em",
-                    overflow: "visible",
-                  }}
+                  key={i}
+                  className="block"
+                  style={{ paddingBottom: "0.12em", overflow: "hidden" }}
                 >
-                  <span
-                    className="mst__inner block font-medium"
-                    style={{
-                      transition:
-                        "transform 1000ms cubic-bezier(0.76, 0, 0.24, 1)",
-                      transform: "translateY(0px)",
-                      animationDelay: "0s",
+                  <motion.span
+                    className="block font-medium"
+                    variants={{
+                      hidden: { y: "105%" },
+                      show: { y: 0 },
+                    }}
+                    transition={{
+                      duration: 1,
+                      ease: [0.76, 0, 0.24, 1],
                     }}
                   >
-                    <span>Crafting Thoughtful Brands and Digital </span>
-                  </span>
+                    {line}
+                  </motion.span>
                 </span>
-                <span
-                  className="mst__mask block"
-                  style={{
-                    marginBottom: "var(--mst-leading)",
-                    paddingBottom: "0.12em",
-                    overflow: "visible",
-                  }}
-                >
-                  <span
-                    className="mst__inner block font-medium"
-                    style={{
-                      transition:
-                        "transform 1000ms cubic-bezier(0.76, 0, 0.24, 1)",
-                      transform: "translateY(0px)",
-                      animationDelay: "0.15s",
-                    }}
-                  >
-                    <span>Products</span>
-                  </span>
-                </span>
-              </span>
-            </h3>
+              ))}
+            </motion.h3>
             <div className="px-10 md:w-2/3">
-              <p
+              <motion.div
                 className={`mst text-md md:text-[1vw] text-center leading-relaxed font-neue font-medium transition-colors duration-[2500ms] ease-in-out ${
                   isBlack ? "text-white/50" : "text-black/50"
                 }`}
-                style={
-                  {
-                    "--mst-leading-desktop": "-0.5vw",
-                    "--mst-leading-mobile": "-1vw",
-                  } as React.CSSProperties
-                }
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: "some" }}
+                variants={{
+                  hidden: {},
+                  show: { transition: { staggerChildren: 0.1 } },
+                }}
               >
-                <span className="mst__lines block">
+                {[
+                  "Rise Digital is a design and technology studio. We create digital products and identities defined by strategy,",
+                  "precision, and vision.",
+                ].map((line, i) => (
                   <span
-                    className="mst__mask block"
-                    style={{
-                      marginBottom: "var(--mst-leading)",
-                      paddingBottom: "0.12em",
-                      overflow: "visible",
-                    }}
+                    key={i}
+                    className="block"
+                    style={{ paddingBottom: "0.12em", overflow: "hidden" }}
                   >
-                    <span
-                      className="mst__inner block"
-                      style={{
-                        transition:
-                          "transform 1000ms cubic-bezier(0.76, 0, 0.24, 1)",
-                        transform: "translateY(0px)",
-                        animationDelay: "0.2s",
+                    <motion.span
+                      className="block font-medium"
+                      variants={{
+                        hidden: { y: "105%" },
+                        show: { y: 0 },
+                      }}
+                      transition={{
+                        duration: 1,
+                        ease: [0.76, 0, 0.24, 1],
                       }}
                     >
-                      <span>
-                        Lesse is a design and technology studio. We create
-                        digital products and identities defined by
-                        strategy,{" "}
-                      </span>
-                    </span>
+                      {line}
+                    </motion.span>
                   </span>
-                  <span
-                    className="mst__mask block"
-                    style={{
-                      marginBottom: "var(--mst-leading)",
-                      paddingBottom: "0.12em",
-                      overflow: "visible",
-                    }}
-                  >
-                    <span
-                      className="mst__inner block"
-                      style={{
-                        transition:
-                          "transform 1000ms cubic-bezier(0.76, 0, 0.24, 1)",
-                        transform: "translateY(0px)",
-                        animationDelay: "0.35s",
-                      }}
-                    >
-                      <span>precision, and vision.</span>
-                    </span>
-                  </span>
-                </span>
-              </p>
+                ))}
+              </motion.div>
             </div>
           </section>
         </div>

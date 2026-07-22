@@ -84,20 +84,24 @@ function MaskLineInView({
   className?: string;
 }) {
   return (
-    <span
+    <motion.span
       className={`block ${className}`}
       style={{ paddingBottom: "0.12em", overflow: "hidden" }}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: "some" }}
     >
       <motion.span
         className="block"
-        initial={{ y: "105%" }}
-        whileInView={{ y: 0 }}
-        viewport={{ once: true, margin: "0px 0px -40px 0px" }}
+        variants={{
+          hidden: { y: "105%" },
+          show: { y: 0 },
+        }}
         transition={{ duration: 1, delay, ease: [0.76, 0, 0.24, 1] }}
       >
         {children}
       </motion.span>
-    </span>
+    </motion.span>
   );
 }
 
