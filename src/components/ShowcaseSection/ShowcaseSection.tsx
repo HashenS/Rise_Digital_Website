@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import frejaImg from "@/assets/project_freja_mockup.png";
 import silenceImg from "@/assets/project_coasters_silence.png";
 import indioImg from "@/assets/project_indio_laptop.png";
@@ -25,10 +25,17 @@ export default function ShowcaseSection() {
     offset: ["start start", "end end"],
   });
 
+  // Smooth scroll progress with spring physics to eliminate jarring movement
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 70,
+    damping: 26,
+    restDelta: 0.001,
+  });
+
   // Drive bg-black-active for the entire page background — triggers after AandV has scrolled off-screen
   useEffect(() => {
     const unsubscribe = scrollYProgress.on("change", (latest) => {
-      if (latest >= 0.18) {
+      if (latest >= 0.12) {
         document.body.classList.add("bg-black-active");
       } else {
         document.body.classList.remove("bg-black-active");
@@ -40,15 +47,15 @@ export default function ShowcaseSection() {
     };
   }, [scrollYProgress]);
 
-  // Card scale animation during sticky pin
-  const width = useTransform(scrollYProgress, [0.18, 0.60], ["40vw", "90vw"]);
-  const height = useTransform(scrollYProgress, [0.18, 0.60], ["62vw", "90vh"]);
-  const borderRadius = useTransform(scrollYProgress, [0.18, 0.60], ["24px", "16px"]);
+  // Card scale animation during sticky pin stretched over a wider scroll range
+  const width = useTransform(smoothProgress, [0.08, 0.82], ["40vw", "90vw"]);
+  const height = useTransform(smoothProgress, [0.08, 0.82], ["62vw", "90vh"]);
+  const borderRadius = useTransform(smoothProgress, [0.08, 0.82], ["24px", "16px"]);
 
   return (
     <div
       ref={containerRef}
-      className="relative h-[250vh] w-full bg-theme-light transition-colors duration-[1200ms] ease-out"
+      className="relative h-[300vh] w-full bg-theme-light transition-colors duration-[1200ms] ease-out"
     >
       <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
         <motion.div
