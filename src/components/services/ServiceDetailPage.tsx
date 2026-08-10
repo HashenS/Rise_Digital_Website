@@ -1,10 +1,136 @@
 "use client";
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "motion/react";
+import { motion, useMotionValue, animate } from "motion/react";
 import type { ServiceData } from "@/data/services";
 import ContactSection from "@/components/contact/ContactSection";
+import LatestNews from "@/components/Latest news/LatestNews";
+import duoNutritionImg from "@/assets/project_duo_nutrition.png";
+import veraImg from "@/assets/project_vora.png";
+import frejaImg from "@/assets/project_freja_mockup.png";
+import czekuImg from "@/assets/project_esaku.png";
+import toucheImg from "@/assets/project_touche.png";
+import everydayImg from "@/assets/project_everyday_mockup.webp";
+import mollierImg from "@/assets/project_motter.png";
+import nymphImg from "@/assets/project_nymph.webp";
+import nemoJujuImg from "@/assets/project_nevaspa.png";
+import lorceImg from "@/assets/project_omoi.png";
+import indioImg from "@/assets/project_indio_laptop.png";
+import valveSynergyImg from "@/assets/project_vivve_synergy.png";
+import withinOurHomeImg from "@/assets/project_within_our_home.png";
+
+const PRACTICE_PROJECTS = [
+  {
+    id: 1,
+    title: "Duo Nutrition",
+    slug: "duo-nutrition",
+    location: "Russia",
+    image: duoNutritionImg,
+    tags: ["brand-identity", "visual-content"],
+  },
+  {
+    id: 2,
+    title: "Vera",
+    slug: "vera",
+    location: "Germany",
+    image: veraImg,
+    tags: ["user-experience-design", "web-development"],
+  },
+  {
+    id: 3,
+    title: "Freja",
+    slug: "freja",
+    location: "New York",
+    image: frejaImg,
+    tags: ["brand-strategy", "brand-identity", "user-experience-design"],
+  },
+  {
+    id: 4,
+    title: "Czeku",
+    slug: "czeku",
+    location: "Japan",
+    image: czekuImg,
+    tags: ["web-development", "ecommerce-development"],
+  },
+  {
+    id: 5,
+    title: "Touché",
+    slug: "touch",
+    location: "Russia",
+    image: toucheImg,
+    tags: ["brand-strategy", "brand-identity"],
+  },
+  {
+    id: 6,
+    title: "Everyday",
+    slug: "everyday",
+    location: "United Kingdom",
+    image: everydayImg,
+    tags: ["brand-identity", "visual-content", "ecommerce-development"],
+  },
+  {
+    id: 7,
+    title: "Mollier",
+    slug: "mollier",
+    location: "Canada",
+    image: mollierImg,
+    tags: ["brand-strategy", "user-experience-design"],
+  },
+  {
+    id: 8,
+    title: "Nymph",
+    slug: "nymph",
+    location: "Australia",
+    image: nymphImg,
+    tags: ["brand-identity", "visual-content"],
+  },
+  {
+    id: 9,
+    title: "Nemo Juju",
+    slug: "nemo-juju",
+    location: "Brazil",
+    image: nemoJujuImg,
+    tags: ["brand-strategy", "brand-identity"],
+  },
+  {
+    id: 10,
+    title: "L'ORCÉ",
+    slug: "lorce",
+    location: "Italy",
+    image: lorceImg,
+    tags: ["brand-identity", "visual-content", "ecommerce-development"],
+  },
+  {
+    id: 11,
+    title: "Indio White",
+    slug: "indio-white",
+    location: "Spain",
+    image: indioImg,
+    tags: [
+      "user-experience-design",
+      "web-development",
+      "embedded-hardware",
+      "web-mobile-application",
+    ],
+  },
+  {
+    id: 12,
+    title: "Valve Synergy",
+    slug: "valve-synergy",
+    location: "Netherlands",
+    image: valveSynergyImg,
+    tags: ["web-development", "web-mobile-application", "embedded-hardware"],
+  },
+  {
+    id: 13,
+    title: "Within Our Home",
+    slug: "within-our-home",
+    location: "Switzerland",
+    image: withinOurHomeImg,
+    tags: ["brand-strategy", "visual-content"],
+  },
+];
 
 // ─── Dot-grid arrow SVG (→) ─────────────────────────────────────────────────
 function ArrowIcon({
@@ -106,18 +232,20 @@ function MaskLineInView({
 }
 
 // ─── Sub-service list row ────────────────────────────────────────────────────
-function SubServiceRow({ label }: { label: string }) {
+function SubServiceRow({ label, isDark }: { label: string; isDark: boolean }) {
   return (
-    <div className="group relative flex items-center justify-between gap-2 md:gap-[1vw] overflow-hidden border-b border-black/10 p-2 md:p-[0.6vw] transition-all duration-200 cursor-pointer">
+    <div className={`group relative flex items-center justify-between gap-2 md:gap-[1vw] overflow-hidden border-b p-2 md:p-[0.6vw] transition-all duration-200 cursor-pointer ${
+      isDark ? "border-white/10" : "border-black/10"
+    }`}>
       {/* Fill from bottom on hover */}
       <span className="hidden md:block absolute inset-0 origin-bottom scale-y-0 rounded-[0.5vw] bg-black transition-transform duration-200 ease-in-out group-hover:scale-y-100" />
-      <p className="relative z-10 text-base py-3 md:py-0 md:text-[1vw] font-neue font-medium transition-all duration-100 md:group-hover:translate-x-[1vw] group-hover:text-white ease-in-out  text-black">
+      <p className="relative z-10 text-base py-3 md:py-0 md:text-[1vw] font-neue font-medium transition-all duration-100 md:group-hover:translate-x-[1vw] group-hover:text-white ease-in-out text-black">
         {label}
       </p>
       <div className="relative z-10 transition-transform duration-300 md:group-hover:-translate-x-[1vw] ">
         <ArrowIcon
           className="w-5 md:w-[2vw] transition-[filter] duration-300 group-hover:invert"
-          color="#000000"
+          color={isDark ? "#ffffff" : "#000000"}
         />
       </div>
     </div>
@@ -134,81 +262,220 @@ function ProcessDotGridIcon({ index }: { index: number }) {
     {
       transform: "translate(0, 0)",
       dots: [
-        [38.75, 2], [51, 2], [63.25, 2], [75.5, 2],
-        [26.5, 14.25], [38.75, 14.25], [51, 14.25], [63.25, 14.25], [75.5, 14.25], [87.75, 14.25],
-        [26.5, 26.5], [38.75, 26.5], [75.5, 26.5], [87.75, 26.5],
-        [26.5, 38.75], [38.75, 38.75], [75.5, 38.75], [87.75, 38.75],
-        [26.5, 51], [38.75, 51], [51, 51], [63.25, 51], [75.5, 51], [87.75, 51],
-        [14.25, 63.25], [26.5, 63.25], [38.75, 63.25], [51, 63.25], [63.25, 63.25], [75.5, 63.25],
-        [2, 75.5], [14.25, 75.5], [26.5, 75.5],
-        [2, 87.75], [14.25, 87.75],
+        [38.75, 2],
+        [51, 2],
+        [63.25, 2],
+        [75.5, 2],
+        [26.5, 14.25],
+        [38.75, 14.25],
+        [51, 14.25],
+        [63.25, 14.25],
+        [75.5, 14.25],
+        [87.75, 14.25],
+        [26.5, 26.5],
+        [38.75, 26.5],
+        [75.5, 26.5],
+        [87.75, 26.5],
+        [26.5, 38.75],
+        [38.75, 38.75],
+        [75.5, 38.75],
+        [87.75, 38.75],
+        [26.5, 51],
+        [38.75, 51],
+        [51, 51],
+        [63.25, 51],
+        [75.5, 51],
+        [87.75, 51],
+        [14.25, 63.25],
+        [26.5, 63.25],
+        [38.75, 63.25],
+        [51, 63.25],
+        [63.25, 63.25],
+        [75.5, 63.25],
+        [2, 75.5],
+        [14.25, 75.5],
+        [26.5, 75.5],
+        [2, 87.75],
+        [14.25, 87.75],
       ],
     },
     // Pattern 1 (Platform Strategy)
     {
       transform: "translate(0, 0)",
       dots: [
-        [2, 2], [14.25, 2],
+        [2, 2],
+        [14.25, 2],
         [14.25, 14.25],
-        [14.25, 26.5], [26.5, 26.5], [38.75, 26.5], [51, 26.5], [63.25, 26.5], [75.5, 26.5], [87.75, 26.5],
-        [14.25, 38.75], [87.75, 38.75],
-        [14.25, 51], [87.75, 51],
-        [14.25, 63.25], [26.5, 63.25], [38.75, 63.25], [51, 63.25], [63.25, 63.25], [75.5, 63.25], [87.75, 63.25],
-        [26.5, 75.5], [38.75, 75.5], [63.25, 75.5], [75.5, 75.5],
-        [26.5, 87.75], [38.75, 87.75], [63.25, 87.75], [75.5, 87.75],
+        [14.25, 26.5],
+        [26.5, 26.5],
+        [38.75, 26.5],
+        [51, 26.5],
+        [63.25, 26.5],
+        [75.5, 26.5],
+        [87.75, 26.5],
+        [14.25, 38.75],
+        [87.75, 38.75],
+        [14.25, 51],
+        [87.75, 51],
+        [14.25, 63.25],
+        [26.5, 63.25],
+        [38.75, 63.25],
+        [51, 63.25],
+        [63.25, 63.25],
+        [75.5, 63.25],
+        [87.75, 63.25],
+        [26.5, 75.5],
+        [38.75, 75.5],
+        [63.25, 75.5],
+        [75.5, 75.5],
+        [26.5, 87.75],
+        [38.75, 87.75],
+        [63.25, 87.75],
+        [75.5, 87.75],
       ],
     },
     // Pattern 2 (UX & Store Design)
     {
       transform: "translate(0, 0)",
       dots: [
-        [14.25, 14.25], [26.5, 14.25], [38.75, 14.25], [51, 14.25], [63.25, 14.25], [75.5, 14.25],
-        [14.25, 26.5], [75.5, 26.5],
-        [14.25, 38.75], [75.5, 38.75],
-        [14.25, 51], [75.5, 51],
-        [2, 63.25], [14.25, 63.25], [26.5, 63.25], [38.75, 63.25], [51, 63.25], [63.25, 63.25], [75.5, 63.25], [87.75, 63.25],
-        [2, 75.5], [14.25, 75.5], [26.5, 75.5], [38.75, 75.5], [51, 75.5], [63.25, 75.5], [75.5, 75.5], [87.75, 75.5],
+        [14.25, 14.25],
+        [26.5, 14.25],
+        [38.75, 14.25],
+        [51, 14.25],
+        [63.25, 14.25],
+        [75.5, 14.25],
+        [14.25, 26.5],
+        [75.5, 26.5],
+        [14.25, 38.75],
+        [75.5, 38.75],
+        [14.25, 51],
+        [75.5, 51],
+        [2, 63.25],
+        [14.25, 63.25],
+        [26.5, 63.25],
+        [38.75, 63.25],
+        [51, 63.25],
+        [63.25, 63.25],
+        [75.5, 63.25],
+        [87.75, 63.25],
+        [2, 75.5],
+        [14.25, 75.5],
+        [26.5, 75.5],
+        [38.75, 75.5],
+        [51, 75.5],
+        [63.25, 75.5],
+        [75.5, 75.5],
+        [87.75, 75.5],
       ],
     },
     // Pattern 3 (Development)
     {
       transform: "translate(0, 0)",
       dots: [
-        [26.5, 2], [63.25, 2],
-        [14.25, 14.25], [26.5, 14.25], [63.25, 14.25], [75.5, 14.25],
-        [14.25, 26.5], [75.5, 26.5],
-        [2, 38.75], [14.25, 38.75], [75.5, 38.75], [87.75, 38.75],
-        [2, 51], [14.25, 51], [75.5, 51], [87.75, 51],
-        [14.25, 63.25], [75.5, 63.25],
-        [14.25, 75.5], [26.5, 75.5], [63.25, 75.5], [75.5, 75.5],
-        [26.5, 87.75], [63.25, 87.75],
+        [26.5, 2],
+        [63.25, 2],
+        [14.25, 14.25],
+        [26.5, 14.25],
+        [63.25, 14.25],
+        [75.5, 14.25],
+        [14.25, 26.5],
+        [75.5, 26.5],
+        [2, 38.75],
+        [14.25, 38.75],
+        [75.5, 38.75],
+        [87.75, 38.75],
+        [2, 51],
+        [14.25, 51],
+        [75.5, 51],
+        [87.75, 51],
+        [14.25, 63.25],
+        [75.5, 63.25],
+        [14.25, 75.5],
+        [26.5, 75.5],
+        [63.25, 75.5],
+        [75.5, 75.5],
+        [26.5, 87.75],
+        [63.25, 87.75],
       ],
     },
     // Pattern 4 (Testing & Optimization)
     {
       transform: "translate(0, 0)",
       dots: [
-        [2, 2], [14.25, 2], [26.5, 2], [38.75, 2], [51, 2], [63.25, 2], [75.5, 2], [87.75, 2],
-        [2, 14.25], [87.75, 14.25],
-        [2, 26.5], [26.5, 26.5], [38.75, 26.5], [51, 26.5], [63.25, 26.5], [87.75, 26.5],
-        [2, 38.75], [26.5, 38.75], [38.75, 38.75], [51, 38.75], [63.25, 38.75], [87.75, 38.75],
-        [2, 51], [14.25, 51], [38.75, 51], [51, 51], [75.5, 51], [87.75, 51],
-        [14.25, 63.25], [26.5, 63.25], [63.25, 63.25], [75.5, 63.25],
-        [26.5, 75.5], [38.75, 75.5], [51, 75.5], [63.25, 75.5],
-        [38.75, 87.75], [51, 87.75],
+        [2, 2],
+        [14.25, 2],
+        [26.5, 2],
+        [38.75, 2],
+        [51, 2],
+        [63.25, 2],
+        [75.5, 2],
+        [87.75, 2],
+        [2, 14.25],
+        [87.75, 14.25],
+        [2, 26.5],
+        [26.5, 26.5],
+        [38.75, 26.5],
+        [51, 26.5],
+        [63.25, 26.5],
+        [87.75, 26.5],
+        [2, 38.75],
+        [26.5, 38.75],
+        [38.75, 38.75],
+        [51, 38.75],
+        [63.25, 38.75],
+        [87.75, 38.75],
+        [2, 51],
+        [14.25, 51],
+        [38.75, 51],
+        [51, 51],
+        [75.5, 51],
+        [87.75, 51],
+        [14.25, 63.25],
+        [26.5, 63.25],
+        [63.25, 63.25],
+        [75.5, 63.25],
+        [26.5, 75.5],
+        [38.75, 75.5],
+        [51, 75.5],
+        [63.25, 75.5],
+        [38.75, 87.75],
+        [51, 87.75],
       ],
     },
     // Pattern 5 (Launch & Growth)
     {
       transform: "translate(0, -6.125)",
       dots: [
-        [75.5, 14.25], [87.75, 14.25],
-        [75.5, 26.5], [87.75, 26.5],
-        [38.75, 38.75], [51, 38.75], [75.5, 38.75], [87.75, 38.75],
-        [38.75, 51], [51, 51], [75.5, 51], [87.75, 51],
-        [2, 63.25], [14.25, 63.25], [38.75, 63.25], [51, 63.25], [75.5, 63.25], [87.75, 63.25],
-        [2, 75.5], [14.25, 75.5], [38.75, 75.5], [51, 75.5], [75.5, 75.5], [87.75, 75.5],
-        [2, 87.75], [14.25, 87.75], [38.75, 87.75], [51, 87.75], [75.5, 87.75], [87.75, 87.75],
+        [75.5, 14.25],
+        [87.75, 14.25],
+        [75.5, 26.5],
+        [87.75, 26.5],
+        [38.75, 38.75],
+        [51, 38.75],
+        [75.5, 38.75],
+        [87.75, 38.75],
+        [38.75, 51],
+        [51, 51],
+        [75.5, 51],
+        [87.75, 51],
+        [2, 63.25],
+        [14.25, 63.25],
+        [38.75, 63.25],
+        [51, 63.25],
+        [75.5, 63.25],
+        [87.75, 63.25],
+        [2, 75.5],
+        [14.25, 75.5],
+        [38.75, 75.5],
+        [51, 75.5],
+        [75.5, 75.5],
+        [87.75, 75.5],
+        [2, 87.75],
+        [14.25, 87.75],
+        [38.75, 87.75],
+        [51, 87.75],
+        [75.5, 87.75],
+        [87.75, 87.75],
       ],
     },
   ];
@@ -257,30 +524,46 @@ function ProcessDotGridIcon({ index }: { index: number }) {
 function ProcessCard({
   step,
   index,
+  isDark,
 }: {
   step: { number: string; title: string; description: string };
   index: number;
+  isDark: boolean;
 }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "0px 0px -40px 0px" }}
-      transition={{ duration: 0.6, delay: index * 0.08, ease: [0.76, 0, 0.24, 1] }}
-      className="service-process-card flex aspect-[2/3] h-full flex-col items-center justify-between gap-4 rounded-2xl md:rounded-[1vw] border border-[#DCDCDC] bg-[#E7E7E7] p-5 md:p-[1vw]"
+      transition={{
+        duration: 0.6,
+        delay: index * 0.08,
+        ease: [0.76, 0, 0.24, 1],
+      }}
+      className={`service-process-card flex aspect-[2/3] h-full flex-col items-center justify-between gap-4 rounded-2xl md:rounded-[1vw] border transition-all duration-[1200ms] ease-out p-5 md:p-[1vw] ${
+        isDark
+          ? "border-zinc-800 bg-[#121212]"
+          : "border-[#DCDCDC] bg-[#E7E7E7]"
+      }`}
     >
       <div className="flex w-full justify-between items-center">
-        <h4 className="w-full text-left text-sm md:text-[1vw] text-[#606060] uppercase font-neue font-medium">
+        <h4 className={`w-full text-left text-sm md:text-[1vw] uppercase font-neue font-medium transition-colors duration-[1200ms] ${
+          isDark ? "text-zinc-400" : "text-section-title"
+        }`}>
           {step.title}
         </h4>
-        <span className="text-sm md:text-[1vw] text-[#606060] font-neue">
+        <span className={`text-sm md:text-[1vw] font-neue transition-colors duration-[1200ms] ${
+          isDark ? "text-zinc-400" : "text-section-title"
+        }`}>
           {step.number}
         </span>
       </div>
 
       <ProcessDotGridIcon index={index} />
 
-      <p className="w-full text-xs md:text-[0.9vw] leading-relaxed md:leading-[1.2vw] text-[#8D8D8D] font-neue">
+      <p className={`w-full text-xs md:text-[0.9vw] leading-relaxed md:leading-[1.2vw] font-neue transition-colors duration-[1200ms] ${
+        isDark ? "text-zinc-500" : "text-[#8D8D8D]"
+      }`}>
         {step.description}
       </p>
     </motion.div>
@@ -288,26 +571,30 @@ function ProcessCard({
 }
 
 // ─── Studio Statement Section ──────────────────────────────────────────────
-function StudioStatementSection() {
+function StudioStatementSection({
+  textRef,
+}: {
+  textRef: React.RefObject<HTMLHeadingElement | null>;
+}) {
   return (
     <div className="flex flex-col items-center min-h-[300px] h-120 md:h-[35vw] justify-center text-black py-16 md:py-0 font-neue">
       <section className="flex w-full px-5 md:px-0 md:w-4/5 h-full flex-col items-center justify-center gap-5 md:gap-[2vw]">
-        <h2 className="text-3xl md:text-[3vw] text-center md:w-3/4 font-medium leading-tight md:leading-[3.4vw] tracking-tight">
+        <h2
+          ref={textRef}
+          className="text-3xl md:text-[3vw] text-center md:w-3/4 font-medium leading-tight md:leading-[3.4vw] tracking-tight text-black"
+        >
           <MaskLineInView delay={0.1}>
             Crafting Thoughtful Brands and Digital
           </MaskLineInView>
-          <MaskLineInView delay={0.2}>
-            Products
-          </MaskLineInView>
+          <MaskLineInView delay={0.2}>Products</MaskLineInView>
         </h2>
         <div className="px-5 md:px-10 md:w-2/3">
-          <div className="text-sm md:text-[1vw] md:leading-[1.5vw] text-center opacity-50 font-medium">
+          <div className="text-sm md:text-[1vw] md:leading-[1.5vw] text-center opacity-50 font-medium text-black">
             <MaskLineInView delay={0.3}>
-              Rise Digital is a design and technology studio. We create digital products and identities defined by strategy,
+              Rise Digital is a design and technology studio. We create digital
+              products and identities defined by strategy,
             </MaskLineInView>
-            <MaskLineInView delay={0.4}>
-              precision, and vision.
-            </MaskLineInView>
+            <MaskLineInView delay={0.4}>precision, and vision.</MaskLineInView>
           </div>
         </div>
       </section>
@@ -321,8 +608,76 @@ export default function ServiceDetailPage({
 }: {
   service: ServiceData;
 }) {
+  const textRef = useRef<HTMLHeadingElement>(null);
+  const isBlackRef = useRef(false);
+  const [isDark, setIsDark] = useState(false);
+
+  const bgColor = useMotionValue("#ebebeb");
+  const textColor = useMotionValue("#000000");
+
+  const animateTo = React.useCallback(
+    (black: boolean) => {
+      if (isBlackRef.current === black) return;
+      isBlackRef.current = black;
+      setIsDark(black);
+      animate(bgColor, black ? "#000000" : "#ebebeb", {
+        duration: 0.5,
+        ease: "easeInOut",
+      });
+      animate(textColor, black ? "#ffffff" : "#000000", {
+        duration: 0.5,
+        ease: "easeInOut",
+      });
+      if (black) {
+        document.body.classList.add("bg-black-active");
+      } else {
+        setTimeout(
+          () => document.body.classList.remove("bg-black-active"),
+          500,
+        );
+      }
+    },
+    [bgColor, textColor],
+  );
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY < 50) {
+        animateTo(false);
+        return;
+      }
+      if (!textRef.current) return;
+      const rect = textRef.current.getBoundingClientRect();
+      const isAtBottom =
+        window.innerHeight + window.scrollY >=
+          document.documentElement.scrollHeight - 150 && window.scrollY > 50;
+      if (rect.top <= window.innerHeight || isAtBottom) {
+        animateTo(true);
+      } else {
+        animateTo(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      document.body.classList.remove("bg-black-active");
+    };
+  }, [animateTo]);
+
+  const practiceProjects = PRACTICE_PROJECTS.filter((p) =>
+    p.tags.includes(service.slug)
+  );
+  const displayProjects =
+    practiceProjects.length >= 2
+      ? practiceProjects.slice(0, 2)
+      : PRACTICE_PROJECTS.slice(0, 2);
+
   return (
-    <main className="bg-[#f0f0f0] min-h-screen">
+    <motion.main
+      className="min-h-screen transition-colors duration-[1200ms] ease-out"
+      style={{ backgroundColor: bgColor, color: textColor }}
+    >
       {/* ── SECTION 1: Hero ── */}
       <section className="relative h-[80vh] md:h-[70vh] w-screen overflow-hidden">
         <Image
@@ -434,7 +789,7 @@ export default function ServiceDetailPage({
           {/* Right: sub-service rows */}
           <div className="w-full md:w-1/2">
             {service.subServices.map((sub) => (
-              <SubServiceRow key={sub} label={sub} />
+              <SubServiceRow key={sub} label={sub} isDark={isDark} />
             ))}
           </div>
         </div>
@@ -443,7 +798,7 @@ export default function ServiceDetailPage({
       {/* ── SECTION 4: Our Process ── */}
       <section className="mt-10 md:mt-0 flex w-full flex-col pt-10 md:pt-[8vw] px-5 md:px-[5vw] pb-16 md:pb-[4vw]">
         <h3
-          className="text-xs md:text-[1vw] secondary-text uppercase tracking-widest font-neue font-medium text-[#606060] mb-8 md:mb-[3vw] overflow-hidden"
+          className="text-xs md:text-[1vw] secondary-text uppercase tracking-widest font-neue font-medium text-section-title mb-8 md:mb-[3vw] overflow-hidden"
           style={{ paddingBottom: "0.12em" }}
         >
           <motion.span
@@ -458,16 +813,97 @@ export default function ServiceDetailPage({
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-[1vw] mt-[1vw]">
           {service.process.map((step, index) => (
-            <ProcessCard key={step.number} step={step} index={index} />
+            <ProcessCard key={step.number} step={step} index={index} isDark={isDark} />
+          ))}
+        </div>
+      </section>
+
+      {/* ── SECTION 4.5: Services in Practice ── */}
+      <section className="mt-10 md:mt-0 flex w-full flex-col pt-10 md:pt-[4vw] px-5 md:px-[5vw] pb-16 md:pb-[8vw]">
+        <h3
+          className="text-xs md:text-[1vw] secondary-text uppercase tracking-widest font-neue font-medium text-section-title mb-8 md:mb-[3vw] overflow-hidden"
+          style={{ paddingBottom: "0.12em" }}
+        >
+          <motion.span
+            className="block"
+            initial={{ y: "105%" }}
+            whileInView={{ y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+          >
+            {service.title} in Practice
+          </motion.span>
+        </h3>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-[1vw] mt-[1vw]">
+          {displayProjects.map((project, idx) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.8,
+                delay: idx * 0.15,
+                ease: [0.76, 0, 0.24, 1],
+              }}
+              className="flex"
+            >
+              <Link href={`/portfolio/${project.slug}`} className="w-full group">
+                {/* Image Container */}
+                <div className="h-60 md:h-[30vw] w-full relative rounded-lg md:rounded-[0.5vw] overflow-hidden bg-[#e0e0e0]">
+                  {/* Tag Pills */}
+                  <div className="absolute inset-[2.5vw] md:inset-[1vw] flex flex-wrap items-end gap-1.5 md:gap-[0.5vw] z-10">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-[4px] md:rounded-[0.5vw] tag-pill bg-white/80 px-2 py-0.5 md:px-[1vw] md:py-[0.4vw] text-[10px] md:text-[0.8vw] backdrop-blur-[0.5vw] text-black font-neue font-medium"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Image */}
+                  <div className="relative h-full w-full overflow-hidden">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="h-full w-full object-cover transition-transform duration-[1000ms] ease-out group-hover:scale-[1.03]"
+                    />
+                  </div>
+                </div>
+
+                {/* Text Metadata */}
+                <div className="mt-4 md:mt-[1vw] flex justify-between gap-[2vw] px-1 font-neue">
+                  <h3 className="min-w-3/10 -translate-y-1 md:-translate-y-[0.6vw] font-serif text-2xl md:text-[2vw] text-black font-medium leading-none">
+                    {project.title}
+                  </h3>
+                  <div className="flex min-w-2/10 -translate-y-[0.5vw] flex-col text-left">
+                    <span className="text-[10px] md:text-[0.9vw] -mb-[0.2vw] opacity-40 text-black font-medium">
+                      Location:
+                    </span>
+                    <span className="text-xs md:text-[0.9vw] uppercase text-black font-medium tracking-wide">
+                      {project.location}
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
           ))}
         </div>
       </section>
 
       {/* ── SECTION 5: Studio Statement ── */}
-      <StudioStatementSection />
+      <StudioStatementSection textRef={textRef} />
+
+      {/* ── SECTION 5.5: Latest News ── */}
+      <LatestNews />
 
       {/* ── SECTION 6: Contact ── */}
       <ContactSection />
-    </main>
+    </motion.main>
   );
 }
