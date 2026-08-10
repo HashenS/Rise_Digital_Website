@@ -5,6 +5,126 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import type { ServiceData } from "@/data/services";
 import ContactSection from "@/components/contact/ContactSection";
+import duoNutritionImg from "@/assets/project_duo_nutrition.png";
+import veraImg from "@/assets/project_vora.png";
+import frejaImg from "@/assets/project_freja_mockup.png";
+import czekuImg from "@/assets/project_esaku.png";
+import toucheImg from "@/assets/project_touche.png";
+import everydayImg from "@/assets/project_everyday_mockup.webp";
+import mollierImg from "@/assets/project_motter.png";
+import nymphImg from "@/assets/project_nymph.webp";
+import nemoJujuImg from "@/assets/project_nevaspa.png";
+import lorceImg from "@/assets/project_omoi.png";
+import indioImg from "@/assets/project_indio_laptop.png";
+import valveSynergyImg from "@/assets/project_vivve_synergy.png";
+import withinOurHomeImg from "@/assets/project_within_our_home.png";
+
+const PRACTICE_PROJECTS = [
+  {
+    id: 1,
+    title: "Duo Nutrition",
+    slug: "duo-nutrition",
+    location: "Russia",
+    image: duoNutritionImg,
+    tags: ["brand-identity", "visual-content"],
+  },
+  {
+    id: 2,
+    title: "Vera",
+    slug: "vera",
+    location: "Germany",
+    image: veraImg,
+    tags: ["user-experience-design", "web-development"],
+  },
+  {
+    id: 3,
+    title: "Freja",
+    slug: "freja",
+    location: "New York",
+    image: frejaImg,
+    tags: ["brand-strategy", "brand-identity", "user-experience-design"],
+  },
+  {
+    id: 4,
+    title: "Czeku",
+    slug: "czeku",
+    location: "Japan",
+    image: czekuImg,
+    tags: ["web-development", "ecommerce-development"],
+  },
+  {
+    id: 5,
+    title: "Touché",
+    slug: "touch",
+    location: "Russia",
+    image: toucheImg,
+    tags: ["brand-strategy", "brand-identity"],
+  },
+  {
+    id: 6,
+    title: "Everyday",
+    slug: "everyday",
+    location: "United Kingdom",
+    image: everydayImg,
+    tags: ["brand-identity", "visual-content", "ecommerce-development"],
+  },
+  {
+    id: 7,
+    title: "Mollier",
+    slug: "mollier",
+    location: "Canada",
+    image: mollierImg,
+    tags: ["brand-strategy", "user-experience-design"],
+  },
+  {
+    id: 8,
+    title: "Nymph",
+    slug: "nymph",
+    location: "Australia",
+    image: nymphImg,
+    tags: ["brand-identity", "visual-content"],
+  },
+  {
+    id: 9,
+    title: "Nemo Juju",
+    slug: "nemo-juju",
+    location: "Brazil",
+    image: nemoJujuImg,
+    tags: ["brand-strategy", "brand-identity"],
+  },
+  {
+    id: 10,
+    title: "L'ORCÉ",
+    slug: "lorce",
+    location: "Italy",
+    image: lorceImg,
+    tags: ["brand-identity", "visual-content", "ecommerce-development"],
+  },
+  {
+    id: 11,
+    title: "Indio White",
+    slug: "indio-white",
+    location: "Spain",
+    image: indioImg,
+    tags: ["user-experience-design", "web-development", "embedded-hardware", "web-mobile-application"],
+  },
+  {
+    id: 12,
+    title: "Valve Synergy",
+    slug: "valve-synergy",
+    location: "Netherlands",
+    image: valveSynergyImg,
+    tags: ["web-development", "web-mobile-application", "embedded-hardware"],
+  },
+  {
+    id: 13,
+    title: "Within Our Home",
+    slug: "within-our-home",
+    location: "Switzerland",
+    image: withinOurHomeImg,
+    tags: ["brand-strategy", "visual-content"],
+  },
+];
 
 // ─── Dot-grid arrow SVG (→) ─────────────────────────────────────────────────
 function ArrowIcon({
@@ -321,6 +441,14 @@ export default function ServiceDetailPage({
 }: {
   service: ServiceData;
 }) {
+  const practiceProjects = PRACTICE_PROJECTS.filter((p) =>
+    p.tags.includes(service.slug)
+  );
+  const displayProjects =
+    practiceProjects.length >= 2
+      ? practiceProjects.slice(0, 2)
+      : PRACTICE_PROJECTS.slice(0, 2);
+
   return (
     <main className="bg-[#f0f0f0] min-h-screen">
       {/* ── SECTION 1: Hero ── */}
@@ -459,6 +587,84 @@ export default function ServiceDetailPage({
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-[1vw] mt-[1vw]">
           {service.process.map((step, index) => (
             <ProcessCard key={step.number} step={step} index={index} />
+          ))}
+        </div>
+      </section>
+
+      {/* ── SECTION 4.5: Services in Practice ── */}
+      <section className="mt-10 md:mt-0 flex w-full flex-col pt-10 md:pt-[4vw] px-5 md:px-[5vw] pb-16 md:pb-[8vw]">
+        <h3
+          className="text-xs md:text-[1vw] secondary-text uppercase tracking-widest font-neue font-medium text-[#606060] mb-8 md:mb-[3vw] overflow-hidden"
+          style={{ paddingBottom: "0.12em" }}
+        >
+          <motion.span
+            className="block"
+            initial={{ y: "105%" }}
+            whileInView={{ y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+          >
+            {service.title} in Practice
+          </motion.span>
+        </h3>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-[1vw] mt-[1vw]">
+          {displayProjects.map((project, idx) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.8,
+                delay: idx * 0.15,
+                ease: [0.76, 0, 0.24, 1],
+              }}
+              className="flex"
+            >
+              <Link href={`/portfolio/${project.slug}`} className="w-full group">
+                {/* Image Container */}
+                <div className="h-60 md:h-[30vw] w-full relative rounded-lg md:rounded-[0.5vw] overflow-hidden bg-[#e0e0e0]">
+                  {/* Tag Pills */}
+                  <div className="absolute inset-[2.5vw] md:inset-[1vw] flex flex-wrap items-end gap-1.5 md:gap-[0.5vw] z-10">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-[4px] md:rounded-[0.5vw] tag-pill bg-white/80 px-2 py-0.5 md:px-[1vw] md:py-[0.4vw] text-[10px] md:text-[0.8vw] backdrop-blur-[0.5vw] text-black font-neue font-medium"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Image */}
+                  <div className="relative h-full w-full overflow-hidden">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="h-full w-full object-cover transition-transform duration-[1000ms] ease-out group-hover:scale-[1.03]"
+                    />
+                  </div>
+                </div>
+
+                {/* Text Metadata */}
+                <div className="mt-4 md:mt-[1vw] flex justify-between gap-[2vw] px-1 font-neue">
+                  <h3 className="min-w-3/10 -translate-y-1 md:-translate-y-[0.6vw] font-serif text-2xl md:text-[2vw] text-black font-medium leading-none">
+                    {project.title}
+                  </h3>
+                  <div className="flex min-w-2/10 -translate-y-[0.5vw] flex-col text-left">
+                    <span className="text-[10px] md:text-[0.9vw] -mb-[0.2vw] opacity-40 text-black font-medium">
+                      Location:
+                    </span>
+                    <span className="text-xs md:text-[0.9vw] uppercase text-black font-medium tracking-wide">
+                      {project.location}
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
           ))}
         </div>
       </section>
